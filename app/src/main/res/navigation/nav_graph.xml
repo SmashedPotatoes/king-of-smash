@@ -3,11 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragment_main">
+    app:startDestination="@id/characterSelectionFragment">
 
     <fragment
         android:id="@+id/fragment_main"
-        android:name="com.example.kingofsmash.fragment_main"
+        android:name="com.example.kingofsmash.fragment.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
+    <fragment
+            android:id="@+id/characterSelectionFragment"
+            android:name="com.example.kingofsmash.fragment.CharacterSelectionFragment"
+            android:label="fragment_character_selection"
+            tools:layout="@layout/fragment_character_selection" >
+        <action
+                android:id="@+id/action_characterSelectionFragment_to_fragment_main"
+                app:destination="@id/fragment_main"
+                app:popUpTo="@id/characterSelectionFragment" />
+    </fragment>
 </navigation>
