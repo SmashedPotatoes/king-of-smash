@@ -20,12 +20,17 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
     )
     val stateFlow = state.asStateFlow()
 
+    fun getCurrentPlayer(): Player = state.value.players[state.value.currentPlayerIdx]
     fun executeDices(dices: List<Dice>) {
-        println("executeDices")
-        println(dices)
         state.value = state.value.copy(
             currentAction = Action.EXECUTE_DICES,
-            dices = dices
+            dices = dices // useless ?
+        )
+    }
+
+    fun waitEndTurn() {
+        state.value = state.value.copy(
+            currentAction = Action.WAIT_END_TURN
         )
     }
 

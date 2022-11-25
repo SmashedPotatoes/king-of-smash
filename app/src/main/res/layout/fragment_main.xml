@@ -329,5 +329,12 @@
             app:layout_constraintStart_toEndOf="@+id/fragment_main_img_player_4_smash_meter"
             android:textSize="12sp" android:textColor="#FFFFFF" android:textStyle="bold"
             android:layout_marginStart="4dp"/>
+    <Button
+            android:text="End of turn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/fragment_main_btn_end_of_turn"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp" android:visibility="invisible"
+            tools:visibility="visible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
