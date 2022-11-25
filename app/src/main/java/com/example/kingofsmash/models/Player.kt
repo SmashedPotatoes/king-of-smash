@@ -2,7 +2,7 @@ package com.example.kingofsmash.models
 
 import com.example.kingofsmash.enums.Character
 import com.example.kingofsmash.enums.PlayerType
-import com.example.kingofsmash.models.Player.companion.MAX_STOCK
+import com.example.kingofsmash.models.Player.Companion.MAX_STOCK
 import kotlin.math.min
 
 data class Player(
@@ -14,7 +14,7 @@ data class Player(
     var isAlive: Boolean = true,
 ) {
     fun heal(stock: Int) {
-        this.stock += min(stock, MAX_STOCK)
+        this.stock = min(this.stock + stock, MAX_STOCK)
     }
 
     fun energize(smashMeter: Int) {
@@ -38,7 +38,7 @@ data class Player(
         win(game)
     }
 
-    object companion {
+    object Companion {
         const val MAX_STOCK = 10
     }
 }
