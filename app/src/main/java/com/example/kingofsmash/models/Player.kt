@@ -10,4 +10,29 @@ data class Player(
     var smashMeter: Int = 0,
     var game: Int = 0,
     var isAlive: Boolean = true,
-)
+) {
+    fun heal(stock: Int) {
+        this.stock += stock
+    }
+
+    fun energize(smashMeter: Int) {
+        this.smashMeter += smashMeter
+    }
+
+    fun win(game: Int) {
+        this.game += game
+    }
+
+    fun damaged(smash: Int) {
+        this.stock -= smash
+        if (this.stock <= 0) {
+            this.isAlive = false
+        }
+    }
+
+    fun play(stock: Int, smashMeter: Int, game: Int) {
+        heal(stock)
+        energize(smashMeter)
+        win(game)
+    }
+}

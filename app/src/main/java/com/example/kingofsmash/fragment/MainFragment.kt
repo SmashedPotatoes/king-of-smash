@@ -37,7 +37,7 @@ class MainFragment : Fragment() {
                         // TODO: Refacto into currentPlayer.throwDices(context)
                         if (currentPlayer.type == PlayerType.PLAYER) {
                             val fragment = DiceFragment(onSubmit = { dices ->
-                                viewModel.executeDices(dices)
+                                viewModel.throwDices(dices)
                             });
                             val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
                             val fragmentTransaction = fragmentManager.beginTransaction()
@@ -45,14 +45,14 @@ class MainFragment : Fragment() {
                             fragmentTransaction.commit()
                         } else {
                             val dices = listOf(Dice.ONE, Dice.TWO, Dice.THREE, Dice.ONE, Dice.THREE, Dice.TWO)
-                            viewModel.executeDices(dices)
+                            viewModel.throwDices(dices)
                         }
                     }
 
                     Action.EXECUTE_DICES -> {
                         println("EXECUTE DICESU")
-                        // DISPLAY DICES AND
-                        viewModel.waitEndTurn()
+                        // DISPLAY DICES AND EXECUTE
+                        viewModel.executeDices()
                     }
 
                     Action.EXECUTE_CARDS -> {
