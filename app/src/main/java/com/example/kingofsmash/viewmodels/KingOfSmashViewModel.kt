@@ -49,6 +49,7 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
 
         val game = (if (ones > 2) ones - 2 else 0) + (if (twos > 2) twos - 1 else 0) + (if (threes > 2) threes else 0)
 
+        var isPlayerAttackedAndInDF = false
         val currentPlayer = getCurrentPlayer()
         Log.d(
             "ExecuteDices",
@@ -65,22 +66,32 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
         } else {
             Log.d("ExecuteDices", "DF Player ${state.value.playerInDF} take $smash dmg from ${currentPlayer.character}")
             state.value.playerInDF?.damaged(smash)
-            if (state.value.playerInDF?.isAlive == false) {
-                Log.d("ExecuteDices", "player ${state.value.playerInDF?.character} is dead")
-                state.value = state.value.copy(playerInDF = null)
+            if (state.value.playerInDF != null) {
+                if (!state.value.playerInDF!!.isAlive) {
+                    Log.d("ExecuteDices", "player ${state.value.playerInDF?.character} is dead")
+                    state.value = state.value.copy(playerInDF = null)
+                } else if (state.value.playerInDF!!.type == PlayerType.PLAYER) {
+                    Log.d("ExecuteDices", "ask player in DF ${state.value.playerInDF?.character}")
+                    isPlayerAttackedAndInDF = true
+                }
             }
         }
+        return isPlayerAttackedAndInDF
+    }
 
+    fun setCheckDF() {
+        state.value = state.value.copy(currentAction = Action.CHECK_DF)
+    }
+
+    fun checkDF(): Boolean {
+        Log.d("CheckDF", "Checking DF")
+        val currentPlayer = getCurrentPlayer()
         var isPlayerInDF = false
         if (state.value.playerInDF == null) {
-            Log.d("ExecuteDices", "player ${currentPlayer.character} is now in DF")
+            Log.d("CheckDF", "player ${currentPlayer.character} is now in DF")
             state.value = state.value.copy(playerInDF = currentPlayer)
             isPlayerInDF = true
         }
-
-        // TODO: check if game is over
-
-        waitEndTurn()
         return isPlayerInDF
     }
 

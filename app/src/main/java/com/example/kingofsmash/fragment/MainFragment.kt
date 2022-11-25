@@ -39,6 +39,7 @@ class MainFragment : Fragment() {
                 when (it.currentAction) {
                     Action.THROW_DICES -> throwDices(currentPlayer)
                     Action.EXECUTE_DICES -> executeDices(currentPlayer)
+                    Action.CHECK_DF -> checkDF(currentPlayer)
                     Action.EXECUTE_CARDS -> executeCards()
                     Action.WAIT_END_TURN -> waitEndTurn(currentPlayer)
                 }
@@ -86,11 +87,21 @@ class MainFragment : Fragment() {
     private fun executeDices(currentPlayer: Player) {
         Log.d("MainFragment", "EXECUTE DICESU")
         // DISPLAY DICES AND EXECUTE
-        val isPlayerInDF = viewModel.executeDices()
+        val isPlayerAttackedAndInDF = viewModel.executeDices()
+        if (isPlayerAttackedAndInDF) {
+            // TODO: DISPLAY YOU WERE ATTACKED, DO YOU WANT TO GET OUT OF DF
+            Log.d("MainFragment", "Player is in DF and is attacked")
+        }
+        viewModel.setCheckDF()
+    }
+
+    private fun checkDF(currentPlayer: Player) {
+        val isPlayerInDF = viewModel.checkDF()
         if (isPlayerInDF && currentPlayer.type == PlayerType.PLAYER) {
             // TODO: DISPLAY YOU ARE NOW IN DF
             Log.d("MainFragment", "You are now in DF")
         }
+        viewModel.waitEndTurn()
     }
 
     private fun executeCards() {

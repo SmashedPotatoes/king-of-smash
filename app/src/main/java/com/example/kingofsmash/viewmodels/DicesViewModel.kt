@@ -2,10 +2,10 @@ package com.example.kingofsmash.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.example.kingofsmash.enums.Dice
+import com.example.kingofsmash.models.RollDice
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-data class RollDice(var dice: Dice = Dice.ONE, var shouldKeep: Boolean = false)
 
 data class Dices(
     var dices: List<RollDice> = (1..6).map { RollDice() },
