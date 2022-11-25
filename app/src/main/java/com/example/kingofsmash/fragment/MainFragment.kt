@@ -13,6 +13,7 @@ import com.example.kingofsmash.databinding.FragmentMainBinding
 import com.example.kingofsmash.enums.Action
 import com.example.kingofsmash.enums.Dice
 import com.example.kingofsmash.enums.PlayerType
+import com.example.kingofsmash.models.PlayerCard
 import com.example.kingofsmash.viewmodels.KingOfSmashViewModel
 import kotlinx.coroutines.launch
 
@@ -21,6 +22,7 @@ class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private lateinit var viewModel: KingOfSmashViewModel
     private val args: MainFragmentArgs by navArgs()
+    private lateinit var playerCards: List<PlayerCard>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,6 +30,7 @@ class MainFragment : Fragment() {
         binding = FragmentMainBinding.inflate(inflater, container, false)
         viewModel = KingOfSmashViewModel(args.character)
 
+        playerCards = getPlayerCards()
         lifecycleScope.launch {
             viewModel.stateFlow.collect {
                 when (it.currentAction) {
@@ -78,9 +81,50 @@ class MainFragment : Fragment() {
 
                 // TODO: SET PLAYER CARD INFO (STOCK, SMASH, SMASH_METER, CARD COLOR, IS_KING)
                 println("CurrentPlayerIdx: ${it.currentPlayerIdx}")
+                playerCards.forEach { playerCard ->
+                    val player = it.players[playerCard.id]
+                    playerCard.game.text = player.game.toString()
+                    playerCard.stock.text = player.stock.toString()
+                    playerCard.smashMeter.text = player.smashMeter.toString()
+                }
             }
         }
         // Inflate the layout for this fragment
         return binding.root
     }
+
+    private fun getPlayerCards() = listOf(
+        PlayerCard(
+            id = 0,
+            icon = binding.fragmentMainImgPlayer1Icon,
+            name = binding.fragmentMainTxtPlayer1Name,
+            stock = binding.fragmentMainTxtPlayer1Stock,
+            smashMeter = binding.fragmentMainTxtPlayer1SmashMeter,
+            game = binding.fragmentMainTxtPlayer1Game
+        ),
+        PlayerCard(
+            id = 1,
+            icon = binding.fragmentMainImgPlayer2Icon,
+            name = binding.fragmentMainTxtPlayer2Name,
+            stock = binding.fragmentMainTxtPlayer2Stock,
+            smashMeter = binding.fragmentMainTxtPlayer2SmashMeter,
+            game = binding.fragmentMainTxtPlayer2Game
+        ),
+        PlayerCard(
+            id = 2,
+            icon = binding.fragmentMainImgPlayer3Icon,
+            name = binding.fragmentMainTxtPlayer3Name,
+            stock = binding.fragmentMainTxtPlayer3Stock,
+            smashMeter = binding.fragmentMainTxtPlayer3SmashMeter,
+            game = binding.fragmentMainTxtPlayer3Game
+        ),
+        PlayerCard(
+            id = 3,
+            icon = binding.fragmentMainImgPlayer4Icon,
+            name = binding.fragmentMainTxtPlayer4Name,
+            stock = binding.fragmentMainTxtPlayer4Stock,
+            smashMeter = binding.fragmentMainTxtPlayer4SmashMeter,
+            game = binding.fragmentMainTxtPlayer4Game
+        ),
+    )
 }

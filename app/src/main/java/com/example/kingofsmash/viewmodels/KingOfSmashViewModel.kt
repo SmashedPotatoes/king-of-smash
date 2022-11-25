@@ -1,5 +1,6 @@
 package com.example.kingofsmash.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.kingofsmash.enums.Action
 import com.example.kingofsmash.enums.Character
@@ -45,12 +46,33 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
         }
 
         val currentPlayer = getCurrentPlayer()
+        Log.d(
+            "ExecuteDices",
+            "player ${currentPlayer.character} plays smash: $smash, game: $game, smashMeter: $smashMeter, stock: $stock"
+        )
         currentPlayer.play(stock, smashMeter, game)
-        state.value.players.forEach { player ->
-            if (player.character != currentPlayer.character) {
-                player.damaged(smash)
+        if (state.value.playerInDF == currentPlayer) {
+            state.value.players.forEach { player ->
+                if (player != currentPlayer) {
+                    Log.d("ExecuteDices", "player ${player.character} take $smash dmg from ${currentPlayer.character}")
+                    player.damaged(smash)
+                }
+            }
+        } else {
+            state.value.playerInDF?.damaged(smash)
+            if (state.value.playerInDF?.isAlive == false) {
+                Log.d("ExecuteDices", "player ${state.value.playerInDF?.character} is dead")
+                state.value = state.value.copy(playerInDF = null)
             }
         }
+
+        if (state.value.playerInDF == null) {
+            Log.d("ExecuteDices", "player ${currentPlayer.character} is now in DF")
+            state.value = state.value.copy(playerInDF = currentPlayer)
+        }
+
+        // TODO: check if game is over
+
         waitEndTurn()
     }
 
