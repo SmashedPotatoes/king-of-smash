@@ -16,6 +16,10 @@ class DicesViewModel : ViewModel() {
     private val state = MutableStateFlow(Dices())
     val stateFlow = state.asStateFlow()
 
+    init {
+        rollDice()
+    }
+
     fun rollDice() {
         if (state.value.roll <= 0) return
         state.value = state.value.copy(
@@ -24,7 +28,7 @@ class DicesViewModel : ViewModel() {
         )
     }
 
-    fun keepDice(idx: Int) {
+    fun toggleKeepDice(idx: Int) {
         state.value = state.value.copy(
             dices = state.value.dices.mapIndexed { index, rollDice ->
                 if (index == idx) rollDice.copy(shouldKeep = !rollDice.shouldKeep) else rollDice

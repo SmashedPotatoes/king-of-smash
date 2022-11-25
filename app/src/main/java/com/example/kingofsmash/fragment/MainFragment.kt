@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.kingofsmash.R
 import com.example.kingofsmash.enums.Action
+import com.example.kingofsmash.enums.Character
 import com.example.kingofsmash.viewmodels.KingOfSmashViewModel
 import kotlinx.coroutines.launch
 
@@ -29,6 +31,13 @@ class MainFragment : Fragment() {
                 when (it.currentAction) {
                     Action.THROW_DICES -> {
                         println("THROWDICESU")
+//                        findNavController().navigate(R.id.action_fragment_main_to_diceFragment)
+                        val fragment = DiceFragment()
+                        val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+                        val fragmentTransaction = fragmentManager.beginTransaction()
+                        fragmentTransaction.add(R.id.fragmentContainerView, fragment)
+                        fragmentTransaction.commit()
+
                     }
                     Action.EXECUTE_DICES -> {
 
