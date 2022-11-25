@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.fragment.findNavController
 import com.example.kingofsmash.R
+import com.example.kingofsmash.databinding.FragmentCharacterSelectionBinding
+import com.example.kingofsmash.enums.Character
 
 /**
  * A simple [Fragment] subclass.
@@ -16,15 +18,21 @@ import com.example.kingofsmash.R
  */
 class CharacterSelectionFragment : Fragment() {
 
+    private lateinit var binding: FragmentCharacterSelectionBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_character_selection, container, false)
-        val button = view.findViewById<Button>(R.id.button_navigate_to_main_fragment)
+        binding = FragmentCharacterSelectionBinding.bind(view)
+        val button = binding.buttonNavigateToMainFragment
         button.setOnClickListener {
-            findNavController().navigate(R.id.action_characterSelectionFragment_to_fragment_main)
+            findNavController().navigate(
+                CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToFragmentMain(
+                    Character.LUCAS
+                )
+            )
         }
         return view
     }
