@@ -47,7 +47,7 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
             }
         }
 
-        val game = (if (ones > 1) ones - 1 else 0) + (if (twos > 1) twos else 0) + (if (threes > 1) threes + 1 else 0)
+        val game = (if (ones > 2) ones - 2 else 0) + (if (twos > 2) twos - 1 else 0) + (if (threes > 2) threes else 0)
 
         val currentPlayer = getCurrentPlayer()
         Log.d(
