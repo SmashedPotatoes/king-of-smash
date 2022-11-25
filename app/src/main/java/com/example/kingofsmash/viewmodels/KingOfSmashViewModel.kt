@@ -30,20 +30,24 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
     }
 
     fun executeDices() {
+        var ones = 0
+        var twos = 0
+        var threes = 0
         var smash = 0
-        var game = 0
         var smashMeter = 0
         var stock = 0
         state.value.dices.forEach { dice ->
             when (dice) {
-                Dice.ONE -> smash += 1
-                Dice.TWO -> smash += 2
-                Dice.THREE -> smash += 3
-                Dice.SMASH -> game += 1
-                Dice.SMASH_METER -> smashMeter += 1
-                Dice.STOCK -> stock += 1
+                Dice.ONE -> ones++
+                Dice.TWO -> twos++
+                Dice.THREE -> threes++
+                Dice.SMASH -> smash++
+                Dice.SMASH_METER -> smashMeter++
+                Dice.STOCK -> stock++
             }
         }
+
+        val game = (if (ones > 1) ones - 1 else 0) + (if (twos > 1) twos else 0) + (if (threes > 1) threes + 1 else 0)
 
         val currentPlayer = getCurrentPlayer()
         Log.d(
