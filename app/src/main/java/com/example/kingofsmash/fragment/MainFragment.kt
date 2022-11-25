@@ -1,6 +1,7 @@
 package com.example.kingofsmash.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import com.example.kingofsmash.databinding.FragmentMainBinding
 import com.example.kingofsmash.enums.Action
 import com.example.kingofsmash.enums.Dice
 import com.example.kingofsmash.enums.PlayerType
+import com.example.kingofsmash.models.Player
 import com.example.kingofsmash.models.PlayerCard
 import com.example.kingofsmash.viewmodels.KingOfSmashViewModel
 import kotlinx.coroutines.launch
@@ -33,50 +35,12 @@ class MainFragment : Fragment() {
         playerCards = getPlayerCards()
         lifecycleScope.launch {
             viewModel.stateFlow.collect {
+                val currentPlayer = viewModel.getCurrentPlayer()
                 when (it.currentAction) {
-                    Action.THROW_DICES -> {
-                        println("THROW DICESU")
-                        val currentPlayer = viewModel.getCurrentPlayer()
-                        // TODO: Refacto into currentPlayer.throwDices(context)
-                        if (currentPlayer.type == PlayerType.PLAYER) {
-                            val fragment = DiceFragment(onSubmit = { dices ->
-                                viewModel.throwDices(dices)
-                            });
-                            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
-                            val fragmentTransaction = fragmentManager.beginTransaction()
-                            fragmentTransaction.add(R.id.fragmentContainerView, fragment)
-                            fragmentTransaction.commit()
-                        } else {
-                            val dices = listOf(Dice.ONE, Dice.TWO, Dice.THREE, Dice.ONE, Dice.THREE, Dice.TWO)
-                            viewModel.throwDices(dices)
-                        }
-                    }
-
-                    Action.EXECUTE_DICES -> {
-                        println("EXECUTE DICESU")
-                        // DISPLAY DICES AND EXECUTE
-                        viewModel.executeDices()
-                    }
-
-                    Action.EXECUTE_CARDS -> {
-                        println("EXECUTE CARDSU")
-                        viewModel.waitEndTurn()
-                    }
-
-                    Action.WAIT_END_TURN -> {
-                        println("WAIT END TURNU")
-                        val currentPlayer = viewModel.getCurrentPlayer()
-                        // TODO: Refacto into currentPlayer.endTurn(context)
-                        if (currentPlayer.type == PlayerType.PLAYER) {
-                            binding.fragmentMainBtnEndOfTurn.visibility = View.VISIBLE
-                            binding.fragmentMainBtnEndOfTurn.setOnClickListener {
-                                viewModel.endTurn()
-                                binding.fragmentMainBtnEndOfTurn.visibility = View.INVISIBLE
-                            }
-                        } else {
-                            viewModel.endTurn()
-                        }
-                    }
+                    Action.THROW_DICES -> throwDices(currentPlayer)
+                    Action.EXECUTE_DICES -> executeDices(currentPlayer)
+                    Action.EXECUTE_CARDS -> executeCards()
+                    Action.WAIT_END_TURN -> waitEndTurn(currentPlayer)
                 }
 
                 playerCards.forEach { playerCard ->
@@ -100,6 +64,52 @@ class MainFragment : Fragment() {
         }
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    private fun throwDices(currentPlayer: Player) {
+        Log.d("MainFragment", "THROW DICESU")
+        // TODO: Refacto into currentPlayer.throwDices(context)
+        if (currentPlayer.type == PlayerType.PLAYER) {
+            val fragment = DiceFragment(onSubmit = { dices ->
+                viewModel.throwDices(dices)
+            });
+            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.add(R.id.fragmentContainerView, fragment)
+            fragmentTransaction.commit()
+        } else {
+            val dices = listOf(Dice.ONE, Dice.ONE, Dice.THREE, Dice.SMASH, Dice.SMASH, Dice.SMASH)
+            viewModel.throwDices(dices)
+        }
+    }
+
+    private fun executeDices(currentPlayer: Player) {
+        Log.d("MainFragment", "EXECUTE DICESU")
+        // DISPLAY DICES AND EXECUTE
+        val isPlayerInDF = viewModel.executeDices()
+        if (isPlayerInDF && currentPlayer.type == PlayerType.PLAYER) {
+            // TODO: DISPLAY YOU ARE NOW IN DF
+            Log.d("MainFragment", "You are now in DF")
+        }
+    }
+
+    private fun executeCards() {
+        Log.d("MainFragment", "EXECUTE CARDSU")
+        viewModel.waitEndTurn()
+    }
+
+    private fun waitEndTurn(currentPlayer: Player) {
+        Log.d("MainFragment", "WAIT END TURNU")
+        // TODO: Refacto into currentPlayer.endTurn(context)
+        if (currentPlayer.type == PlayerType.PLAYER) {
+            binding.fragmentMainBtnEndOfTurn.visibility = View.VISIBLE
+            binding.fragmentMainBtnEndOfTurn.setOnClickListener {
+                viewModel.endTurn()
+                binding.fragmentMainBtnEndOfTurn.visibility = View.INVISIBLE
+            }
+        } else {
+            viewModel.endTurn()
+        }
     }
 
     private fun getPlayerCards() = listOf(

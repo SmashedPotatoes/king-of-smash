@@ -29,7 +29,7 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
         )
     }
 
-    fun executeDices() {
+    fun executeDices(): Boolean {
         var ones = 0
         var twos = 0
         var threes = 0
@@ -63,6 +63,7 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
                 }
             }
         } else {
+            Log.d("ExecuteDices", "DF Player ${state.value.playerInDF} take $smash dmg from ${currentPlayer.character}")
             state.value.playerInDF?.damaged(smash)
             if (state.value.playerInDF?.isAlive == false) {
                 Log.d("ExecuteDices", "player ${state.value.playerInDF?.character} is dead")
@@ -70,14 +71,17 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
             }
         }
 
+        var isPlayerInDF = false
         if (state.value.playerInDF == null) {
             Log.d("ExecuteDices", "player ${currentPlayer.character} is now in DF")
             state.value = state.value.copy(playerInDF = currentPlayer)
+            isPlayerInDF = true
         }
 
         // TODO: check if game is over
 
         waitEndTurn()
+        return isPlayerInDF
     }
 
     fun waitEndTurn() {
