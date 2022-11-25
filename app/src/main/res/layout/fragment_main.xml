@@ -13,7 +13,8 @@
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
             android:contentDescription="Background Image"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop" app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="1.0"/>
     <View
             android:layout_width="136dp"
             android:layout_height="76dp" android:id="@+id/fragment_main_view_player_1_card"
