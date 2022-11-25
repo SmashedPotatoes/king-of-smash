@@ -79,8 +79,6 @@ class MainFragment : Fragment() {
                     }
                 }
 
-                // TODO: SET PLAYER CARD INFO (STOCK, SMASH, SMASH_METER, CARD COLOR, IS_KING)
-                println("CurrentPlayerIdx: ${it.currentPlayerIdx}")
                 playerCards.forEach { playerCard ->
                     val player = it.players[playerCard.id]
                     playerCard.game.text = player.game.toString()
@@ -90,6 +88,13 @@ class MainFragment : Fragment() {
                     // TODO: this is done every time,
                     playerCard.icon.setImageResource(player.character.icon)
                     playerCard.name.text = player.character.character
+                }
+
+                if (it.playerInDF == null) {
+                    binding.fragmentMainImgPlayerDf.visibility = View.INVISIBLE
+                } else {
+                    binding.fragmentMainImgPlayerDf.visibility = View.VISIBLE
+                    binding.fragmentMainImgPlayerDf.setImageResource(it.playerInDF!!.character.df)
                 }
             }
         }
