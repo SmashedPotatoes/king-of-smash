@@ -86,6 +86,10 @@ class MainFragment : Fragment() {
                     playerCard.game.text = player.game.toString()
                     playerCard.stock.text = player.stock.toString()
                     playerCard.smashMeter.text = player.smashMeter.toString()
+
+                    // TODO: this is done every time,
+                    playerCard.icon.setImageResource(player.character.icon)
+                    playerCard.name.text = player.character.character
                 }
             }
         }
