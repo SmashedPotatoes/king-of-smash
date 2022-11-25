@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.asStateFlow
 class KingOfSmashViewModel(character: Character) : ViewModel() {
     private val state = MutableStateFlow(
         KingOfSmash(
-            Character.values().map { Player(if (character == it) PlayerType.PLAYER else PlayerType.BOT, character) },
+            Character.values().map { Player(if (character == it) PlayerType.PLAYER else PlayerType.BOT, it) },
             0,
             null
         )
