@@ -1,6 +1,10 @@
 package com.example.kingofsmash.enums
 
-enum class Dice {
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+enum class Dice : Parcelable {
     ONE,
     TWO,
     THREE,

@@ -18,21 +18,22 @@ import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
 
+    private lateinit var viewModel: KingOfSmashViewModel
     private val args: MainFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val viewModel: KingOfSmashViewModel by lazy {
-            KingOfSmashViewModel(args.character)
-        }
+        viewModel = KingOfSmashViewModel(args.character)
+
         lifecycleScope.launch {
             viewModel.stateFlow.collect {
                 when (it.currentAction) {
                     Action.THROW_DICES -> {
-                        println("THROWDICESU")
-//                        findNavController().navigate(R.id.action_fragment_main_to_diceFragment)
-                        val fragment = DiceFragment()
+                        println("THROW DICESU")
+                        val fragment = DiceFragment(onSubmit = { dices ->
+                            viewModel.executeDices(dices)
+                        });
                         val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
                         val fragmentTransaction = fragmentManager.beginTransaction()
                         fragmentTransaction.add(R.id.fragmentContainerView, fragment)
@@ -40,11 +41,12 @@ class MainFragment : Fragment() {
 
                     }
                     Action.EXECUTE_DICES -> {
-
+                        println("EXECUTE DICESU")
+                        // DISPLAY DICES AND
                     }
 
                     Action.EXECUTE_CARDS -> {
-
+                        println("EXECUTE CARDSU")
                     }
                 }
             }

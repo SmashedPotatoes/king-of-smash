@@ -5,10 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.kingofsmash.R
 import com.example.kingofsmash.databinding.FragmentDiceBinding
+import com.example.kingofsmash.enums.Character
+import com.example.kingofsmash.enums.Dice
 import com.example.kingofsmash.viewmodels.DicesViewModel
 import kotlinx.coroutines.launch
 
@@ -17,7 +21,7 @@ import kotlinx.coroutines.launch
  * Use the [DiceFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class DiceFragment : Fragment() {
+class DiceFragment(val onSubmit: (dices: List<Dice>) -> Unit) : Fragment() {
 
     private lateinit var binding: FragmentDiceBinding
     override fun onCreateView(
@@ -46,6 +50,11 @@ class DiceFragment : Fragment() {
         binding.fragmentDiceBtnSubmit.setOnClickListener {
             println("SUBMIT DICES")
             println(viewModel.stateFlow.value.dices)
+            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.remove(this)
+            fragmentTransaction.commit()
+            onSubmit(viewModel.stateFlow.value.dices.map { it.dice })
         }
         binding.fragmentDiceBtnDice1.setOnClickListener {
             viewModel.toggleKeepDice(0)

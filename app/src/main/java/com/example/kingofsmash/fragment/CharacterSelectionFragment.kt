@@ -28,9 +28,11 @@ class CharacterSelectionFragment : Fragment() {
         binding = FragmentCharacterSelectionBinding.bind(view)
         val button = binding.buttonNavigateToMainFragment
         button.setOnClickListener {
-            findNavController().navigate(CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToFragmentMain(
-                Character.LUCAS
-            ))
+            findNavController().navigate(
+                CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToFragmentMain(
+                    Character.LUCAS
+                )
+            )
         }
         return view
     }
