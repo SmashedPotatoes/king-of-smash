@@ -39,6 +39,7 @@ class MainFragment : Fragment() {
                 when (it.currentAction) {
                     Action.THROW_DICES -> throwDices(currentPlayer)
                     Action.EXECUTE_DICES -> executeDices(currentPlayer)
+                    Action.DF_ATTACKED -> dfAttacked(currentPlayer)
                     Action.CHECK_DF -> checkDF(currentPlayer)
                     Action.EXECUTE_CARDS -> executeCards()
                     Action.WAIT_END_TURN -> waitEndTurn(currentPlayer)
@@ -73,11 +74,8 @@ class MainFragment : Fragment() {
         if (currentPlayer.type == PlayerType.PLAYER) {
             val fragment = DiceFragment(onSubmit = { dices ->
                 viewModel.throwDices(dices)
-            });
-            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.add(R.id.fragmentContainerView, fragment)
-            fragmentTransaction.commit()
+            })
+            openFragment(fragment)
         } else {
             val dices = listOf(Dice.ONE, Dice.ONE, Dice.THREE, Dice.SMASH, Dice.SMASH, Dice.SMASH)
             viewModel.throwDices(dices)
@@ -86,13 +84,24 @@ class MainFragment : Fragment() {
 
     private fun executeDices(currentPlayer: Player) {
         Log.d("MainFragment", "EXECUTE DICESU")
-        // DISPLAY DICES AND EXECUTE
+        // TODO: DISPLAY DICES AND EXECUTE
         val isPlayerAttackedAndInDF = viewModel.executeDices()
         if (isPlayerAttackedAndInDF) {
-            // TODO: DISPLAY YOU WERE ATTACKED, DO YOU WANT TO GET OUT OF DF
-            Log.d("MainFragment", "Player is in DF and is attacked")
+            viewModel.setDFAttacked()
+        } else {
+            viewModel.setCheckDF()
         }
-        viewModel.setCheckDF()
+    }
+
+    private fun dfAttacked(currentPlayer: Player) {
+        Log.d("MainFragment", "Player is in DF and is attacked")
+        val fragment = DFAttackedFragment(
+            onStay = { viewModel.setCheckDF() },
+            onLeave = {
+                viewModel.leaveDFAmdCheck()
+            }
+        )
+        openFragment(fragment)
     }
 
     private fun checkDF(currentPlayer: Player) {
@@ -121,6 +130,13 @@ class MainFragment : Fragment() {
         } else {
             viewModel.endTurn()
         }
+    }
+
+    private fun openFragment(fragment: Fragment) {
+        val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.add(R.id.fragmentContainerView, fragment)
+        fragmentTransaction.commit()
     }
 
     private fun getPlayerCards() = listOf(

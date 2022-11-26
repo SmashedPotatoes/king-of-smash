@@ -79,6 +79,15 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
         return isPlayerAttackedAndInDF
     }
 
+    fun leaveDFAmdCheck() {
+        Log.d("LeaveDF", "player leaving DF")
+        state.value = state.value.copy(playerInDF = null, currentAction = Action.CHECK_DF)
+    }
+
+    fun setDFAttacked() {
+        state.value = state.value.copy(currentAction = Action.DF_ATTACKED)
+    }
+
     fun setCheckDF() {
         state.value = state.value.copy(currentAction = Action.CHECK_DF)
     }
