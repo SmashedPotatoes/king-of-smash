@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.kingofsmash.R
 import com.example.kingofsmash.databinding.FragmentMainBinding
@@ -26,9 +27,8 @@ class MainFragment : Fragment() {
     private val args: MainFragmentArgs by navArgs()
     private lateinit var playerCards: List<PlayerCard>
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
         viewModel = KingOfSmashViewModel(args.character)
 
@@ -41,6 +41,7 @@ class MainFragment : Fragment() {
                     Action.EXECUTE_DICES -> executeDices(currentPlayer)
                     Action.DF_ATTACKED -> dfAttacked(currentPlayer)
                     Action.CHECK_DF -> checkDF(currentPlayer)
+                    Action.CHECK_GAME_OVER -> checkWinner()
                     Action.EXECUTE_CARDS -> executeCards()
                     Action.WAIT_END_TURN -> waitEndTurn(currentPlayer)
                 }
@@ -95,12 +96,9 @@ class MainFragment : Fragment() {
 
     private fun dfAttacked(currentPlayer: Player) {
         Log.d("MainFragment", "Player is in DF and is attacked")
-        val fragment = DFAttackedFragment(
-            onStay = { viewModel.setCheckDF() },
-            onLeave = {
-                viewModel.leaveDFAmdCheck()
-            }
-        )
+        val fragment = DFAttackedFragment(onStay = { viewModel.setCheckDF() }, onLeave = {
+            viewModel.leaveDFAndCheck()
+        })
         openFragment(fragment)
     }
 
@@ -110,7 +108,15 @@ class MainFragment : Fragment() {
             // TODO: DISPLAY YOU ARE NOW IN DF
             Log.d("MainFragment", "You are now in DF")
         }
-        viewModel.waitEndTurn()
+        viewModel.setCheckGameOver()
+    }
+
+    private fun checkWinner() {
+        Log.d("MainFragment", "CHECK WINNERU")
+        viewModel.getWinner()?.let {
+            Log.d("MainFragment", "Winner is ${it.character.character}")
+            findNavController().navigate(R.id.action_fragment_main_to_gameOverFragment)
+        } ?: viewModel.waitEndTurn()
     }
 
     private fun executeCards() {
