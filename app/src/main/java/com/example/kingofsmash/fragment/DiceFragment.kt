@@ -25,14 +25,13 @@ class DiceFragment(val onSubmit: (dices: List<Dice>) -> Unit) : Fragment() {
 
     private lateinit var binding: FragmentDiceBinding
 
-    @SuppressLint("ResourceAsColor")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentDiceBinding.inflate(inflater, container, false)
-        binding.root.setBackgroundColor(R.color.black_transparent)
+        binding.root.setBackgroundResource(R.color.black_transparent)
         val viewModel: DicesViewModel by viewModels()
         lifecycleScope.launch {
             viewModel.stateFlow.collect {

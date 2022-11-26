@@ -105,8 +105,9 @@ class MainFragment : Fragment() {
     private fun checkDF(currentPlayer: Player) {
         val isPlayerInDF = viewModel.checkDF()
         if (isPlayerInDF && currentPlayer.type == PlayerType.PLAYER) {
-            // TODO: DISPLAY YOU ARE NOW IN DF
             Log.d("MainFragment", "You are now in DF")
+            val fragment = PlayerInDFFragment()
+            openFragment(fragment)
         }
         viewModel.setCheckGameOver()
     }
