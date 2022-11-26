@@ -2,7 +2,6 @@ package com.example.kingofsmash.models
 
 import com.example.kingofsmash.enums.Character
 import com.example.kingofsmash.enums.PlayerType
-import com.example.kingofsmash.models.Player.Companion.MAX_STOCK
 import kotlin.math.min
 
 data class Player(
@@ -38,7 +37,7 @@ data class Player(
         win(game)
     }
 
-    object Companion {
+    companion object {
         const val MAX_STOCK = 10
     }
 }

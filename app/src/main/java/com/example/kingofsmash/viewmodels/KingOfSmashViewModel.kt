@@ -116,4 +116,23 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
             currentAction = Action.THROW_DICES
         )
     }
+
+    fun isGameOver(): Player? {
+        var winner: Player? = null
+        var alivePlayer = 0
+        for (player in state.value.players) {
+            if (player.game >= NB_GAME_TO_WIN) {
+                return player
+            }
+            if (player.isAlive) {
+                alivePlayer++
+                winner = player
+            }
+        }
+        return if (alivePlayer == 1) winner else null
+    }
+
+    companion object {
+        private const val NB_GAME_TO_WIN = 20
+    }
 }
