@@ -14,9 +14,7 @@ import kotlinx.coroutines.flow.asStateFlow
 class KingOfSmashViewModel(character: Character) : ViewModel() {
     private val state = MutableStateFlow(
         KingOfSmash(
-            Character.values().map { Player(if (character == it) PlayerType.PLAYER else PlayerType.BOT, it) },
-            0,
-            null
+            Character.values().map { Player(if (character == it) PlayerType.PLAYER else PlayerType.BOT, it) }, 0, null
         )
     )
     val stateFlow = state.asStateFlow()
@@ -24,8 +22,7 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
     fun getCurrentPlayer(): Player = state.value.players[state.value.currentPlayerIdx]
     fun throwDices(dices: List<Dice>) {
         state.value = state.value.copy(
-            currentAction = Action.EXECUTE_DICES,
-            dices = dices // useless ?
+            currentAction = Action.EXECUTE_DICES, dices = dices
         )
     }
 
@@ -79,7 +76,7 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
         return isPlayerAttackedAndInDF
     }
 
-    fun leaveDFAmdCheck() {
+    fun leaveDFAndCheck() {
         Log.d("LeaveDF", "player leaving DF")
         state.value = state.value.copy(playerInDF = null, currentAction = Action.CHECK_DF)
     }
@@ -104,6 +101,10 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
         return isPlayerInDF
     }
 
+    fun setCheckGameOver() {
+        state.value = state.value.copy(currentAction = Action.CHECK_GAME_OVER)
+    }
+
     fun waitEndTurn() {
         state.value = state.value.copy(
             currentAction = Action.WAIT_END_TURN
@@ -112,8 +113,26 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
 
     fun endTurn() {
         state.value = state.value.copy(
-            currentPlayerIdx = (state.value.currentPlayerIdx + 1) % 4,
-            currentAction = Action.THROW_DICES
+            currentPlayerIdx = (state.value.currentPlayerIdx + 1) % 4, currentAction = Action.THROW_DICES
         )
+    }
+
+    fun getWinner(): Player? {
+        var winner: Player? = null
+        var alivePlayer = 0
+        for (player in state.value.players) {
+            if (player.game >= NB_GAME_TO_WIN) {
+                return player
+            }
+            if (player.isAlive) {
+                alivePlayer++
+                winner = player
+            }
+        }
+        return if (alivePlayer == 1) winner else null
+    }
+
+    companion object {
+        private const val NB_GAME_TO_WIN = 20
     }
 }

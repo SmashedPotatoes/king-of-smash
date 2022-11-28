@@ -12,6 +12,7 @@
         tools:layout="@layout/fragment_main" >
         <action android:id="@+id/action_fragment_main_to_diceFragment" app:destination="@id/diceFragment"/>
         <argument android:name="character" app:argType="com.example.kingofsmash.enums.Character"/>
+        <action android:id="@+id/action_fragment_main_to_gameOverFragment" app:destination="@id/gameOverFragment"/>
     </fragment>
     <fragment
             android:id="@+id/characterSelectionFragment"
@@ -26,5 +27,10 @@
     <fragment android:id="@+id/diceFragment" android:name="com.example.kingofsmash.fragment.DiceFragment"
               android:label="fragment_dice" tools:layout="@layout/fragment_dice">
         <action android:id="@+id/action_diceFragment_to_fragment_main" app:destination="@id/fragment_main"/>
+    </fragment>
+    <fragment android:id="@+id/gameOverFragment" android:name="com.example.kingofsmash.fragment.GameOverFragment"
+              android:label="fragment_game_over" tools:layout="@layout/fragment_game_over">
+        <action android:id="@+id/action_gameOverFragment_to_characterSelectionFragment"
+                app:destination="@id/characterSelectionFragment"/>
     </fragment>
 </navigation>
