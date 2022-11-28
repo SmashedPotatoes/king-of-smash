@@ -1,30 +1,23 @@
 package com.example.kingofsmash.fragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.kingofsmash.R
-import com.example.kingofsmash.databinding.FragmentDfAttackedBinding
+import com.example.kingofsmash.databinding.FragmentPlayerInDfBinding
 
-class DFAttackedFragment(val onStay: () -> Unit, val onLeave: () -> Unit) : Fragment() {
-    private lateinit var binding: FragmentDfAttackedBinding
-
+class PlayerInDFFragment: Fragment() {
+    private lateinit var binding: FragmentPlayerInDfBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDfAttackedBinding.inflate(inflater, container, false)
+        binding = FragmentPlayerInDfBinding.inflate(inflater, container, false)
         binding.root.setBackgroundResource(R.color.black_transparent)
-        binding.fragmentDfAttackedBtnStay.setOnClickListener {
+        binding.root.setOnClickListener {
             closeFragment()
-            onStay()
-        }
-        binding.fragmentDfAttackedBtnLeave.setOnClickListener {
-            closeFragment()
-            onLeave()
         }
         return binding.root
     }
@@ -35,5 +28,4 @@ class DFAttackedFragment(val onStay: () -> Unit, val onLeave: () -> Unit) : Frag
         fragmentTransaction.remove(this)
         fragmentTransaction.commit()
     }
-
 }
