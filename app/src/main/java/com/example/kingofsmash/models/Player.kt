@@ -25,7 +25,7 @@ data class Player(
     }
 
     fun damaged(smash: Int) {
-        this.stock -= smash
+        this.stock = (this.stock - smash).coerceAtLeast(0)
         if (this.stock <= 0) {
             this.isAlive = false
         }
