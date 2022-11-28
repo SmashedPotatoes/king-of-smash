@@ -1,17 +1,17 @@
 package com.example.kingofsmash.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.example.kingofsmash.R
 import com.example.kingofsmash.databinding.FragmentDiceBinding
-import com.example.kingofsmash.enums.Character
 import com.example.kingofsmash.enums.Dice
 import com.example.kingofsmash.viewmodels.DicesViewModel
 import kotlinx.coroutines.launch
@@ -24,10 +24,12 @@ import kotlinx.coroutines.launch
 class DiceFragment(val onSubmit: (dices: List<Dice>) -> Unit) : Fragment() {
 
     private lateinit var binding: FragmentDiceBinding
+
+    @SuppressLint("ResourceAsColor")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentDiceBinding.inflate(inflater, container, false)
         binding.root.setBackgroundColor(R.color.black_transparent)
@@ -48,8 +50,8 @@ class DiceFragment(val onSubmit: (dices: List<Dice>) -> Unit) : Fragment() {
             viewModel.rollDice()
         }
         binding.fragmentDiceBtnSubmit.setOnClickListener {
-            println("SUBMIT DICES")
-            println(viewModel.stateFlow.value.dices)
+            Log.d("DiceFragment", "Submitting dices")
+            Log.d("DiceFragment", viewModel.stateFlow.value.dices.toString())
             val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
             fragmentTransaction.remove(this)
