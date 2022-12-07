@@ -7,13 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.navigation.fragment.findNavController
 import com.example.kingofsmash.R
-import com.example.kingofsmash.enum.Character
+import com.example.kingofsmash.databinding.FragmentCharacterSelectionBinding
+import com.example.kingofsmash.enums.Character
 
 class CharacterSelectionFragment : Fragment() {
 
+    private lateinit var binding: FragmentCharacterSelectionBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -74,9 +75,14 @@ class CharacterSelectionFragment : Fragment() {
             shapeCorrin.setColor(colorSelected)
         }
 
-        val button = view.findViewById<Button>(R.id.button_navigate_to_main_fragment)
+        binding = FragmentCharacterSelectionBinding.bind(view)
+        val button = binding.buttonNavigateToMainFragment
         button.setOnClickListener {
-            findNavController().navigate(R.id.action_characterSelectionFragment_to_fragment_main)
+            findNavController().navigate(
+                CharacterSelectionFragmentDirections.actionCharacterSelectionFragmentToFragmentMain(
+                    selectedCharacter
+                )
+            )
         }
         return view
     }

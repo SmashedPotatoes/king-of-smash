@@ -1,11 +1,13 @@
 package com.example.kingofsmash.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.kingofsmash.R
+import com.example.kingofsmash.databinding.FragmentGameOverBinding
 
 /**
  * A simple [Fragment] subclass.
@@ -13,11 +15,15 @@ import com.example.kingofsmash.R
  * create an instance of this fragment.
  */
 class GameOverFragment : Fragment() {
+    private lateinit var binding: FragmentGameOverBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_game_over, container, false)
+    ): View {
+        binding = FragmentGameOverBinding.inflate(inflater, container, false)
+        binding.fragmentGameOverBtnMainMenu.setOnClickListener {
+            findNavController().navigate(R.id.action_gameOverFragment_to_characterSelectionFragment)
+        }
+        return binding.root
     }
 }
