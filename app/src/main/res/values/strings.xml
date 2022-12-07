@@ -2,4 +2,7 @@
     <string name="app_name">King Of Smash</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="play">Play</string>
+    <string name="image_desc">general desc</string>
+    <string name="character_select_subtitle">Select a challenger</string>
 </resources>

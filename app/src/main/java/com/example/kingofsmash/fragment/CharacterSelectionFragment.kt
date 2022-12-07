@@ -1,22 +1,17 @@
 package com.example.kingofsmash.fragment
 
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import androidx.navigation.fragment.findNavController
 import com.example.kingofsmash.R
 import com.example.kingofsmash.enum.Character
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CharacterSelectionFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CharacterSelectionFragment : Fragment() {
 
     override fun onCreateView(
@@ -26,32 +21,58 @@ class CharacterSelectionFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_character_selection, container, false)
 
-        /*
-        var personnage actif = Charatcter.Lucas
+        var selectedCharacter = Character.LUCAS
+        val colorSelected = Color.argb(190, 62, 191, 137)
+        val colorUnselected = Color.argb(127, 13, 13, 13)
 
-        récupérer les 4 boutons persos
-        de base le premier bouton est sélectionné
-        quand on appuie sur un bouton => on change d'élément sélectionné (code => personnage actif+ visuel => background color)
+        val viewLucas = view.findViewById<View>(R.id.viewLucas)
+        val viewRoy = view.findViewById<View>(R.id.viewRoy)
+        val viewKingDDD = view.findViewById<View>(R.id.viewKingDDD)
+        val viewCorrin = view.findViewById<View>(R.id.viewCorrin)
 
-        bouton play => navigate to fragment with param (personnage actif)
-        */
-        val selectedCharacter = Character.LUCAS
+        // set viewLucas background shape solid color
+        val shapeLucas = viewLucas.background as GradientDrawable
+        val shapeRoy = viewRoy.background as GradientDrawable
+        val shapeKingDDD = viewKingDDD.background as GradientDrawable
+        val shapeCorrin = viewCorrin.background as GradientDrawable
+        shapeLucas.setColor(if (selectedCharacter == Character.LUCAS)  colorSelected else colorUnselected)
+        shapeRoy.setColor(if (selectedCharacter == Character.ROY)  colorSelected else colorUnselected)
+        shapeKingDDD.setColor(if (selectedCharacter == Character.KINGDDD)  colorSelected else colorUnselected)
+        shapeCorrin.setColor(if (selectedCharacter == Character.CORRIN)  colorSelected else colorUnselected)
+        
+        // on clicks
+        viewLucas.setOnClickListener{
+            selectedCharacter = Character.LUCAS
 
-        val lucasButton = view.findViewById<ImageButton>(R.id.LucasButton)
-        lucasButton.setOnClickListener {
-
+            shapeLucas.setColor(colorSelected)
+            shapeRoy.setColor(colorUnselected)
+            shapeKingDDD.setColor(colorUnselected)
+            shapeCorrin.setColor(colorUnselected)
         }
-        lucasButton.setBackgroundColor(Color.parseColor("red"))
-        val royButton = view.findViewById<ImageButton>(R.id.RoyButton)
-        royButton.setOnClickListener {
-        }
-        val kingDDDButton = view.findViewById<ImageButton>(R.id.KingDDDButton)
-        kingDDDButton.setOnClickListener {
-        }
-        val corrinButton = view.findViewById<ImageButton>(R.id.CorrinButton)
-        corrinButton.setOnClickListener {
-        }
+        viewRoy.setOnClickListener{
+            selectedCharacter = Character.ROY
 
+            shapeLucas.setColor(colorUnselected)
+            shapeRoy.setColor(colorSelected)
+            shapeKingDDD.setColor(colorUnselected)
+            shapeCorrin.setColor(colorUnselected)
+        }
+        viewKingDDD.setOnClickListener{
+            selectedCharacter = Character.KINGDDD
+
+            shapeLucas.setColor(colorUnselected)
+            shapeRoy.setColor(colorUnselected)
+            shapeKingDDD.setColor(colorSelected)
+            shapeCorrin.setColor(colorUnselected)
+        }
+        viewCorrin.setOnClickListener{
+            selectedCharacter = Character.CORRIN
+
+            shapeLucas.setColor(colorUnselected)
+            shapeRoy.setColor(colorUnselected)
+            shapeKingDDD.setColor(colorUnselected)
+            shapeCorrin.setColor(colorSelected)
+        }
 
         val button = view.findViewById<Button>(R.id.button_navigate_to_main_fragment)
         button.setOnClickListener {

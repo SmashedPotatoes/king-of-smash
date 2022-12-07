@@ -6,14 +6,18 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                    tools:context=".fragment.MainFragment">
+
     <ImageView
-            android:src="@drawable/background"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" android:id="@+id/fragment_main_img_background"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="Background Image"
-            android:scaleType="centerCrop"/>
+        android:id="@+id/fragment_main_img_background"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:contentDescription="@string/image_desc"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <View
             android:layout_width="136dp"
             android:layout_height="76dp" android:id="@+id/fragment_main_view_player_1_card"
