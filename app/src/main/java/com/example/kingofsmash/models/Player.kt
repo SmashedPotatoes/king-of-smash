@@ -1,9 +1,12 @@
 package com.example.kingofsmash.models
 
+import android.os.Parcelable
 import com.example.kingofsmash.enums.Character
 import com.example.kingofsmash.enums.PlayerType
+import kotlinx.android.parcel.Parcelize
 import kotlin.math.min
 
+@Parcelize
 data class Player(
     val type: PlayerType,
     val character: Character,
@@ -11,7 +14,7 @@ data class Player(
     var smashMeter: Int = 0,
     var game: Int = 0,
     var isAlive: Boolean = true,
-) {
+) : Parcelable {
     fun heal(stock: Int) {
         this.stock = min(this.stock + stock, MAX_STOCK)
     }
