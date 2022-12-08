@@ -15,6 +15,7 @@ import com.example.kingofsmash.enums.Character
 class CharacterSelectionFragment : Fragment() {
 
     private lateinit var binding: FragmentCharacterSelectionBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,44 +37,25 @@ class CharacterSelectionFragment : Fragment() {
         val shapeRoy = viewRoy.background as GradientDrawable
         val shapeKingDDD = viewKingDDD.background as GradientDrawable
         val shapeCorrin = viewCorrin.background as GradientDrawable
-        shapeLucas.setColor(if (selectedCharacter == Character.LUCAS)  colorSelected else colorUnselected)
-        shapeRoy.setColor(if (selectedCharacter == Character.ROY)  colorSelected else colorUnselected)
-        shapeKingDDD.setColor(if (selectedCharacter == Character.KINGDDD)  colorSelected else colorUnselected)
-        shapeCorrin.setColor(if (selectedCharacter == Character.CORRIN)  colorSelected else colorUnselected)
-        
+
+        fun onSelectCharacter(character: Character, isInit: Boolean = false) {
+            if (!isInit && selectedCharacter == character) return
+
+            selectedCharacter = character
+
+            shapeLucas.setColor(if (character == Character.LUCAS) colorSelected else colorUnselected)
+            shapeRoy.setColor(if (character == Character.ROY) colorSelected else colorUnselected)
+            shapeKingDDD.setColor(if (character == Character.KINGDDD) colorSelected else colorUnselected)
+            shapeCorrin.setColor(if (character == Character.CORRIN) colorSelected else colorUnselected)
+        }
+        // selected character by default is Lucas
+        onSelectCharacter(Character.LUCAS, true)
+
         // on clicks
-        viewLucas.setOnClickListener{
-            selectedCharacter = Character.LUCAS
-
-            shapeLucas.setColor(colorSelected)
-            shapeRoy.setColor(colorUnselected)
-            shapeKingDDD.setColor(colorUnselected)
-            shapeCorrin.setColor(colorUnselected)
-        }
-        viewRoy.setOnClickListener{
-            selectedCharacter = Character.ROY
-
-            shapeLucas.setColor(colorUnselected)
-            shapeRoy.setColor(colorSelected)
-            shapeKingDDD.setColor(colorUnselected)
-            shapeCorrin.setColor(colorUnselected)
-        }
-        viewKingDDD.setOnClickListener{
-            selectedCharacter = Character.KINGDDD
-
-            shapeLucas.setColor(colorUnselected)
-            shapeRoy.setColor(colorUnselected)
-            shapeKingDDD.setColor(colorSelected)
-            shapeCorrin.setColor(colorUnselected)
-        }
-        viewCorrin.setOnClickListener{
-            selectedCharacter = Character.CORRIN
-
-            shapeLucas.setColor(colorUnselected)
-            shapeRoy.setColor(colorUnselected)
-            shapeKingDDD.setColor(colorUnselected)
-            shapeCorrin.setColor(colorSelected)
-        }
+        viewLucas.setOnClickListener { onSelectCharacter(Character.LUCAS) }
+        viewRoy.setOnClickListener { onSelectCharacter(Character.ROY) }
+        viewKingDDD.setOnClickListener { onSelectCharacter(Character.KINGDDD) }
+        viewCorrin.setOnClickListener { onSelectCharacter(Character.CORRIN) }
 
         binding = FragmentCharacterSelectionBinding.bind(view)
         val button = binding.buttonNavigateToMainFragment
