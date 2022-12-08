@@ -70,8 +70,11 @@ class MainFragment : Fragment() {
     }
 
     private fun throwDices(currentPlayer: Player) {
-        Log.d("MainFragment", "THROW DICESU")
-        // TODO: Refacto into currentPlayer.throwDices(context)
+        if (!currentPlayer.isAlive) {
+            Log.d("MainFragment", "${currentPlayer.character} is dead, end turn")
+            return viewModel.endTurn()
+        }
+        Log.d("MainFragment", "${currentPlayer.character} THROW DICESU")
         if (currentPlayer.type == PlayerType.PLAYER) {
             val fragment = DiceFragment(onSubmit = { dices ->
                 viewModel.throwDices(dices)
@@ -84,7 +87,7 @@ class MainFragment : Fragment() {
     }
 
     private fun executeDices(currentPlayer: Player) {
-        Log.d("MainFragment", "EXECUTE DICESU")
+        Log.d("MainFragment", "${currentPlayer.character} EXECUTE DICESU")
         // TODO: DISPLAY DICES AND EXECUTE
         val isPlayerAttackedAndInDF = viewModel.executeDices()
         if (isPlayerAttackedAndInDF) {
@@ -127,7 +130,6 @@ class MainFragment : Fragment() {
 
     private fun waitEndTurn(currentPlayer: Player) {
         Log.d("MainFragment", "WAIT END TURNU")
-        // TODO: Refacto into currentPlayer.endTurn(context)
         if (currentPlayer.type == PlayerType.PLAYER) {
             binding.fragmentMainBtnEndOfTurn.visibility = View.VISIBLE
             binding.fragmentMainBtnEndOfTurn.setOnClickListener {
