@@ -173,6 +173,34 @@
         app:layout_constraintTop_toTopOf="@+id/imageView5"
         app:layout_constraintVertical_bias="0.0" />
 
+    <ImageView
+        android:id="@+id/gameover_p1_kill_1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="3dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/gameover_p1_kill_2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/gameover_p1_kill_1"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/gameover_p1_kill_3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/gameover_p1_kill_2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
     <View
         android:id="@+id/gameover_view_p2"
         android:layout_width="120dp"
@@ -312,6 +340,34 @@
         android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="@+id/gameover_view_p1"
         app:layout_constraintEnd_toEndOf="@+id/gameover_blur_p2" />
+
+    <ImageView
+        android:id="@+id/gameover_p2_kill_1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="3dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/imageView8"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/gameover_p2_kill_2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/gameover_p2_kill_1"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/gameover_p2_kill_3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/gameover_p2_kill_2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
     <View
         android:id="@+id/gameover_view_p3"
@@ -453,6 +509,34 @@
         app:layout_constraintBottom_toBottomOf="@+id/gameover_view_p1"
         app:layout_constraintEnd_toEndOf="@+id/gameover_blur_p3" />
 
+    <ImageView
+        android:id="@+id/gameover_p3_kill_1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="3dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/imageView11"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/gameover_p3_kill_2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/gameover_p3_kill_1"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/gameover_p3_kill_3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/gameover_p3_kill_2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
     <View
         android:id="@+id/gameover_view_p4"
         android:layout_width="120dp"
@@ -591,6 +675,34 @@
         android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="@+id/gameover_view_p1"
         app:layout_constraintEnd_toEndOf="@+id/gameover_blur_p4" />
+
+    <ImageView
+        android:id="@+id/gameover_p4_kill_1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="3dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/imageView15"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/gameover_p4_kill_2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/gameover_p4_kill_1"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/gameover_p4_kill_3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/gameover_p4_kill_2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"

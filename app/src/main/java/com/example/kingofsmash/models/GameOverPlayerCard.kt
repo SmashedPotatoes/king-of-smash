@@ -10,4 +10,5 @@ data class GameOverPlayerCard (
     val stock: TextView,
     val smashMeter: TextView,
     val game: TextView,
+    val kills: List<ImageView>
 )

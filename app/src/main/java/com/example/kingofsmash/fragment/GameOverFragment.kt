@@ -92,6 +92,15 @@ class GameOverFragment : Fragment() {
             gameOverPlayerCard.stock.setTextColor(Color.rgb(255, 10, 10))
         gameOverPlayerCard.smashMeter.text = player.smashMeter.toString()
         gameOverPlayerCard.game.text = player.game.toString()
+
+        // set kills
+        for (i in gameOverPlayerCard.kills.indices) {
+            gameOverPlayerCard.kills[i].setImageResource(0)
+        }
+
+        for (i in player.kills.indices) {
+            gameOverPlayerCard.kills[i].setImageResource(player.kills[i].icon)
+        }
     }
 
     private fun getGameOverPlayerCards() = listOf(
@@ -101,7 +110,12 @@ class GameOverFragment : Fragment() {
             name = binding.gameoverNameP1,
             stock = binding.gameoverTextLifeP1,
             smashMeter = binding.gameoverTextSmP1,
-            game = binding.gameoverTextGameP1
+            game = binding.gameoverTextGameP1,
+            kills = listOf(
+                binding.gameoverP1Kill1,
+                binding.gameoverP1Kill2,
+                binding.gameoverP1Kill3
+            )
         ),
         GameOverPlayerCard(
             id = 1,
@@ -109,7 +123,12 @@ class GameOverFragment : Fragment() {
             name = binding.gameoverNameP2,
             stock = binding.gameoverTextLifeP2,
             smashMeter = binding.gameoverTextSmP2,
-            game = binding.gameoverTextGameP2
+            game = binding.gameoverTextGameP2,
+            kills = listOf(
+                binding.gameoverP2Kill1,
+                binding.gameoverP2Kill2,
+                binding.gameoverP2Kill3
+            )
         ),
         GameOverPlayerCard(
             id = 2,
@@ -117,7 +136,12 @@ class GameOverFragment : Fragment() {
             name = binding.gameoverNameP3,
             stock = binding.gameoverTextLifeP3,
             smashMeter = binding.gameoverTextSmP3,
-            game = binding.gameoverTextGameP3
+            game = binding.gameoverTextGameP3,
+            kills = listOf(
+                binding.gameoverP3Kill1,
+                binding.gameoverP3Kill2,
+                binding.gameoverP3Kill3
+            )
         ),
         GameOverPlayerCard(
             id = 3,
@@ -125,7 +149,12 @@ class GameOverFragment : Fragment() {
             name = binding.gameoverNameP4,
             stock = binding.gameoverTextLifeP4,
             smashMeter = binding.gameoverTextSmP4,
-            game = binding.gameoverTextGameP4
+            game = binding.gameoverTextGameP4,
+            kills = listOf(
+                binding.gameoverP4Kill1,
+                binding.gameoverP4Kill2,
+                binding.gameoverP4Kill3
+            )
         ),
     )
 }

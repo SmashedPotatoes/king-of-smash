@@ -57,14 +57,14 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
             state.value.players.forEach { player ->
                 if (player != currentPlayer) {
                     Log.d("ExecuteDices", "player ${player.character} take $smash dmg from ${currentPlayer.character}")
-                    state.value.rank = player.damaged(smash, state.value.rank)
+                    state.value.rank = player.damaged(smash, state.value.rank, currentPlayer)
                 }
             }
         } else {
-            Log.d("ExecuteDices", "DF Player ${state.value.playerInDF} take $smash dmg from ${currentPlayer.character}")
-            if (state.value.playerInDF !== null) {
-                state.value.rank = state.value.playerInDF!!.damaged(smash, state.value.rank)
-            }
+            Log.d("ExecuteDices", "DF Player ${state.value.playerInDF?.character} take $smash dmg from ${currentPlayer.character}")
+            var res = state.value.playerInDF?.damaged(smash, state.value.rank, currentPlayer)
+            if (res != null)
+                state.value.rank = res
             if (state.value.playerInDF != null) {
                 if (!state.value.playerInDF!!.isAlive) {
                     Log.d("ExecuteDices", "player ${state.value.playerInDF?.character} is dead")
