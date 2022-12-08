@@ -1,6 +1,11 @@
 package com.example.kingofsmash.fragment
 
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.renderscript.Allocation
+import android.renderscript.Element
+import android.renderscript.RenderScript
+import android.renderscript.ScriptIntrinsicBlur
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,9 +26,10 @@ class GameOverFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentGameOverBinding.inflate(inflater, container, false)
-        binding.fragmentGameOverBtnMainMenu.setOnClickListener {
+        binding.gameoverAllScreen.setOnClickListener {
             findNavController().navigate(R.id.action_gameOverFragment_to_characterSelectionFragment)
         }
+
         return binding.root
     }
 }
