@@ -14,6 +14,7 @@ data class Player(
     var smashMeter: Int = 0,
     var game: Int = 0,
     var isAlive: Boolean = true,
+    var rank: Int = 0,
 ) : Parcelable {
     fun heal(stock: Int) {
         this.stock = min(this.stock + stock, MAX_STOCK)
@@ -27,11 +28,14 @@ data class Player(
         this.game += game
     }
 
-    fun damaged(smash: Int) {
+    fun damaged(smash: Int, nextRank: Int): Int {
         this.stock = (this.stock - smash).coerceAtLeast(0)
         if (this.stock <= 0) {
             this.isAlive = false
+            this.rank = nextRank
+            return nextRank - 1
         }
+        return nextRank
     }
 
     fun play(stock: Int, smashMeter: Int, game: Int) {

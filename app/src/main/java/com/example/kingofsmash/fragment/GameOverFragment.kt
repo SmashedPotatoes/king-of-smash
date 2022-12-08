@@ -39,8 +39,10 @@ class GameOverFragment : Fragment() {
         players = args.players
 
         // correct health points -ie: if dead => stock = 0
+        correctPlayerStocks(players)
 
         // sort players so that players[0] = winner and players[3] = last player
+        sortArrayInRankDescOrder(players)
 
         // iterate on players array and set the values of gameOverPlayerCards
         for (i in players.indices) {
@@ -50,6 +52,37 @@ class GameOverFragment : Fragment() {
         return binding.root
     }
 
+    private fun correctPlayerStocks(players: Array<Player>) {
+        for (player in players) {
+           if (!player.isAlive)
+               player.stock = 0;
+        }
+    }
+
+    private fun sortArrayInRankDescOrder(players: Array<Player>) {
+        // sort by rank => ie: by death order
+        for (i in players.indices) {
+            for (j in i + 1 until players.size) {
+                if (players[i].rank > players[j].rank) {
+                    val temp = players[i]
+                    players[i] = players[j]
+                    players[j] = temp
+                }
+            }
+        }
+
+        // players still alive => sort by games
+        for (i in players.indices) {
+            for (j in i + 1 until players.size) {
+                if (players[i].rank == 0 && players[j].rank == 0)
+                    if (players[i].game < players[j].game) {
+                        val temp = players[i]
+                        players[i] = players[j]
+                        players[j] = temp
+                    }
+            }
+        }
+    }
 
     private fun setGameOverPlayerCardValues(player: Player, gameOverPlayerCard: GameOverPlayerCard) {
         gameOverPlayerCard.backgroundImage.setImageResource(player.character.gameOverBackground)
