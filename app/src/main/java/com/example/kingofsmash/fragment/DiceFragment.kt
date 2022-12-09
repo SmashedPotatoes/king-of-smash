@@ -110,6 +110,7 @@ class DiceFragment(val onSubmit: (dices: List<Dice>) -> Unit) : Fragment() {
         fragmentDiceBtns.forEach { it.visibility = diceVisibility }
         binding.fragmentDiceBtnReroll.visibility = diceVisibility
         binding.fragmentDiceBtnSubmit.visibility = diceVisibility
+        binding.fragmentDiceTxtTitle.visibility = diceVisibility
     }
 
     private fun displayButtonDice(button: Button, dice: Dice) {
