@@ -8,6 +8,12 @@
                                                    android:id="@+id/fragment_dice_layout">
 
     <!-- TODO: Update blank fragment layout -->
+    <ImageView
+            android:src="@drawable/throw_the_dice"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:id="@+id/fragment_dice_img_throw_dice"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"/>
     <Button
             android:text="4"
             android:layout_width="wrap_content"
@@ -16,7 +22,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toStartOf="@+id/fragment_dice_btn_dice_5"
             app:layout_constraintTop_toTopOf="@+id/fragment_dice_btn_dice_1"
-            app:layout_constraintBottom_toBottomOf="@+id/fragment_dice_btn_dice_1"/>
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_dice_btn_dice_1" android:visibility="invisible"/>
     <Button
             android:text="3"
             android:layout_width="wrap_content"
@@ -25,14 +31,15 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toStartOf="@+id/fragment_dice_btn_dice_4"
             app:layout_constraintTop_toTopOf="@+id/fragment_dice_btn_dice_1"
-            app:layout_constraintBottom_toBottomOf="@+id/fragment_dice_btn_dice_1"/>
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_dice_btn_dice_1" android:visibility="invisible"/>
     <Button
             android:text="Reroll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/fragment_dice_btn_reroll"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toStartOf="@+id/fragment_dice_btn_submit"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_dice_btn_dice_1" android:layout_marginTop="64dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/fragment_dice_btn_dice_1" android:layout_marginTop="64dp"
+            android:visibility="invisible"/>
     <Button
             android:text="Submit"
             android:layout_width="wrap_content"
@@ -40,7 +47,7 @@
             app:layout_constraintStart_toEndOf="@+id/fragment_dice_btn_reroll"
             app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/fragment_dice_btn_reroll"
-            app:layout_constraintBottom_toBottomOf="@+id/fragment_dice_btn_reroll"/>
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_dice_btn_reroll" android:visibility="invisible"/>
     <Button
             android:text="1"
             android:layout_width="wrap_content"
@@ -48,7 +55,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toStartOf="@+id/fragment_dice_btn_dice_2"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="invisible"/>
     <Button
             android:text="2"
             android:layout_width="wrap_content"
@@ -57,7 +65,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toStartOf="@+id/fragment_dice_btn_dice_3"
             app:layout_constraintTop_toTopOf="@+id/fragment_dice_btn_dice_1"
-            app:layout_constraintBottom_toBottomOf="@+id/fragment_dice_btn_dice_1"/>
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_dice_btn_dice_1" android:visibility="invisible"/>
     <Button
             android:text="5"
             android:layout_width="wrap_content"
@@ -66,7 +74,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toStartOf="@+id/fragment_dice_btn_dice_6"
             app:layout_constraintTop_toTopOf="@+id/fragment_dice_btn_dice_1"
-            app:layout_constraintBottom_toBottomOf="@+id/fragment_dice_btn_dice_1"/>
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_dice_btn_dice_1" android:visibility="invisible"/>
     <Button
             android:text="6"
             android:layout_width="wrap_content"
@@ -74,7 +82,7 @@
             app:layout_constraintStart_toEndOf="@+id/fragment_dice_btn_dice_5"
             app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/fragment_dice_btn_dice_1"
-            app:layout_constraintBottom_toBottomOf="@+id/fragment_dice_btn_dice_1"/>
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_dice_btn_dice_1" android:visibility="invisible"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

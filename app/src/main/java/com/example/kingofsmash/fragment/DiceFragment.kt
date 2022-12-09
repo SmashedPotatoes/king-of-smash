@@ -24,6 +24,7 @@ import kotlinx.coroutines.launch
 class DiceFragment(val onSubmit: (dices: List<Dice>) -> Unit) : Fragment() {
 
     private lateinit var binding: FragmentDiceBinding
+    private lateinit var fragmentDiceBtns: List<View>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +33,19 @@ class DiceFragment(val onSubmit: (dices: List<Dice>) -> Unit) : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentDiceBinding.inflate(inflater, container, false)
         binding.root.setBackgroundResource(R.color.black_transparent)
+        fragmentDiceBtns = listOf(
+            binding.fragmentDiceBtnDice1,
+            binding.fragmentDiceBtnDice2,
+            binding.fragmentDiceBtnDice3,
+            binding.fragmentDiceBtnDice4,
+            binding.fragmentDiceBtnDice5,
+            binding.fragmentDiceBtnDice6
+        )
+        setDicesVisibility(diceVisible = false)
+        binding.fragmentDiceImgThrowDice.setOnClickListener {
+            setDicesVisibility(diceVisible = true)
+        }
+
         val viewModel: DicesViewModel by viewModels()
         lifecycleScope.launch {
             viewModel.stateFlow.collect {
@@ -76,5 +90,13 @@ class DiceFragment(val onSubmit: (dices: List<Dice>) -> Unit) : Fragment() {
             viewModel.toggleKeepDice(5)
         }
         return binding.root
+    }
+
+    private fun setDicesVisibility(diceVisible: Boolean) {
+        val diceVisibility = if (diceVisible) View.VISIBLE else View.INVISIBLE
+        binding.fragmentDiceImgThrowDice.visibility = if (diceVisible) View.INVISIBLE else View.VISIBLE
+        fragmentDiceBtns.forEach { it.visibility = diceVisibility }
+        binding.fragmentDiceBtnReroll.visibility = diceVisibility
+        binding.fragmentDiceBtnSubmit.visibility = diceVisibility
     }
 }
