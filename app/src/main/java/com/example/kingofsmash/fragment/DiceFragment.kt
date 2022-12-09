@@ -69,6 +69,7 @@ class DiceFragment(val onSubmit: (dices: List<Dice>) -> Unit) : Fragment() {
                     }
                 }
                 binding.fragmentDiceBtnReroll.isEnabled = it.roll > 0
+                binding.fragmentDiceBtnReroll.text = "Reroll (${it.roll})"
             }
         }
         binding.fragmentDiceBtnReroll.setOnClickListener {
