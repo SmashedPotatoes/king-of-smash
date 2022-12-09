@@ -22,15 +22,16 @@ class CharacterSelectionFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_character_selection, container, false)
+        binding = FragmentCharacterSelectionBinding.bind(view)
 
         var selectedCharacter = Character.LUCAS
         val colorSelected = Color.argb(190, 62, 191, 137)
         val colorUnselected = Color.argb(127, 13, 13, 13)
 
-        val viewLucas = view.findViewById<View>(R.id.viewLucas)
-        val viewRoy = view.findViewById<View>(R.id.viewRoy)
-        val viewKingDDD = view.findViewById<View>(R.id.viewKingDDD)
-        val viewCorrin = view.findViewById<View>(R.id.viewCorrin)
+        val viewLucas = binding.viewLucas
+        val viewRoy = binding.viewRoy
+        val viewKingDDD = binding.viewKingDDD
+        val viewCorrin = binding.viewCorrin
 
         // set viewLucas background shape solid color
         val shapeLucas = viewLucas.background as GradientDrawable
@@ -57,7 +58,6 @@ class CharacterSelectionFragment : Fragment() {
         viewKingDDD.setOnClickListener { onSelectCharacter(Character.KINGDDD) }
         viewCorrin.setOnClickListener { onSelectCharacter(Character.CORRIN) }
 
-        binding = FragmentCharacterSelectionBinding.bind(view)
         val button = binding.buttonNavigateToMainFragment
         button.setOnClickListener {
             findNavController().navigate(
