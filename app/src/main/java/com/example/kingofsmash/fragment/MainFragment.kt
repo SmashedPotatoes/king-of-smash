@@ -1,5 +1,6 @@
 package com.example.kingofsmash.fragment
 
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -33,6 +34,8 @@ class MainFragment : Fragment() {
         viewModel = KingOfSmashViewModel(args.character)
 
         playerCards = getPlayerCards()
+        initPlayerCards()
+
         lifecycleScope.launch {
             viewModel.stateFlow.collect {
                 val currentPlayer = viewModel.getCurrentPlayer()
@@ -50,6 +53,9 @@ class MainFragment : Fragment() {
                     val player = it.players[playerCard.id]
                     playerCard.game.text = player.game.toString()
                     playerCard.stock.text = player.stock.toString()
+                    if (player.stock == 0) {
+                        playerCard.background.setColor(resources.getColor(R.color.red_transparent))
+                    }
                     playerCard.smashMeter.text = player.smashMeter.toString()
 
                     // TODO: this is done every time,
@@ -148,6 +154,19 @@ class MainFragment : Fragment() {
         fragmentTransaction.commit()
     }
 
+    private fun initPlayerCards() {
+        val players = viewModel.getPlayers()
+        for (card in this.playerCards) {
+            val player = players[card.id]
+            card.name.text = player.character.name
+            card.icon.setImageResource(player.character.icon)
+            card.stock.text = player.stock.toString()
+            card.smashMeter.text = player.smashMeter.toString()
+            card.game.text = player.game.toString()
+            card.background.setColor(resources.getColor(if (player.type == PlayerType.BOT) R.color.grey_transparent else R.color.green_transparent))
+        }
+    }
+
     private fun getPlayerCards() = listOf(
         PlayerCard(
             id = 0,
@@ -155,7 +174,8 @@ class MainFragment : Fragment() {
             name = binding.fragmentMainTxtPlayer1Name,
             stock = binding.fragmentMainTxtPlayer1Stock,
             smashMeter = binding.fragmentMainTxtPlayer1SmashMeter,
-            game = binding.fragmentMainTxtPlayer1Game
+            game = binding.fragmentMainTxtPlayer1Game,
+            background = binding.fragmentMainViewPlayer1Card.background as GradientDrawable
         ),
         PlayerCard(
             id = 1,
@@ -163,7 +183,8 @@ class MainFragment : Fragment() {
             name = binding.fragmentMainTxtPlayer2Name,
             stock = binding.fragmentMainTxtPlayer2Stock,
             smashMeter = binding.fragmentMainTxtPlayer2SmashMeter,
-            game = binding.fragmentMainTxtPlayer2Game
+            game = binding.fragmentMainTxtPlayer2Game,
+            background = binding.fragmentMainViewPlayer2Card.background as GradientDrawable
         ),
         PlayerCard(
             id = 2,
@@ -171,7 +192,8 @@ class MainFragment : Fragment() {
             name = binding.fragmentMainTxtPlayer3Name,
             stock = binding.fragmentMainTxtPlayer3Stock,
             smashMeter = binding.fragmentMainTxtPlayer3SmashMeter,
-            game = binding.fragmentMainTxtPlayer3Game
+            game = binding.fragmentMainTxtPlayer3Game,
+            background = binding.fragmentMainViewPlayer3Card.background as GradientDrawable
         ),
         PlayerCard(
             id = 3,
@@ -179,7 +201,8 @@ class MainFragment : Fragment() {
             name = binding.fragmentMainTxtPlayer4Name,
             stock = binding.fragmentMainTxtPlayer4Stock,
             smashMeter = binding.fragmentMainTxtPlayer4SmashMeter,
-            game = binding.fragmentMainTxtPlayer4Game
+            game = binding.fragmentMainTxtPlayer4Game,
+            background = binding.fragmentMainViewPlayer4Card.background as GradientDrawable
         ),
     )
 }

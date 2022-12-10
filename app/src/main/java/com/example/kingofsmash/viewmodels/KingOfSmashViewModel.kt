@@ -19,6 +19,7 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
     )
     val stateFlow = state.asStateFlow()
 
+    fun getPlayers(): List<Player> = state.value.players
     fun getCurrentPlayer(): Player = state.value.players[state.value.currentPlayerIdx]
     fun throwDices(dices: List<Dice>) {
         state.value = state.value.copy(
