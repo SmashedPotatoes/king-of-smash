@@ -1,11 +1,11 @@
 package com.example.kingofsmash.fragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
@@ -24,6 +24,8 @@ import kotlinx.coroutines.launch
 class DiceFragment(val onSubmit: (dices: List<Dice>) -> Unit) : Fragment() {
 
     private lateinit var binding: FragmentDiceBinding
+    private lateinit var fragmentDiceBtns: List<Button>
+    private lateinit var fragmentDiceBtnLocks: List<View>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,17 +34,42 @@ class DiceFragment(val onSubmit: (dices: List<Dice>) -> Unit) : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentDiceBinding.inflate(inflater, container, false)
         binding.root.setBackgroundResource(R.color.black_transparent)
+        fragmentDiceBtns = listOf(
+            binding.fragmentDiceBtnDice1,
+            binding.fragmentDiceBtnDice2,
+            binding.fragmentDiceBtnDice3,
+            binding.fragmentDiceBtnDice4,
+            binding.fragmentDiceBtnDice5,
+            binding.fragmentDiceBtnDice6
+        )
+        fragmentDiceBtnLocks = listOf(
+            binding.fragmentDiceBtnImgLock1,
+            binding.fragmentDiceBtnImgLock2,
+            binding.fragmentDiceBtnImgLock3,
+            binding.fragmentDiceBtnImgLock4,
+            binding.fragmentDiceBtnImgLock5,
+            binding.fragmentDiceBtnImgLock6
+        )
+        setDicesVisibility(diceVisible = false)
+        binding.fragmentDiceImgThrowDice.setOnClickListener {
+            setDicesVisibility(diceVisible = true)
+        }
+
         val viewModel: DicesViewModel by viewModels()
         lifecycleScope.launch {
             viewModel.stateFlow.collect {
                 // UPDATE DISPLAY DICES
                 println(it.dices)
-                binding.fragmentDiceBtnDice1.text = it.dices[0].dice.name
-                binding.fragmentDiceBtnDice2.text = it.dices[1].dice.name
-                binding.fragmentDiceBtnDice3.text = it.dices[2].dice.name
-                binding.fragmentDiceBtnDice4.text = it.dices[3].dice.name
-                binding.fragmentDiceBtnDice5.text = it.dices[4].dice.name
-                binding.fragmentDiceBtnDice6.text = it.dices[5].dice.name
+                for (i in 0..5) {
+                    displayButtonDice(fragmentDiceBtns[i], it.dices[i].dice)
+                    if (it.dices[i].shouldKeep) {
+                        fragmentDiceBtnLocks[i].visibility = View.VISIBLE
+                    } else {
+                        fragmentDiceBtnLocks[i].visibility = View.INVISIBLE
+                    }
+                }
+                binding.fragmentDiceBtnReroll.isEnabled = it.roll > 0
+                binding.fragmentDiceBtnReroll.text = "Reroll (${it.roll})"
             }
         }
         binding.fragmentDiceBtnReroll.setOnClickListener {
@@ -76,5 +103,28 @@ class DiceFragment(val onSubmit: (dices: List<Dice>) -> Unit) : Fragment() {
             viewModel.toggleKeepDice(5)
         }
         return binding.root
+    }
+
+    private fun setDicesVisibility(diceVisible: Boolean) {
+        val diceVisibility = if (diceVisible) View.VISIBLE else View.INVISIBLE
+        binding.fragmentDiceImgThrowDice.visibility = if (diceVisible) View.INVISIBLE else View.VISIBLE
+        fragmentDiceBtns.forEach { it.visibility = diceVisibility }
+        binding.fragmentDiceBtnReroll.visibility = diceVisibility
+        binding.fragmentDiceBtnSubmit.visibility = diceVisibility
+        binding.fragmentDiceTxtTitle.visibility = diceVisibility
+    }
+
+    private fun displayButtonDice(button: Button, dice: Dice) {
+        button.text = ""
+        button.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
+
+        when (dice) {
+            Dice.ONE -> button.text = "1"
+            Dice.TWO -> button.text = "2"
+            Dice.THREE -> button.text = "3"
+            Dice.SMASH_METER -> button.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.icon_smash_meter, 0, 0)
+            Dice.SMASH -> button.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.icon_smash, 0, 0)
+            Dice.STOCK -> button.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.icon_stock, 0, 0)
+        }
     }
 }

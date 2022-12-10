@@ -41,7 +41,7 @@ class MainFragment : Fragment() {
                     Action.EXECUTE_DICES -> executeDices(currentPlayer)
                     Action.DF_ATTACKED -> dfAttacked(currentPlayer)
                     Action.CHECK_DF -> checkDF(currentPlayer)
-                    Action.CHECK_GAME_OVER -> checkWinner()
+                    Action.CHECK_GAME_OVER -> checkWinner(it.players)
                     Action.EXECUTE_CARDS -> executeCards()
                     Action.WAIT_END_TURN -> waitEndTurn(currentPlayer)
                 }
@@ -70,8 +70,11 @@ class MainFragment : Fragment() {
     }
 
     private fun throwDices(currentPlayer: Player) {
-        Log.d("MainFragment", "THROW DICESU")
-        // TODO: Refacto into currentPlayer.throwDices(context)
+        if (!currentPlayer.isAlive) {
+            Log.d("MainFragment", "${currentPlayer.character} is dead, end turn")
+            return viewModel.endTurn()
+        }
+        Log.d("MainFragment", "${currentPlayer.character} THROW DICESU")
         if (currentPlayer.type == PlayerType.PLAYER) {
             val fragment = DiceFragment(onSubmit = { dices ->
                 viewModel.throwDices(dices)
@@ -84,7 +87,7 @@ class MainFragment : Fragment() {
     }
 
     private fun executeDices(currentPlayer: Player) {
-        Log.d("MainFragment", "EXECUTE DICESU")
+        Log.d("MainFragment", "${currentPlayer.character} EXECUTE DICESU")
         // TODO: DISPLAY DICES AND EXECUTE
         val isPlayerAttackedAndInDF = viewModel.executeDices()
         if (isPlayerAttackedAndInDF) {
@@ -112,11 +115,14 @@ class MainFragment : Fragment() {
         viewModel.setCheckGameOver()
     }
 
-    private fun checkWinner() {
+    private fun checkWinner(players: List<Player>) {
         Log.d("MainFragment", "CHECK WINNERU")
         viewModel.getWinner()?.let {
             Log.d("MainFragment", "Winner is ${it.character.character}")
-            findNavController().navigate(R.id.action_fragment_main_to_gameOverFragment)
+            val fragment = GameFragment(onClick = {
+                findNavController().navigate(MainFragmentDirections.actionFragmentMainToGameOverFragment(players.toTypedArray()))
+            })
+            openFragment(fragment)
         } ?: viewModel.waitEndTurn()
     }
 
@@ -127,7 +133,6 @@ class MainFragment : Fragment() {
 
     private fun waitEndTurn(currentPlayer: Player) {
         Log.d("MainFragment", "WAIT END TURNU")
-        // TODO: Refacto into currentPlayer.endTurn(context)
         if (currentPlayer.type == PlayerType.PLAYER) {
             binding.fragmentMainBtnEndOfTurn.visibility = View.VISIBLE
             binding.fragmentMainBtnEndOfTurn.setOnClickListener {
