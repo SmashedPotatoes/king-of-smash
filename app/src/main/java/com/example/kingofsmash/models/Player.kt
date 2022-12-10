@@ -4,7 +4,7 @@ import android.os.Parcelable
 import android.util.Log
 import com.example.kingofsmash.enums.Character
 import com.example.kingofsmash.enums.PlayerType
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import kotlin.math.min
 
 @Parcelize
@@ -18,29 +18,30 @@ data class Player(
     var rank: Int = 0,
     var kills: MutableList<Character> = mutableListOf()
 ) : Parcelable {
-    fun heal(stock: Int) {
+    private fun heal(stock: Int) {
         this.stock = min(this.stock + stock, MAX_STOCK)
     }
 
-    fun energize(smashMeter: Int) {
+    private fun energize(smashMeter: Int) {
         this.smashMeter += smashMeter
     }
 
-    fun win(game: Int) {
+    private fun win(game: Int) {
         this.game += game
     }
 
-    fun addKill(character: Character) {
+    private fun addKill(character: Character) {
         this.kills.add(character)
     }
 
-    fun damaged(smash: Int, nextRank: Int, attaker: Player): Int {
+    fun damaged(smash: Int, nextRank: Int, attacker: Player): Int {
+        if (!isAlive) return nextRank
         this.stock = (this.stock - smash).coerceAtLeast(0)
         if (this.stock <= 0) {
             this.isAlive = false
             this.rank = nextRank
-            Log.d("Kill", "player ${this.character} killed by ${attaker.character}")
-            attaker.addKill(this.character)
+            Log.d("Kill", "player ${this.character} killed by ${attacker.character}")
+            attacker.addKill(this.character)
             return nextRank - 1
         }
         return nextRank
