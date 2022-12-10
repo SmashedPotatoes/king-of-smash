@@ -122,7 +122,7 @@ class DiceFragment(val onSubmit: (dices: List<Dice>) -> Unit) : Fragment() {
             Dice.ONE -> button.text = "1"
             Dice.TWO -> button.text = "2"
             Dice.THREE -> button.text = "3"
-            Dice.SMASH_METER -> button.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.icon_smash_meter, 0, 0)
+            Dice.SMASH_METER -> button.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.icon_smash_meter_dice, 0, 0)
             Dice.SMASH -> button.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.icon_smash, 0, 0)
             Dice.STOCK -> button.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.icon_stock, 0, 0)
         }
