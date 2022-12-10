@@ -1,28 +1,723 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   tools:context=".fragment.GameOverFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.GameOverFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/imageFilterView4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/layout_background_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+    <View
+        android:id="@+id/gameover_view_p1"
+        android:layout_width="120dp"
+        android:layout_height="195dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/layout_card_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/gameover_view_p2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout_editor_absoluteY="0dp" tools:layout_editor_absoluteX="-68dp" android:id="@+id/textView"/>
-    <Button
-            android:text="Main menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/fragment_game_over_btn_main_menu"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="@+id/textView"/>
+        android:id="@+id/gameover_name_p1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="-7dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/poppins_semibold_italic"
+        android:lineSpacingExtra="-12sp"
+        android:text="Roy"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gameover_view_p1"
+        app:layout_constraintEnd_toEndOf="@+id/gameover_view_p1"
+        app:layout_constraintStart_toStartOf="@+id/gameover_view_p1"
+        app:layout_constraintTop_toTopOf="@+id/gameover_view_p1" />
+
+    <ImageView
+        android:id="@+id/gameover_image_p1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/card_image_roy"
+        app:layout_constraintBottom_toBottomOf="@+id/gameover_view_p1"
+        app:layout_constraintEnd_toEndOf="@+id/gameover_view_p1"
+        app:layout_constraintStart_toStartOf="@+id/gameover_view_p1"
+        app:layout_constraintTop_toTopOf="@+id/gameover_view_p1" />
+
+    <View
+        android:id="@+id/gameover_blur_p1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/layout_card_blur"
+        app:layout_constraintBottom_toBottomOf="@+id/gameover_view_p1"
+        app:layout_constraintEnd_toEndOf="@+id/gameover_view_p1"
+        app:layout_constraintStart_toStartOf="@+id/gameover_view_p1"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/ant_design_heart_filled"
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/fa6_solid_skull"
+        app:layout_constraintStart_toStartOf="@+id/gameover_blur_p1"
+        app:layout_constraintTop_toTopOf="@+id/gameover_blur_p1" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/smash"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/ant_design_thunderbolt_filled"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
     <TextView
-            android:text="GAME OVER"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/textView3"
-            app:layout_constraintBottom_toTopOf="@+id/fragment_game_over_btn_main_menu"
-            app:layout_constraintStart_toStartOf="@+id/fragment_game_over_btn_main_menu"
-            app:layout_constraintEnd_toEndOf="@+id/fragment_game_over_btn_main_menu"
-            android:layout_marginBottom="32dp"/>
+        android:id="@+id/gameover_text_sm_p1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="-3dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="10"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintTop_toTopOf="@+id/imageView6"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/gameover_text_life_p1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="10"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+    <TextView
+        android:id="@+id/gameover_text_rank_p1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="-20dp"
+        android:fontFamily="@font/poppins_semibold_italic"
+        android:text="1"
+        android:textColor="#FFC700"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gameover_view_p1"
+        app:layout_constraintEnd_toEndOf="@+id/gameover_blur_p1" />
+
+    <TextView
+        android:id="@+id/gameover_text_game_p1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="-2dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="10"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+        app:layout_constraintStart_toEndOf="@+id/imageView5"
+        app:layout_constraintTop_toTopOf="@+id/imageView5"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/gameover_p1_kill_1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="3dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/gameover_p1_kill_2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/gameover_p1_kill_1"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/gameover_p1_kill_3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/gameover_p1_kill_2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <View
+        android:id="@+id/gameover_view_p2"
+        android:layout_width="120dp"
+        android:layout_height="195dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/layout_card_background"
+        app:layout_constraintEnd_toStartOf="@+id/gameover_view_p3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/gameover_view_p1"
+        app:layout_constraintTop_toTopOf="@+id/gameover_view_p1" />
+
+    <TextView
+        android:id="@+id/gameover_name_p2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="-7dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/poppins_semibold_italic"
+        android:lineSpacingExtra="-12sp"
+        android:text="King DDD"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gameover_view_p1"
+        app:layout_constraintEnd_toEndOf="@+id/gameover_view_p2"
+        app:layout_constraintStart_toStartOf="@+id/gameover_view_p2"
+        app:layout_constraintTop_toTopOf="@+id/gameover_view_p1" />
+
+    <ImageView
+        android:id="@+id/gameover_image_p2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/card_image_kingddd"
+        app:layout_constraintBottom_toBottomOf="@+id/gameover_view_p1"
+        app:layout_constraintEnd_toEndOf="@+id/gameover_view_p2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/gameover_view_p2"
+        app:layout_constraintTop_toTopOf="@+id/gameover_view_p1"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/gameover_blur_p2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/layout_card_blur"
+        app:layout_constraintBottom_toBottomOf="@+id/gameover_view_p1"
+        app:layout_constraintEnd_toEndOf="@+id/gameover_view_p2"
+        app:layout_constraintStart_toStartOf="@+id/gameover_view_p2"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/fa6_solid_skull"
+        app:layout_constraintStart_toStartOf="@+id/gameover_blur_p2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/ant_design_heart_filled"
+        app:layout_constraintStart_toStartOf="@+id/imageView8"
+        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/smash"
+        app:layout_constraintStart_toStartOf="@+id/imageView7"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/ant_design_thunderbolt_filled"
+        app:layout_constraintStart_toStartOf="@+id/imageView9"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+    <TextView
+        android:id="@+id/gameover_text_life_p2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="10"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/gameover_text_sm_p2"
+        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+    <TextView
+        android:id="@+id/gameover_text_game_p2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-2dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="10"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/gameover_text_life_p2"
+        app:layout_constraintTop_toTopOf="@+id/imageView5"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/gameover_text_sm_p2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="-3dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="10"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+        app:layout_constraintStart_toEndOf="@+id/imageView10"
+        app:layout_constraintTop_toTopOf="@+id/imageView6"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/gameover_text_rank_p2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="-20dp"
+        android:fontFamily="@font/poppins_semibold_italic"
+        android:text="2"
+        android:textColor="#CFCACA"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gameover_view_p1"
+        app:layout_constraintEnd_toEndOf="@+id/gameover_blur_p2" />
+
+    <ImageView
+        android:id="@+id/gameover_p2_kill_1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="3dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/imageView8"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/gameover_p2_kill_2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/gameover_p2_kill_1"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/gameover_p2_kill_3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/gameover_p2_kill_2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <View
+        android:id="@+id/gameover_view_p3"
+        android:layout_width="120dp"
+        android:layout_height="195dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/layout_card_background"
+        app:layout_constraintEnd_toStartOf="@+id/gameover_view_p4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/gameover_view_p2"
+        app:layout_constraintTop_toTopOf="@+id/gameover_view_p2" />
+
+    <TextView
+        android:id="@+id/gameover_name_p3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="-7dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/poppins_semibold_italic"
+        android:lineSpacingExtra="-12sp"
+        android:text="Lucas"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gameover_view_p1"
+        app:layout_constraintEnd_toEndOf="@+id/gameover_view_p3"
+        app:layout_constraintStart_toStartOf="@+id/gameover_view_p3"
+        app:layout_constraintTop_toTopOf="@+id/gameover_view_p1" />
+
+    <ImageView
+        android:id="@+id/gameover_image_p3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/card_image_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/gameover_view_p1"
+        app:layout_constraintEnd_toEndOf="@+id/gameover_view_p3"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/gameover_view_p3"
+        app:layout_constraintTop_toTopOf="@+id/gameover_view_p1"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/gameover_blur_p3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/layout_card_blur"
+        app:layout_constraintBottom_toBottomOf="@+id/gameover_view_p1"
+        app:layout_constraintEnd_toEndOf="@+id/gameover_view_p3"
+        app:layout_constraintStart_toStartOf="@+id/gameover_view_p3"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/fa6_solid_skull"
+        app:layout_constraintStart_toStartOf="@+id/gameover_blur_p3"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/ant_design_heart_filled"
+        app:layout_constraintStart_toStartOf="@+id/imageView11"
+        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/smash"
+        app:layout_constraintStart_toStartOf="@+id/imageView12"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/ant_design_thunderbolt_filled"
+        app:layout_constraintStart_toStartOf="@+id/imageView13"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+    <TextView
+        android:id="@+id/gameover_text_life_p3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="10"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintStart_toEndOf="@+id/imageView12"
+        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+    <TextView
+        android:id="@+id/gameover_text_game_p3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-2dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="10"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/gameover_text_life_p3"
+        app:layout_constraintTop_toTopOf="@+id/imageView5"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/gameover_text_sm_p3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-3dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="10"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+        app:layout_constraintStart_toStartOf="@+id/gameover_text_game_p3"
+        app:layout_constraintTop_toTopOf="@+id/imageView6"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/gameover_text_rank_p3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="-20dp"
+        android:fontFamily="@font/poppins_semibold_italic"
+        android:text="3"
+        android:textColor="#E17923"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gameover_view_p1"
+        app:layout_constraintEnd_toEndOf="@+id/gameover_blur_p3" />
+
+    <ImageView
+        android:id="@+id/gameover_p3_kill_1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="3dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/imageView11"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/gameover_p3_kill_2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/gameover_p3_kill_1"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/gameover_p3_kill_3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/gameover_p3_kill_2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <View
+        android:id="@+id/gameover_view_p4"
+        android:layout_width="120dp"
+        android:layout_height="195dp"
+        android:background="@drawable/layout_card_background"
+        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/gameover_view_p3"
+        app:layout_constraintTop_toTopOf="@+id/gameover_view_p3" />
+
+    <TextView
+        android:id="@+id/gameover_name_p4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="-7dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/poppins_semibold_italic"
+        android:lineSpacingExtra="-12sp"
+        android:text="Corrin"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gameover_view_p1"
+        app:layout_constraintEnd_toEndOf="@+id/gameover_view_p4"
+        app:layout_constraintStart_toStartOf="@+id/gameover_view_p4"
+        app:layout_constraintTop_toTopOf="@+id/gameover_view_p1" />
+
+    <ImageView
+        android:id="@+id/gameover_image_p4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/card_image_corrin"
+        app:layout_constraintBottom_toBottomOf="@+id/gameover_view_p1"
+        app:layout_constraintEnd_toEndOf="@+id/gameover_view_p4"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/gameover_view_p4"
+        app:layout_constraintTop_toTopOf="@+id/gameover_view_p1"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/gameover_blur_p4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/layout_card_blur"
+        app:layout_constraintBottom_toBottomOf="@+id/gameover_view_p1"
+        app:layout_constraintEnd_toEndOf="@+id/gameover_view_p4"
+        app:layout_constraintStart_toStartOf="@+id/gameover_view_p4"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <ImageView
+        android:id="@+id/imageView15"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/fa6_solid_skull"
+        app:layout_constraintStart_toStartOf="@+id/gameover_blur_p4"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/imageView16"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/ant_design_heart_filled"
+        app:layout_constraintStart_toStartOf="@+id/imageView15"
+        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/smash"
+        app:layout_constraintStart_toStartOf="@+id/imageView16"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+    <ImageView
+        android:id="@+id/imageView18"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/ant_design_thunderbolt_filled"
+        app:layout_constraintStart_toStartOf="@+id/imageView17"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+    <TextView
+        android:id="@+id/gameover_text_life_p4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="10"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintStart_toEndOf="@+id/imageView16"
+        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+    <TextView
+        android:id="@+id/gameover_text_game_p4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-2dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="10"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/gameover_text_life_p4"
+        app:layout_constraintTop_toTopOf="@+id/imageView5"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/gameover_text_sm_p4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-3dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="10"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+        app:layout_constraintStart_toStartOf="@+id/gameover_text_game_p4"
+        app:layout_constraintTop_toTopOf="@+id/imageView6"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/gameover_text_rank_p4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="-20dp"
+        android:fontFamily="@font/poppins_semibold_italic"
+        android:text="4"
+        android:textColor="#737272"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gameover_view_p1"
+        app:layout_constraintEnd_toEndOf="@+id/gameover_blur_p4" />
+
+    <ImageView
+        android:id="@+id/gameover_p4_kill_1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="3dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/imageView15"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/gameover_p4_kill_2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/gameover_p4_kill_1"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/gameover_p4_kill_3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/icon_lucas"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/gameover_p4_kill_2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="205dp" />
+
+    <View
+        android:id="@+id/gameover_all_screen"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

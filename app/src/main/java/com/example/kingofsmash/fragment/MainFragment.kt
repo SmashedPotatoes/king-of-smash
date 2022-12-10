@@ -41,7 +41,7 @@ class MainFragment : Fragment() {
                     Action.EXECUTE_DICES -> executeDices(currentPlayer)
                     Action.DF_ATTACKED -> dfAttacked(currentPlayer)
                     Action.CHECK_DF -> checkDF(currentPlayer)
-                    Action.CHECK_GAME_OVER -> checkWinner()
+                    Action.CHECK_GAME_OVER -> checkWinner(it.players)
                     Action.EXECUTE_CARDS -> executeCards()
                     Action.WAIT_END_TURN -> waitEndTurn(currentPlayer)
                 }
@@ -112,11 +112,11 @@ class MainFragment : Fragment() {
         viewModel.setCheckGameOver()
     }
 
-    private fun checkWinner() {
+    private fun checkWinner(players: List<Player>) {
         Log.d("MainFragment", "CHECK WINNERU")
         viewModel.getWinner()?.let {
             Log.d("MainFragment", "Winner is ${it.character.character}")
-            findNavController().navigate(R.id.action_fragment_main_to_gameOverFragment)
+            findNavController().navigate(MainFragmentDirections.actionFragmentMainToGameOverFragment(players.toTypedArray()))
         } ?: viewModel.waitEndTurn()
     }
 

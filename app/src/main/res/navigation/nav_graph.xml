@@ -32,5 +32,8 @@
               android:label="fragment_game_over" tools:layout="@layout/fragment_game_over">
         <action android:id="@+id/action_gameOverFragment_to_characterSelectionFragment"
                 app:destination="@id/characterSelectionFragment"/>
+        <argument
+            android:name="players"
+            app:argType="com.example.kingofsmash.models.Player[]" />
     </fragment>
 </navigation>
