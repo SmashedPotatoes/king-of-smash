@@ -465,4 +465,40 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.58" />
 
+    <ImageView
+        android:id="@+id/fragment_main_player_1_crown"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:src="@drawable/crown"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_main_img_player_1_icon"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_main_img_player_1_icon"
+        app:layout_constraintStart_toStartOf="@+id/fragment_main_img_player_1_icon" />
+
+    <ImageView
+        android:id="@+id/fragment_main_player_2_crown"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:src="@drawable/crown"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_main_img_player_2_icon"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_main_img_player_2_icon"
+        app:layout_constraintStart_toStartOf="@+id/fragment_main_img_player_2_icon" />
+
+    <ImageView
+        android:id="@+id/fragment_main_player_3_crown"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:src="@drawable/crown"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_main_img_player_3_icon"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_main_img_player_3_icon"
+        app:layout_constraintStart_toStartOf="@+id/fragment_main_img_player_3_icon" />
+
+    <ImageView
+        android:id="@+id/fragment_main_player_4_crown"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:src="@drawable/crown"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_main_img_player_4_icon"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_main_img_player_4_icon"
+        app:layout_constraintStart_toStartOf="@+id/fragment_main_img_player_4_icon" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.kingofsmash.fragment
 
+import android.graphics.Paint
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
@@ -55,6 +56,7 @@ class MainFragment : Fragment() {
                     playerCard.stock.text = player.stock.toString()
                     if (player.stock == 0) {
                         playerCard.background.setColor(resources.getColor(R.color.red_transparent))
+                        playerCard.name.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG)
                     }
                     playerCard.smashMeter.text = player.smashMeter.toString()
 
@@ -68,6 +70,7 @@ class MainFragment : Fragment() {
                 } else {
                     binding.fragmentMainImgPlayerDf.visibility = View.VISIBLE
                     binding.fragmentMainImgPlayerDf.setImageResource(it.playerInDF!!.character.df)
+                    setCrown(it.playerInDF!!)
                 }
             }
         }
@@ -154,16 +157,23 @@ class MainFragment : Fragment() {
         fragmentTransaction.commit()
     }
 
+    private fun setCrown(playerInDf: Player) {
+        for (card in this.playerCards) {
+            card.crown.visibility = if (card.name.text == playerInDf.character.character) View.VISIBLE else View.INVISIBLE
+        }
+    }
+
     private fun initPlayerCards() {
         val players = viewModel.getPlayers()
         for (card in this.playerCards) {
             val player = players[card.id]
-            card.name.text = player.character.name
+            card.name.text = player.character.character
             card.icon.setImageResource(player.character.icon)
             card.stock.text = player.stock.toString()
             card.smashMeter.text = player.smashMeter.toString()
             card.game.text = player.game.toString()
             card.background.setColor(resources.getColor(if (player.type == PlayerType.BOT) R.color.grey_transparent else R.color.green_transparent))
+            card.crown.visibility = View.INVISIBLE
         }
     }
 
@@ -175,7 +185,8 @@ class MainFragment : Fragment() {
             stock = binding.fragmentMainTxtPlayer1Stock,
             smashMeter = binding.fragmentMainTxtPlayer1SmashMeter,
             game = binding.fragmentMainTxtPlayer1Game,
-            background = binding.fragmentMainViewPlayer1Card.background as GradientDrawable
+            background = binding.fragmentMainViewPlayer1Card.background as GradientDrawable,
+            crown = binding.fragmentMainPlayer1Crown
         ),
         PlayerCard(
             id = 1,
@@ -184,7 +195,8 @@ class MainFragment : Fragment() {
             stock = binding.fragmentMainTxtPlayer2Stock,
             smashMeter = binding.fragmentMainTxtPlayer2SmashMeter,
             game = binding.fragmentMainTxtPlayer2Game,
-            background = binding.fragmentMainViewPlayer2Card.background as GradientDrawable
+            background = binding.fragmentMainViewPlayer2Card.background as GradientDrawable,
+            crown = binding.fragmentMainPlayer2Crown
         ),
         PlayerCard(
             id = 2,
@@ -193,7 +205,8 @@ class MainFragment : Fragment() {
             stock = binding.fragmentMainTxtPlayer3Stock,
             smashMeter = binding.fragmentMainTxtPlayer3SmashMeter,
             game = binding.fragmentMainTxtPlayer3Game,
-            background = binding.fragmentMainViewPlayer3Card.background as GradientDrawable
+            background = binding.fragmentMainViewPlayer3Card.background as GradientDrawable,
+            crown = binding.fragmentMainPlayer3Crown
         ),
         PlayerCard(
             id = 3,
@@ -202,7 +215,8 @@ class MainFragment : Fragment() {
             stock = binding.fragmentMainTxtPlayer4Stock,
             smashMeter = binding.fragmentMainTxtPlayer4SmashMeter,
             game = binding.fragmentMainTxtPlayer4Game,
-            background = binding.fragmentMainViewPlayer4Card.background as GradientDrawable
+            background = binding.fragmentMainViewPlayer4Card.background as GradientDrawable,
+            crown = binding.fragmentMainPlayer4Crown
         ),
     )
 }

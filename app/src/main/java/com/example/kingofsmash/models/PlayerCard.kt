@@ -11,6 +11,7 @@ data class PlayerCard(
     val stock: TextView,
     val smashMeter: TextView,
     val game: TextView,
-    val background: GradientDrawable
+    val background: GradientDrawable,
+    val crown: ImageView
 ) {
 }
