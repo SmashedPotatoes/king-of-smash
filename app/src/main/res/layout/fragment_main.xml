@@ -497,7 +497,6 @@
         app:layout_constraintBottom_toTopOf="@+id/fragment_main_img_player_3_icon"
         app:layout_constraintEnd_toEndOf="@+id/fragment_main_img_player_3_icon"
         app:layout_constraintStart_toStartOf="@+id/fragment_main_img_player_3_icon" />
-
     <ImageView
         android:id="@+id/fragment_main_player_4_crown"
         android:layout_width="30dp"

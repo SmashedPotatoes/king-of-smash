@@ -131,7 +131,10 @@ class MainFragment : Fragment() {
         Log.d("MainFragment", "CHECK WINNERU")
         viewModel.getWinner()?.let {
             Log.d("MainFragment", "Winner is ${it.character.character}")
-            findNavController().navigate(MainFragmentDirections.actionFragmentMainToGameOverFragment(players.toTypedArray()))
+            val fragment = GameFragment(onClick = {
+                findNavController().navigate(MainFragmentDirections.actionFragmentMainToGameOverFragment(players.toTypedArray()))
+            })
+            openFragment(fragment)
         } ?: viewModel.waitEndTurn()
     }
 

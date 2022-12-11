@@ -5,8 +5,18 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent">
 
+    <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" app:srcCompat="@drawable/you_are_attacked"
+            android:id="@+id/fragment_df_attacked_img"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
     <Button
-            android:text="Stay"
+            android:backgroundTint="#D63DBF89"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/stay"
+            android:textAlignment="center"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/fragment_df_attacked_btn_stay"
             app:layout_constraintStart_toEndOf="@+id/fragment_df_attacked_btn_leave"
@@ -14,10 +24,14 @@
             app:layout_constraintTop_toTopOf="@+id/fragment_df_attacked_btn_leave"
             app:layout_constraintBottom_toBottomOf="@+id/fragment_df_attacked_btn_leave"/>
     <Button
-            android:text="Leave"
+            android:backgroundTint="#D63DBF89"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/leave"
+            android:textAlignment="center"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/fragment_df_attacked_btn_leave"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toStartOf="@+id/fragment_df_attacked_btn_stay"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="32dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

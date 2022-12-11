@@ -7,7 +7,6 @@
                                                    tools:context=".fragment.DiceFragment"
                                                    android:id="@+id/fragment_dice_layout">
 
-    <!-- TODO: Update blank fragment layout -->
     <ImageView
             android:src="@drawable/throw_the_dice"
             android:layout_width="fill_parent"
@@ -41,21 +40,30 @@
             android:textSize="22sp"
     />
     <Button
-            android:text="Reroll"
+            android:backgroundTint="#D63DBF89"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/reroll"
+            android:textAlignment="center"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/fragment_dice_btn_reroll"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toStartOf="@+id/fragment_dice_btn_submit"
             app:layout_constraintTop_toBottomOf="@+id/fragment_dice_btn_dice_1" android:layout_marginTop="64dp"
-            android:visibility="invisible"/>
+            android:visibility="invisible" tools:visibility="visible"/>
     <Button
-            android:text="Submit"
+            android:backgroundTint="#D63DBF89"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/submit"
+            android:textAlignment="center"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/fragment_dice_btn_submit"
             app:layout_constraintStart_toEndOf="@+id/fragment_dice_btn_reroll"
             app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/fragment_dice_btn_reroll"
-            app:layout_constraintBottom_toBottomOf="@+id/fragment_dice_btn_reroll" android:visibility="invisible"/>
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_dice_btn_reroll" android:visibility="invisible"
+            tools:visibility="visible"/>
     <Button
             android:text="1"
             android:layout_width="64dp"
