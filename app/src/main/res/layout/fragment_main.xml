@@ -16,7 +16,7 @@
         android:src="@drawable/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
@@ -129,12 +129,12 @@
         android:id="@+id/fragment_main_view_player_2_card"
         android:layout_width="136dp"
         android:layout_height="76dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/layout_bg"
-        app:layout_constraintBottom_toBottomOf="@+id/fragment_main_view_player_1_card"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/fragment_main_view_player_3_card"
         app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@+id/fragment_main_view_player_1_card"
-        app:layout_constraintTop_toTopOf="@+id/fragment_main_view_player_1_card" />
+        app:layout_constraintStart_toEndOf="@+id/fragment_main_view_player_1_card" />
 
     <ImageView
         android:id="@+id/fragment_main_img_player_2_icon"
@@ -233,12 +233,12 @@
         android:id="@+id/fragment_main_view_player_3_card"
         android:layout_width="136dp"
         android:layout_height="76dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/layout_bg"
-        app:layout_constraintBottom_toBottomOf="@+id/fragment_main_view_player_1_card"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/fragment_main_view_player_4_card"
         app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@+id/fragment_main_view_player_2_card"
-        app:layout_constraintTop_toTopOf="@+id/fragment_main_view_player_1_card" />
+        app:layout_constraintStart_toEndOf="@+id/fragment_main_view_player_2_card" />
 
     <ImageView
         android:id="@+id/fragment_main_img_player_3_icon"
@@ -337,12 +337,12 @@
         android:id="@+id/fragment_main_view_player_4_card"
         android:layout_width="136dp"
         android:layout_height="76dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/layout_bg"
-        app:layout_constraintBottom_toBottomOf="@+id/fragment_main_view_player_1_card"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/fragment_main_img_background"
         app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@+id/fragment_main_view_player_3_card"
-        app:layout_constraintTop_toTopOf="@+id/fragment_main_view_player_1_card" />
+        app:layout_constraintStart_toEndOf="@+id/fragment_main_view_player_3_card" />
 
     <ImageView
         android:id="@+id/fragment_main_img_player_4_icon"
@@ -454,12 +454,12 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:src="@drawable/df_roy"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_main_guideline_df"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/fragment_main_img_background" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
+        android:id="@+id/fragment_main_guideline_df"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
@@ -40,6 +41,7 @@ class MainFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.stateFlow.collect {
                 val currentPlayer = viewModel.getCurrentPlayer()
+
                 when (it.currentAction) {
                     Action.THROW_DICES -> throwDices(currentPlayer)
                     Action.EXECUTE_DICES -> executeDices(currentPlayer)
@@ -83,6 +85,7 @@ class MainFragment : Fragment() {
             Log.d("MainFragment", "${currentPlayer.character} is dead, end turn")
             return viewModel.endTurn()
         }
+        setPlayerCardUp(currentPlayer)
         Log.d("MainFragment", "${currentPlayer.character} THROW DICESU")
         if (currentPlayer.type == PlayerType.PLAYER) {
             val fragment = DiceFragment(onSubmit = { dices ->
@@ -163,6 +166,14 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun setPlayerCardUp(currentPlayer: Player) {
+        for (card in this.playerCards) {
+            val params = card.view.layoutParams as ConstraintLayout.LayoutParams
+            params.topToBottom = if (card.name.text == currentPlayer.character.character) binding.fragmentMainGuidelineDf.id else -1
+            card.view.layoutParams = params
+        }
+    }
+
     private fun initPlayerCards() {
         val players = viewModel.getPlayers()
         for (card in this.playerCards) {
@@ -186,7 +197,8 @@ class MainFragment : Fragment() {
             smashMeter = binding.fragmentMainTxtPlayer1SmashMeter,
             game = binding.fragmentMainTxtPlayer1Game,
             background = binding.fragmentMainViewPlayer1Card.background as GradientDrawable,
-            crown = binding.fragmentMainPlayer1Crown
+            crown = binding.fragmentMainPlayer1Crown,
+            view = binding.fragmentMainViewPlayer1Card
         ),
         PlayerCard(
             id = 1,
@@ -196,7 +208,8 @@ class MainFragment : Fragment() {
             smashMeter = binding.fragmentMainTxtPlayer2SmashMeter,
             game = binding.fragmentMainTxtPlayer2Game,
             background = binding.fragmentMainViewPlayer2Card.background as GradientDrawable,
-            crown = binding.fragmentMainPlayer2Crown
+            crown = binding.fragmentMainPlayer2Crown,
+            view = binding.fragmentMainViewPlayer2Card
         ),
         PlayerCard(
             id = 2,
@@ -206,7 +219,8 @@ class MainFragment : Fragment() {
             smashMeter = binding.fragmentMainTxtPlayer3SmashMeter,
             game = binding.fragmentMainTxtPlayer3Game,
             background = binding.fragmentMainViewPlayer3Card.background as GradientDrawable,
-            crown = binding.fragmentMainPlayer3Crown
+            crown = binding.fragmentMainPlayer3Crown,
+            view = binding.fragmentMainViewPlayer3Card
         ),
         PlayerCard(
             id = 3,
@@ -216,7 +230,8 @@ class MainFragment : Fragment() {
             smashMeter = binding.fragmentMainTxtPlayer4SmashMeter,
             game = binding.fragmentMainTxtPlayer4Game,
             background = binding.fragmentMainViewPlayer4Card.background as GradientDrawable,
-            crown = binding.fragmentMainPlayer4Crown
+            crown = binding.fragmentMainPlayer4Crown,
+            view = binding.fragmentMainViewPlayer4Card
         ),
     )
 }

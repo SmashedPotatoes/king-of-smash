@@ -1,6 +1,7 @@
 package com.example.kingofsmash.models
 
 import android.graphics.drawable.GradientDrawable
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 
@@ -12,6 +13,7 @@ data class PlayerCard(
     val smashMeter: TextView,
     val game: TextView,
     val background: GradientDrawable,
-    val crown: ImageView
+    val crown: ImageView,
+    val view: View
 ) {
 }
