@@ -56,7 +56,7 @@ class MainFragment : Fragment() {
                     playerCard.stock.text = player.stock.toString()
                     if (player.stock == 0) {
                         playerCard.background.setColor(resources.getColor(R.color.red_transparent))
-                        playerCard.name.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG)
+                        playerCard.name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                     }
                     playerCard.smashMeter.text = player.smashMeter.toString()
 
