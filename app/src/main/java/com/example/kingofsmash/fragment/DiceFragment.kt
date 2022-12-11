@@ -14,6 +14,7 @@ import com.example.kingofsmash.R
 import com.example.kingofsmash.databinding.FragmentDiceBinding
 import com.example.kingofsmash.enums.Dice
 import com.example.kingofsmash.viewmodels.DicesViewModel
+import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
 
 /**
@@ -64,8 +65,12 @@ class DiceFragment(val onSubmit: (dices: List<Dice>) -> Unit) : Fragment() {
                     displayButtonDice(fragmentDiceBtns[i], it.dices[i].dice)
                     if (it.dices[i].shouldKeep) {
                         fragmentDiceBtnLocks[i].visibility = View.VISIBLE
+                        val material = fragmentDiceBtns[i] as MaterialButton
+                        material.strokeWidth = 10
                     } else {
                         fragmentDiceBtnLocks[i].visibility = View.INVISIBLE
+                        val material = fragmentDiceBtns[i] as MaterialButton
+                        material.strokeWidth = 0
                     }
                 }
                 binding.fragmentDiceBtnReroll.isEnabled = it.roll > 0
@@ -108,10 +113,19 @@ class DiceFragment(val onSubmit: (dices: List<Dice>) -> Unit) : Fragment() {
     private fun setDicesVisibility(diceVisible: Boolean) {
         val diceVisibility = if (diceVisible) View.VISIBLE else View.INVISIBLE
         binding.fragmentDiceImgThrowDice.visibility = if (diceVisible) View.INVISIBLE else View.VISIBLE
-        fragmentDiceBtns.forEach { it.visibility = diceVisibility }
+        fragmentDiceBtns.forEach {
+            it.visibility = diceVisibility
+            val material = it as MaterialButton
+            material.setStrokeColorResource(R.color.green_transparent)
+        }
         binding.fragmentDiceBtnReroll.visibility = diceVisibility
         binding.fragmentDiceBtnSubmit.visibility = diceVisibility
         binding.fragmentDiceTxtTitle.visibility = diceVisibility
+    }
+
+    private fun dp2px(dp: Int): Int {
+        val scale = resources.displayMetrics.density
+        return (dp * scale + 0.5f).toInt()
     }
 
     private fun displayButtonDice(button: Button, dice: Dice) {
@@ -119,12 +133,17 @@ class DiceFragment(val onSubmit: (dices: List<Dice>) -> Unit) : Fragment() {
         button.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
 
         when (dice) {
+            Dice.ONE, Dice.TWO, Dice.THREE -> button.setPadding(button.paddingLeft, dp2px(6), button.paddingRight, dp2px(8))
+            else -> button.setPadding(button.paddingLeft, dp2px(12), button.paddingRight, dp2px(10))
+        }
+
+        when (dice) {
             Dice.ONE -> button.text = "1"
             Dice.TWO -> button.text = "2"
             Dice.THREE -> button.text = "3"
             Dice.SMASH_METER -> button.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.icon_smash_meter_dice, 0, 0)
             Dice.SMASH -> button.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.icon_smash, 0, 0)
-            Dice.STOCK -> button.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.icon_stock, 0, 0)
+            Dice.STOCK -> button.setCompoundDrawablesRelativeWithIntrinsicBounds(0,R.drawable.icon_stock,0,0)
         }
     }
 }
