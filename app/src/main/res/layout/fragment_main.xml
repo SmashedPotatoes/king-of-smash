@@ -506,4 +506,116 @@
         app:layout_constraintEnd_toEndOf="@+id/fragment_main_img_player_4_icon"
         app:layout_constraintStart_toStartOf="@+id/fragment_main_img_player_4_icon" />
 
+    <TextView
+        android:id="@+id/fragment_main_dice_action_text_p1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="-20dp"
+        android:fontFamily="@font/poppins_bold"
+        android:shadowColor="#FFFFFF"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="1"
+        android:text="-1"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_main_view_player_1_card"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_main_dice_action_icon_p1" />
+
+    <ImageView
+        android:id="@+id/fragment_main_dice_action_icon_p1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="-5dp"
+        android:src="@drawable/ant_design_heart_filled"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_main_dice_action_text_p1"
+        app:layout_constraintStart_toEndOf="@+id/fragment_main_view_player_1_card"
+        app:layout_constraintTop_toTopOf="@+id/fragment_main_dice_action_text_p1" />
+
+    <TextView
+        android:id="@+id/fragment_main_dice_action_text_p2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="-20dp"
+        android:fontFamily="@font/poppins_bold"
+        android:shadowColor="#FFFFFF"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="1"
+        android:text="-1"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_main_view_player_2_card"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_main_dice_action_icon_p2" />
+
+    <ImageView
+        android:id="@+id/fragment_main_dice_action_icon_p2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="-5dp"
+        android:src="@drawable/ant_design_heart_filled"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_main_dice_action_text_p2"
+        app:layout_constraintStart_toEndOf="@+id/fragment_main_view_player_2_card"
+        app:layout_constraintTop_toTopOf="@+id/fragment_main_dice_action_text_p2" />
+
+    <TextView
+        android:id="@+id/fragment_main_dice_action_text_p3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="-20dp"
+        android:fontFamily="@font/poppins_bold"
+        android:shadowColor="#FFFFFF"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="1"
+        android:text="-1"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_main_view_player_3_card"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_main_dice_action_icon_p3" />
+
+    <ImageView
+        android:id="@+id/fragment_main_dice_action_icon_p3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="-5dp"
+        android:src="@drawable/ant_design_heart_filled"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_main_dice_action_text_p3"
+        app:layout_constraintStart_toEndOf="@+id/fragment_main_view_player_3_card"
+        app:layout_constraintTop_toTopOf="@+id/fragment_main_dice_action_text_p3" />
+
+    <TextView
+        android:id="@+id/fragment_main_dice_action_text_p4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="-20dp"
+        android:fontFamily="@font/poppins_bold"
+        android:shadowColor="#FFFFFF"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="1"
+        android:text="-1"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_main_view_player_4_card"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_main_dice_action_icon_p4" />
+
+    <ImageView
+        android:id="@+id/fragment_main_dice_action_icon_p4"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="-5dp"
+        android:src="@drawable/ant_design_heart_filled"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_main_dice_action_text_p4"
+        app:layout_constraintStart_toEndOf="@+id/fragment_main_view_player_4_card"
+        app:layout_constraintTop_toTopOf="@+id/fragment_main_dice_action_text_p4" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,7 +16,8 @@ data class Player(
     var game: Int = 0,
     var isAlive: Boolean = true,
     var rank: Int = 0,
-    var kills: MutableList<Character> = mutableListOf()
+    var kills: MutableList<Character> = mutableListOf(),
+    var maxStock: Int = 10
 ) : Parcelable {
     private fun heal(stock: Int) {
         this.stock = min(this.stock + stock, MAX_STOCK)

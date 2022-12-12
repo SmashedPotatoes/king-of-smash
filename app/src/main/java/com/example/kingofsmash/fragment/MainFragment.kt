@@ -1,12 +1,14 @@
 package com.example.kingofsmash.fragment
 
 import android.graphics.Paint
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -17,10 +19,13 @@ import com.example.kingofsmash.R
 import com.example.kingofsmash.databinding.FragmentMainBinding
 import com.example.kingofsmash.enums.Action
 import com.example.kingofsmash.enums.Dice
+import com.example.kingofsmash.enums.PlayerCardAnimType
 import com.example.kingofsmash.enums.PlayerType
+import com.example.kingofsmash.models.EffectAnimations
 import com.example.kingofsmash.models.Player
 import com.example.kingofsmash.models.PlayerCard
 import com.example.kingofsmash.viewmodels.KingOfSmashViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
@@ -55,12 +60,15 @@ class MainFragment : Fragment() {
                 playerCards.forEach { playerCard ->
                     val player = it.players[playerCard.id]
                     playerCard.game.text = player.game.toString()
+                    playerCard.game.setTextColor(resources.getColor(R.color.white))
                     playerCard.stock.text = player.stock.toString()
+                    playerCard.stock.setTextColor(resources.getColor(R.color.white))
                     if (player.stock == 0) {
                         playerCard.background.setColor(resources.getColor(R.color.red_transparent))
                         playerCard.name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                     }
                     playerCard.smashMeter.text = player.smashMeter.toString()
+                    playerCard.smashMeter.setTextColor(resources.getColor(R.color.white))
 
                     // TODO: this is done every time,
                     playerCard.icon.setImageResource(player.character.icon)
@@ -98,9 +106,79 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun executeDices(currentPlayer: Player) {
+    private suspend fun animateCardChange(player: Player, variations: List<Int>, variation: Int, type: PlayerCardAnimType) {
+        val playerCard = getPlayerCard(player)
+        val color = if (variation > 0) R.color.animation_positive else R.color.animation_negative
+        val symbol = if (variation > 0) '+' else ' '
+        var textView: TextView
+        var icon: Int = 0
+
+        when (type) {
+            PlayerCardAnimType.STOCK -> {
+                textView = playerCard.stock
+                icon = R.drawable.ant_design_heart_filled
+            }
+            PlayerCardAnimType.SMASHMETER -> {
+                textView = playerCard.smashMeter
+                icon = R.drawable.ant_design_thunderbolt_filled
+            }
+            PlayerCardAnimType.GAME -> {
+                textView = playerCard.game
+                icon = R.drawable.smash
+            }
+            PlayerCardAnimType.SMASH -> {
+                textView = playerCard.stock
+                icon = R.drawable.ant_design_heart_filled
+            }
+        }
+        playerCard.actionText.setTextColor(resources.getColor(color))
+        playerCard.actionText.text = symbol + variation.toString()
+        playerCard.actionText.visibility = View.VISIBLE
+        playerCard.actionIcon.setImageResource(icon)
+        playerCard.actionIcon.visibility = View.VISIBLE
+
+        textView.setTextColor(resources.getColor(color))
+        for (value in variations) {
+            textView.text = value.toString()
+            delay(500)
+        }
+
+        playerCard.actionIcon.visibility = View.INVISIBLE
+        playerCard.actionText.visibility = View.INVISIBLE
+    }
+
+    private suspend fun animateEffects(effects: EffectAnimations) {
+        // TODO: Show dice
+
+        // animate stock
+        effects.stockAnim.forEach() { (player, variations, variation) ->
+            animateCardChange(player, variations, variation, PlayerCardAnimType.STOCK)
+        }
+
+        // animate smash meter
+        effects.smashMeterAnim.forEach() { (player, variations, variation) ->
+            animateCardChange(player, variations, variation, PlayerCardAnimType.SMASHMETER)
+        }
+
+        // animate game
+        effects.gameAnim.forEach() { (player, variations, variation) ->
+            animateCardChange(player, variations, variation, PlayerCardAnimType.GAME)
+        }
+
+        // animate smash
+        effects.smashAnim.forEach() { (player, variations, variation) ->
+            animateCardChange(player, variations, variation, PlayerCardAnimType.SMASH)
+        }
+
+        // TODO: Hide dice
+    }
+
+    private suspend fun executeDices(currentPlayer: Player) {
         Log.d("MainFragment", "${currentPlayer.character} EXECUTE DICESU")
-        // TODO: DISPLAY DICES AND EXECUTE
+        val diceAnimations = viewModel.computeDiceAnimations()
+        if (currentPlayer.type != PlayerType.PLAYER)
+            delay(1000)
+        animateEffects(diceAnimations)
         val isPlayerAttackedAndInDF = viewModel.executeDices()
         if (isPlayerAttackedAndInDF) {
             viewModel.setDFAttacked()
@@ -188,7 +266,17 @@ class MainFragment : Fragment() {
             card.game.text = player.game.toString()
             card.background.setColor(resources.getColor(if (player.type == PlayerType.BOT) R.color.grey_transparent else R.color.green_transparent))
             card.crown.visibility = View.INVISIBLE
+            card.actionText.visibility = View.INVISIBLE
+            card.actionIcon.visibility = View.INVISIBLE
         }
+    }
+
+    private fun getPlayerCard(player: Player) : PlayerCard {
+        for (card in playerCards) {
+            if (card.name.text == player.character.character)
+                return card
+        }
+        return playerCards[0]
     }
 
     private fun getPlayerCards() = listOf(
@@ -201,7 +289,9 @@ class MainFragment : Fragment() {
             game = binding.fragmentMainTxtPlayer1Game,
             background = binding.fragmentMainViewPlayer1Card.background as GradientDrawable,
             crown = binding.fragmentMainPlayer1Crown,
-            view = binding.fragmentMainViewPlayer1Card
+            view = binding.fragmentMainViewPlayer1Card,
+            actionText = binding.fragmentMainDiceActionTextP1,
+            actionIcon = binding.fragmentMainDiceActionIconP1
         ),
         PlayerCard(
             id = 1,
@@ -212,7 +302,9 @@ class MainFragment : Fragment() {
             game = binding.fragmentMainTxtPlayer2Game,
             background = binding.fragmentMainViewPlayer2Card.background as GradientDrawable,
             crown = binding.fragmentMainPlayer2Crown,
-            view = binding.fragmentMainViewPlayer2Card
+            view = binding.fragmentMainViewPlayer2Card,
+            actionText = binding.fragmentMainDiceActionTextP2,
+            actionIcon = binding.fragmentMainDiceActionIconP2
         ),
         PlayerCard(
             id = 2,
@@ -223,7 +315,9 @@ class MainFragment : Fragment() {
             game = binding.fragmentMainTxtPlayer3Game,
             background = binding.fragmentMainViewPlayer3Card.background as GradientDrawable,
             crown = binding.fragmentMainPlayer3Crown,
-            view = binding.fragmentMainViewPlayer3Card
+            view = binding.fragmentMainViewPlayer3Card,
+            actionText = binding.fragmentMainDiceActionTextP3,
+            actionIcon = binding.fragmentMainDiceActionIconP3
         ),
         PlayerCard(
             id = 3,
@@ -234,7 +328,9 @@ class MainFragment : Fragment() {
             game = binding.fragmentMainTxtPlayer4Game,
             background = binding.fragmentMainViewPlayer4Card.background as GradientDrawable,
             crown = binding.fragmentMainPlayer4Crown,
-            view = binding.fragmentMainViewPlayer4Card
+            view = binding.fragmentMainViewPlayer4Card,
+            actionText = binding.fragmentMainDiceActionTextP4,
+            actionIcon = binding.fragmentMainDiceActionIconP4
         ),
     )
 }

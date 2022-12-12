@@ -6,6 +6,8 @@ import com.example.kingofsmash.enums.Action
 import com.example.kingofsmash.enums.Character
 import com.example.kingofsmash.enums.Dice
 import com.example.kingofsmash.enums.PlayerType
+import com.example.kingofsmash.models.EffectAnim
+import com.example.kingofsmash.models.EffectAnimations
 import com.example.kingofsmash.models.KingOfSmash
 import com.example.kingofsmash.models.Player
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,6 +29,54 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
         )
     }
 
+    fun computeDiceAnimations(): EffectAnimations {
+        var ones = 0
+        var twos = 0
+        var threes = 0
+        var smash = 0
+        var smashMeter = 0
+        var stock = 0
+        state.value.dices.forEach { dice ->
+            when (dice) {
+                Dice.ONE -> ones++
+                Dice.TWO -> twos++
+                Dice.THREE -> threes++
+                Dice.SMASH -> smash++
+                Dice.SMASH_METER -> smashMeter++
+                Dice.STOCK -> stock++
+            }
+        }
+        val game = (if (ones > 2) ones - 2 else 0) + (if (twos > 2) twos - 1 else 0) + (if (threes > 2) threes else 0)
+        val currentPlayer = getCurrentPlayer()
+        val playerInDF = state.value.playerInDF
+
+        val stockAnim = mutableListOf<EffectAnim>()
+        var stockAnimUpperBound = (currentPlayer.stock + stock).coerceAtMost(currentPlayer.maxStock)
+        if (stock > 0 && stockAnimUpperBound > currentPlayer.stock)
+            stockAnim.add(EffectAnim(currentPlayer, (currentPlayer.stock + 1..stockAnimUpperBound).toList(), stock))
+        val smashMeterAnim = mutableListOf<EffectAnim>()
+        if (smashMeter > 0)
+            smashMeterAnim.add(EffectAnim(currentPlayer, (currentPlayer.smashMeter + 1..currentPlayer.smashMeter + smashMeter).toList(), smashMeter))
+        val gameAnim = mutableListOf<EffectAnim>()
+        if (game > 0)
+            gameAnim.add(EffectAnim(currentPlayer, (currentPlayer.game + 1..currentPlayer.game + game).toList(), game))
+
+        val smashAnim = mutableListOf<EffectAnim>()
+        if (smash > 0 && playerInDF != null) {
+            if (currentPlayer == playerInDF) {
+                for (player in state.value.players) {
+                    if (player != currentPlayer && player.isAlive) {
+                        smashAnim.add(EffectAnim(player, (player.stock - 1 downTo  (player.stock - smash).coerceAtLeast(0)).toList(), -smash))
+                    }
+                }
+            } else {
+                smashAnim.add(EffectAnim(playerInDF!!, (playerInDF.stock - 1 downTo  (playerInDF.stock - smash).coerceAtLeast(0)).toList(), -smash))
+            }
+        }
+
+        return EffectAnimations(stockAnim, smashMeterAnim, gameAnim, smashAnim)
+    }
+
     fun executeDices(): Boolean {
         var ones = 0
         var twos = 0
@@ -46,6 +96,10 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
         }
 
         val game = (if (ones > 2) ones - 2 else 0) + (if (twos > 2) twos - 1 else 0) + (if (threes > 2) threes else 0)
+
+        // init animation
+
+        // play animation
 
         var isPlayerAttackedAndInDF = false
         val currentPlayer = getCurrentPlayer()
