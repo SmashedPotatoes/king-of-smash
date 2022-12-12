@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   tools:context=".fragment.DiceFragment"
-                                                   android:id="@+id/fragment_dice_layout">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_dice_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.DiceFragment">
 
     <ImageView
-            android:src="@drawable/throw_the_dice"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" android:id="@+id/fragment_dice_img_throw_dice"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+        android:id="@+id/fragment_dice_img_throw_dice"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/throw_the_dice"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/fragment_dice_btn_dice_4"
@@ -69,6 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="86dp"
         android:backgroundTint="@color/green_transparent"
         android:fontFamily="@font/poppins_semibold_italic"
         android:paddingLeft="16dp"
@@ -81,6 +85,7 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/fragment_dice_btn_submit"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_dice_btn_dice_1"
         tools:visibility="visible" />

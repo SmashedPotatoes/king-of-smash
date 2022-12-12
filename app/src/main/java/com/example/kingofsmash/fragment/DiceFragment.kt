@@ -73,6 +73,9 @@ class DiceFragment(val onSubmit: (dices: List<Dice>) -> Unit) : Fragment() {
                         material.strokeWidth = 0
                     }
                 }
+                if (it.roll == 0) {
+                    binding.fragmentDiceBtnReroll.setBackgroundColor(resources.getColor(R.color.grey_transparent))
+                }
                 binding.fragmentDiceBtnReroll.isEnabled = it.roll > 0
                 binding.fragmentDiceBtnReroll.text = "Reroll (${it.roll})"
             }
