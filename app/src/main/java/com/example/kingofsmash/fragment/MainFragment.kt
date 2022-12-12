@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -24,6 +25,7 @@ import com.example.kingofsmash.enums.PlayerType
 import com.example.kingofsmash.models.EffectAnimations
 import com.example.kingofsmash.models.Player
 import com.example.kingofsmash.models.PlayerCard
+import com.example.kingofsmash.utils.initDieButton
 import com.example.kingofsmash.viewmodels.KingOfSmashViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -34,6 +36,7 @@ class MainFragment : Fragment() {
     private lateinit var viewModel: KingOfSmashViewModel
     private val args: MainFragmentArgs by navArgs()
     private lateinit var playerCards: List<PlayerCard>
+    private lateinit var dice: List<Button>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -42,6 +45,7 @@ class MainFragment : Fragment() {
 
         playerCards = getPlayerCards()
         initPlayerCards()
+        dice = getDice()
 
         lifecycleScope.launch {
             viewModel.stateFlow.collect {
@@ -147,8 +151,29 @@ class MainFragment : Fragment() {
         playerCard.actionText.visibility = View.INVISIBLE
     }
 
+    // TODO: Move to another file}
+
+    private fun showDice(playedDice: List<Dice>) {
+        // init dice
+        for (i in dice.indices) {
+            initDieButton(dice[i], playedDice[i])
+        }
+
+        // show dice
+        for (die in dice) {
+            die.visibility = View.VISIBLE
+        }
+    }
+
+    private fun hideDice() {
+        for (die in dice) {
+            die.visibility = View.INVISIBLE
+        }
+    }
+
     private suspend fun animateEffects(effects: EffectAnimations) {
-        // TODO: Show dice
+        showDice(effects.dice)
+        delay(1500)
 
         // animate stock
         effects.stockAnim.forEach() { (player, variations, variation) ->
@@ -170,7 +195,7 @@ class MainFragment : Fragment() {
             animateCardChange(player, variations, variation, PlayerCardAnimType.SMASH)
         }
 
-        // TODO: Hide dice
+        hideDice()
     }
 
     private suspend fun executeDices(currentPlayer: Player) {
@@ -278,6 +303,15 @@ class MainFragment : Fragment() {
         }
         return playerCards[0]
     }
+
+    private fun getDice() = listOf(
+        binding.fragmentMainDice1,
+        binding.fragmentMainDice2,
+        binding.fragmentMainDice3,
+        binding.fragmentMainDice4,
+        binding.fragmentMainDice5,
+        binding.fragmentMainDice6
+    )
 
     private fun getPlayerCards() = listOf(
         PlayerCard(

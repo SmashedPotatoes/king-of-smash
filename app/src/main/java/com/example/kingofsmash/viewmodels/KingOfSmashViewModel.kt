@@ -70,11 +70,11 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
                     }
                 }
             } else {
-                smashAnim.add(EffectAnim(playerInDF!!, (playerInDF.stock - 1 downTo  (playerInDF.stock - smash).coerceAtLeast(0)).toList(), -smash))
+                smashAnim.add(EffectAnim(playerInDF, (playerInDF.stock - 1 downTo  (playerInDF.stock - smash).coerceAtLeast(0)).toList(), -smash))
             }
         }
 
-        return EffectAnimations(stockAnim, smashMeterAnim, gameAnim, smashAnim)
+        return EffectAnimations(stockAnim, smashMeterAnim, gameAnim, smashAnim, state.value.dices)
     }
 
     fun executeDices(): Boolean {
@@ -96,10 +96,6 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
         }
 
         val game = (if (ones > 2) ones - 2 else 0) + (if (twos > 2) twos - 1 else 0) + (if (threes > 2) threes else 0)
-
-        // init animation
-
-        // play animation
 
         var isPlayerAttackedAndInDF = false
         val currentPlayer = getCurrentPlayer()

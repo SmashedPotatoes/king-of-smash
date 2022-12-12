@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.kingofsmash.R
 import com.example.kingofsmash.databinding.FragmentDiceBinding
 import com.example.kingofsmash.enums.Dice
+import com.example.kingofsmash.utils.initDieButton
 import com.example.kingofsmash.viewmodels.DicesViewModel
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
@@ -62,7 +63,7 @@ class DiceFragment(val onSubmit: (dices: List<Dice>) -> Unit) : Fragment() {
                 // UPDATE DISPLAY DICES
                 println(it.dices)
                 for (i in 0..5) {
-                    displayButtonDice(fragmentDiceBtns[i], it.dices[i].dice)
+                    initDieButton(fragmentDiceBtns[i], it.dices[i].dice)
                     if (it.dices[i].shouldKeep) {
                         fragmentDiceBtnLocks[i].visibility = View.VISIBLE
                         val material = fragmentDiceBtns[i] as MaterialButton
@@ -124,29 +125,5 @@ class DiceFragment(val onSubmit: (dices: List<Dice>) -> Unit) : Fragment() {
         binding.fragmentDiceBtnReroll.visibility = diceVisibility
         binding.fragmentDiceBtnSubmit.visibility = diceVisibility
         binding.fragmentDiceTxtTitle.visibility = diceVisibility
-    }
-
-    private fun dp2px(dp: Int): Int {
-        val scale = resources.displayMetrics.density
-        return (dp * scale + 0.5f).toInt()
-    }
-
-    private fun displayButtonDice(button: Button, dice: Dice) {
-        button.text = ""
-        button.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
-
-        when (dice) {
-            Dice.ONE, Dice.TWO, Dice.THREE -> button.setPadding(button.paddingLeft, dp2px(6), button.paddingRight, dp2px(8))
-            else -> button.setPadding(button.paddingLeft, dp2px(12), button.paddingRight, dp2px(10))
-        }
-
-        when (dice) {
-            Dice.ONE -> button.text = "1"
-            Dice.TWO -> button.text = "2"
-            Dice.THREE -> button.text = "3"
-            Dice.SMASH_METER -> button.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.icon_smash_meter_dice, 0, 0)
-            Dice.SMASH -> button.setCompoundDrawablesRelativeWithIntrinsicBounds(0, R.drawable.icon_smash, 0, 0)
-            Dice.STOCK -> button.setCompoundDrawablesRelativeWithIntrinsicBounds(0,R.drawable.icon_stock,0,0)
-        }
     }
 }
