@@ -151,8 +151,6 @@ class MainFragment : Fragment() {
         playerCard.actionText.visibility = View.INVISIBLE
     }
 
-    // TODO: Move to another file}
-
     private fun showDice(playedDice: List<Dice>) {
         // init dice
         for (i in dice.indices) {
