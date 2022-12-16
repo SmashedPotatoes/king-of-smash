@@ -14,6 +14,8 @@ data class PlayerCard(
     val game: TextView,
     val background: GradientDrawable,
     val crown: ImageView,
-    val view: View
+    val view: View,
+    val actionText: TextView,
+    val actionIcon: ImageView
 ) {
 }
