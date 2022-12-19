@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.asStateFlow
 class KingOfSmashViewModel(character: Character) : ViewModel() {
     private val state = MutableStateFlow(
         KingOfSmash(
-            Character.values().map { Player(if (character == it) PlayerType.PLAYER else PlayerType.BOT, it) }, 0, null
+            Character.values().map { Player(if (character == it) PlayerType.PLAYER else PlayerType.BOT, it) }.shuffled(), 0, null
         )
     )
     val stateFlow = state.asStateFlow()
@@ -51,7 +51,7 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
         val playerInDF = state.value.playerInDF
 
         val stockAnim = mutableListOf<EffectAnim>()
-        var stockAnimUpperBound = (currentPlayer.stock + stock).coerceAtMost(currentPlayer.maxStock)
+        val stockAnimUpperBound = (currentPlayer.stock + stock).coerceAtMost(currentPlayer.maxStock)
         if (stock > 0 && stockAnimUpperBound > currentPlayer.stock)
             stockAnim.add(EffectAnim(currentPlayer, (currentPlayer.stock + 1..stockAnimUpperBound).toList(), stock))
         val smashMeterAnim = mutableListOf<EffectAnim>()
@@ -113,7 +113,7 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
             }
         } else {
             Log.d("ExecuteDices", "DF Player ${state.value.playerInDF?.character} take $smash dmg from ${currentPlayer.character}")
-            var res = state.value.playerInDF?.damaged(smash, state.value.rank, currentPlayer)
+            val res = state.value.playerInDF?.damaged(smash, state.value.rank, currentPlayer)
             if (res != null)
                 state.value.rank = res
             if (state.value.playerInDF != null) {
