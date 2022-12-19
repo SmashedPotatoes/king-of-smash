@@ -29,6 +29,8 @@ import com.example.kingofsmash.utils.initDieButton
 import com.example.kingofsmash.viewmodels.KingOfSmashViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.random.Random
 
 class MainFragment : Fragment() {
 
@@ -105,7 +107,8 @@ class MainFragment : Fragment() {
             })
             openFragment(fragment)
         } else {
-            val dices = listOf(Dice.ONE, Dice.ONE, Dice.THREE, Dice.SMASH, Dice.SMASH, Dice.SMASH)
+            val random: Random = Random(Date().time)
+            val dices = (1..6).map { Dice.getRandom(random) }
             viewModel.throwDices(dices)
         }
     }
