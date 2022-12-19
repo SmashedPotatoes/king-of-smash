@@ -10,11 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.kingofsmash.R
 import com.example.kingofsmash.databinding.FragmentGameOverBinding
-import com.example.kingofsmash.enums.Character
 import com.example.kingofsmash.models.GameOverPlayerCard
 import com.example.kingofsmash.models.Player
-import com.example.kingofsmash.models.PlayerCard
-import com.example.kingofsmash.viewmodels.KingOfSmashViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -55,7 +52,7 @@ class GameOverFragment : Fragment() {
     private fun correctPlayerStocks(players: Array<Player>) {
         for (player in players) {
            if (!player.isAlive)
-               player.stock = 0;
+               player.stock = 0
         }
     }
 

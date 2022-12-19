@@ -1,7 +1,6 @@
 package com.example.kingofsmash.fragment
 
 import android.graphics.Paint
-import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
@@ -114,8 +113,8 @@ class MainFragment : Fragment() {
         val playerCard = getPlayerCard(player)
         val color = if (variation > 0) R.color.animation_positive else R.color.animation_negative
         val symbol = if (variation > 0) '+' else ' '
-        var textView: TextView
-        var icon: Int = 0
+        val textView: TextView
+        var icon = 0
 
         when (type) {
             PlayerCardAnimType.STOCK -> {
