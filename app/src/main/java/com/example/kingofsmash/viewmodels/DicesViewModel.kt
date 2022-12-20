@@ -5,6 +5,8 @@ import com.example.kingofsmash.enums.Dice
 import com.example.kingofsmash.models.RollDice
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import java.util.Date
+import kotlin.random.Random
 
 
 data class Dices(
@@ -22,8 +24,9 @@ class DicesViewModel : ViewModel() {
 
     fun rollDice() {
         if (state.value.roll <= 0) return
+        val random = Random(Date().time)
         state.value = state.value.copy(
-            dices = state.value.dices.map { if (it.shouldKeep) it else RollDice(dice = Dice.values().random()) },
+            dices = state.value.dices.map { if (it.shouldKeep) it else Dice.getRandom(random).toRollDice() },
             roll = state.value.roll - 1
         )
     }
