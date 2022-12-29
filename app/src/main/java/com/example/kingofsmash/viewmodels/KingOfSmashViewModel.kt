@@ -170,6 +170,10 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
         )
     }
 
+    fun getCurrentAction(): Action {
+        return state.value.currentAction
+    }
+
     fun getWinner(): Player? {
         var winner: Player? = null
         var alivePlayer = 0

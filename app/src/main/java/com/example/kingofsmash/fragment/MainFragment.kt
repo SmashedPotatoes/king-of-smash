@@ -89,6 +89,7 @@ class MainFragment : Fragment() {
                 }
             }
         }
+        initCards();
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -243,6 +244,7 @@ class MainFragment : Fragment() {
 
     private fun executeCards() {
         Log.d("MainFragment", "EXECUTE CARDSU")
+
         viewModel.waitEndTurn()
     }
 
@@ -367,4 +369,13 @@ class MainFragment : Fragment() {
             actionIcon = binding.fragmentMainDiceActionIconP4
         ),
     )
+
+    private fun initCards(){
+        var cards = binding.fragmentMainCardsDeck
+        cards.setOnClickListener {
+            val fragment = CardSelectionFragment();
+            if(viewModel.getCurrentAction() == Action.WAIT_END_TURN)
+                openFragment(fragment)
+        }
+    }
 }
