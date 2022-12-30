@@ -6,6 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey_transparent"
+    android:clickable="true"
+    android:focusable="false"
+    android:focusableInTouchMode="true"
     tools:context=".fragment.CardSelectionFragment">
 
     <Button
@@ -26,9 +29,9 @@
         android:layout_height="48dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/layout_bg"
-        app:backgroundTint="@color/black_transparent"
-
         android:src="@drawable/text_reroll_card_button"
+
+        app:backgroundTint="@color/black_transparent"
         app:layout_constraintEnd_toStartOf="@+id/fragment_card_selection_btn_confirm"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

@@ -9,6 +9,7 @@ data class KingOfSmash(
     var playerInDF: Player?,
     var currentAction: Action = Action.THROW_DICES,
     var cards: List<Card> = listOf(),
+    var cardsInDeck: List<Card> = listOf(),
     var dices: List<Dice> = listOf(),
     var rank: Int = 4,
     ) {

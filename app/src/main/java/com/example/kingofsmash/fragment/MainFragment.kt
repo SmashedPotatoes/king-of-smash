@@ -244,7 +244,8 @@ class MainFragment : Fragment() {
 
     private fun executeCards() {
         Log.d("MainFragment", "EXECUTE CARDSU")
-
+        //play  cards
+        //then check again if win ? do we put cards that can make us win ?
         viewModel.waitEndTurn()
     }
 
@@ -373,7 +374,7 @@ class MainFragment : Fragment() {
     private fun initCards(){
         var cards = binding.fragmentMainCardsDeck
         cards.setOnClickListener {
-            val fragment = CardSelectionFragment();
+            val fragment = CardSelectionFragment()
             if(viewModel.getCurrentAction() == Action.WAIT_END_TURN)
                 openFragment(fragment)
         }
