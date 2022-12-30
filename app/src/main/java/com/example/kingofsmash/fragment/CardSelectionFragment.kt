@@ -2,6 +2,7 @@ package com.example.kingofsmash.fragment
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,7 @@ import com.example.kingofsmash.models.Card
  * Use the [CardSelectionFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CardSelectionFragment : Fragment() {
+class CardSelectionFragment(val onReroll : () -> Unit, val onConfirm : (card : Card) -> Unit, val getCardsInDeck: () -> List<Card>): Fragment() {
 
     private lateinit var binding: FragmentCardSelectionBinding
 
@@ -31,8 +32,8 @@ class CardSelectionFragment : Fragment() {
         binding = FragmentCardSelectionBinding.bind(view)
 
         var selectedCard : Int = -1
-
-
+        var cardsInDeck = mutableListOf<Card>()
+        cardsInDeck = getCardsInDeck() as MutableList<Card>
 
         val viewCard1 = binding.fragmentCardSelectionViewCard1;
         val viewCard2 = binding.fragmentCardSelectionViewCard2
@@ -54,6 +55,7 @@ class CardSelectionFragment : Fragment() {
             viewCard3.setBackgroundColor(if (selectedCard == 2) colorSelected else colorUnselected)
         }
 
+
         viewCard1.setOnClickListener{
             onSelectCard(0)
         }
@@ -64,16 +66,38 @@ class CardSelectionFragment : Fragment() {
             onSelectCard(2)
         }
         val card1Text = binding.fragmentCardSelectionCard1TextDescriptionCard
-        card1Text.text = "aa"
+        val card2Text = binding.fragmentCardSelectionCard2TextDescriptionCard
+        val card3Text = binding.fragmentCardSelectionCard3TextDescriptionCard
+
+        val card1SmashMeterCost = binding.fragmentCardSelectionCard1TextSmashMeterCost
+        val card2SmashMeterCost = binding.fragmentCardSelectionCard2TextSmashMeterCost
+        val card3SmashMeterCost = binding.fragmentCardSelectionCard3TextSmashMeterCost
+
+        fun updateCardsTexts(){
+            Log.d("cardselection", "new cards : $cardsInDeck")
+            //replace text and cost with these new cards
+            card1Text.setText(cardsInDeck[0].description)
+            card2Text.setText(cardsInDeck[1].description)
+            card3Text.setText(cardsInDeck[2].description)
+
+            card1SmashMeterCost.setText(cardsInDeck[0].cost.toString())
+            card2SmashMeterCost.setText(cardsInDeck[1].cost.toString())
+            card3SmashMeterCost.setText(cardsInDeck[2].cost.toString())
+        }
         val confirmButton = binding.fragmentCardSelectionBtnConfirm
         confirmButton.setOnClickListener{
+            if(selectedCard != -1){
+                onConfirm(cardsInDeck[selectedCard])
+            }
             closeFragment()
         }
         
         val rerollButton = binding.fragmentCardSelectionBtnReroll
         rerollButton.setOnClickListener{
-            card1Text.setText("Rerolled")
+            cardsInDeck = getCardsInDeck() as MutableList<Card>
+            updateCardsTexts()
         }
+        updateCardsTexts()
         // Inflate the layout for this fragment
         return view
     }

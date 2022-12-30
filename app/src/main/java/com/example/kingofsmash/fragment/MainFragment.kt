@@ -21,9 +21,11 @@ import com.example.kingofsmash.enums.Action
 import com.example.kingofsmash.enums.Dice
 import com.example.kingofsmash.enums.PlayerCardAnimType
 import com.example.kingofsmash.enums.PlayerType
+import com.example.kingofsmash.models.Card
 import com.example.kingofsmash.models.EffectAnimations
 import com.example.kingofsmash.models.Player
 import com.example.kingofsmash.models.PlayerCard
+import com.example.kingofsmash.utils.initAllCards
 import com.example.kingofsmash.utils.initDieButton
 import com.example.kingofsmash.viewmodels.KingOfSmashViewModel
 import kotlinx.coroutines.delay
@@ -370,11 +372,39 @@ class MainFragment : Fragment() {
             actionIcon = binding.fragmentMainDiceActionIconP4
         ),
     )
+    private fun getCardsInDeck(): List<Card> {
+        val allCards = viewModel.getCards()
+        val card1 = allCards.random()
+        allCards.remove(card1)
+        val card2 = allCards.random()
+        allCards.remove(card2)
+        val card3 = allCards.random()
+        allCards.remove(card3)
+        if(viewModel.getCardsInDeck().isNotEmpty()){
+            viewModel.appendCards(viewModel.getCardsInDeck())
+        }
+        viewModel.setCardsInDeck(mutableListOf(card1, card2, card3))
+        return viewModel.getCardsInDeck()
+    }
 
+    private fun onConfirmButtonCardSelection(card : Card){
+        //add card to current player + play the animation / effect
+        viewModel.useCard(card)
+    }
+    private fun onRerollButtonCardSelection(){
+        //check if current player has enough smash pt
+        //if yes , reroll new cards
+        //if no : error message ? anyway do nothing
+    }
     private fun initCards(){
-        var cards = binding.fragmentMainCardsDeck
+        val cards = binding.fragmentMainCardsDeck
+
+        if(viewModel.getCards().isEmpty()){
+            val allCards = initAllCards()
+            viewModel.setCards(allCards)
+        }
         cards.setOnClickListener {
-            val fragment = CardSelectionFragment()
+            val fragment = CardSelectionFragment(onReroll = {}, onConfirm = {card -> onConfirmButtonCardSelection(card)}, getCardsInDeck = { getCardsInDeck() })
             if(viewModel.getCurrentAction() == Action.WAIT_END_TURN)
                 openFragment(fragment)
         }

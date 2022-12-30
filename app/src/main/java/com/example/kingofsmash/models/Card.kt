@@ -1,3 +1,9 @@
 package com.example.kingofsmash.models
 
-data class Card(val card: String, val description: String, val onUse: (KingOfSmash) -> Unit)
+import android.os.Parcelable
+import com.example.kingofsmash.enums.CardType
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class Card(val cost: Int, val description: String, val type : CardType) :
+    Parcelable

@@ -8,8 +8,8 @@ data class KingOfSmash(
     var currentPlayerIdx: Int = 0,
     var playerInDF: Player?,
     var currentAction: Action = Action.THROW_DICES,
-    var cards: List<Card> = listOf(),
-    var cardsInDeck: List<Card> = listOf(),
+    var cards: MutableList<Card> = mutableListOf(),
+    var cardsInDeck: MutableList<Card> = mutableListOf(),
     var dices: List<Dice> = listOf(),
     var rank: Int = 4,
     ) {

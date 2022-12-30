@@ -2,14 +2,8 @@ package com.example.kingofsmash.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.kingofsmash.enums.Action
-import com.example.kingofsmash.enums.Character
-import com.example.kingofsmash.enums.Dice
-import com.example.kingofsmash.enums.PlayerType
-import com.example.kingofsmash.models.EffectAnim
-import com.example.kingofsmash.models.EffectAnimations
-import com.example.kingofsmash.models.KingOfSmash
-import com.example.kingofsmash.models.Player
+import com.example.kingofsmash.enums.*
+import com.example.kingofsmash.models.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -189,6 +183,31 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
         return if (alivePlayer == 1) winner else null
     }
 
+    fun getCards() : MutableList<Card>{
+        return state.value.cards
+    }
+    fun getCardsInDeck(): MutableList<Card>{
+        return state.value.cardsInDeck
+    }
+    fun setCards(allCards : MutableList<Card>){
+        state.value = state.value.copy(cards = allCards)
+    }
+    fun setCardsInDeck(cards : MutableList<Card>){
+        state.value = state.value.copy(cardsInDeck = cards)
+    }
+
+    fun appendCards(cards: List<Card>){
+        state.value.cards.addAll(cards)
+    }
+
+    fun useCard(card : Card){
+        var currentPlayer = getCurrentPlayer()
+        currentPlayer.cards.add(card)
+        when (card.type){
+            CardType.HEAL_ONE -> Log.d("KOFVM", "card used")
+            else -> Log.d("KOFVM", "card used default : $card")
+        }
+    }
     companion object {
         private const val NB_GAME_TO_WIN = 20
     }
