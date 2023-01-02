@@ -47,7 +47,8 @@ class MainFragment : Fragment() {
         initPlayerCards()
         dice = getDice()
 
-        initCards();
+        initCards()
+        setOnClickPlayerCard()
 
         lifecycleScope.launch {
             viewModel.stateFlow.collect {
@@ -530,6 +531,30 @@ class MainFragment : Fragment() {
             val fragment = CardSelectionFragment(onReroll = {onRerollButtonCardSelection()}, onConfirm = {card -> onConfirmButtonCardSelection(card)}, getCardsInDeck = { getCardsInDeck() },beforeReroll = { cost -> beforeReroll(cost)})
             if(viewModel.getCurrentAction() == Action.WAIT_END_TURN)
                 openFragment(fragment)
+        }
+    }
+
+    private fun setOnClickPlayerCard(){
+        val players = viewModel.getPlayers()
+        val card1 = binding.fragmentMainViewPlayer1Card
+        card1.setOnClickListener {
+            val fragment = PlayerDetailsFragment(cards = players[0].cards)
+            openFragment(fragment)
+        }
+        val card2 = binding.fragmentMainViewPlayer2Card
+        card2.setOnClickListener {
+            val fragment = PlayerDetailsFragment(cards = players[1].cards)
+            openFragment(fragment)
+        }
+        val card3 = binding.fragmentMainViewPlayer3Card
+        card3.setOnClickListener {
+            val fragment = PlayerDetailsFragment(cards = players[2].cards)
+            openFragment(fragment)
+        }
+        val card4 = binding.fragmentMainViewPlayer4Card
+        card4.setOnClickListener {
+            val fragment = PlayerDetailsFragment(cards = players[3].cards)
+            openFragment(fragment)
         }
     }
 }

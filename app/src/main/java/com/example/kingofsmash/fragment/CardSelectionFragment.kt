@@ -13,11 +13,6 @@ import com.example.kingofsmash.databinding.FragmentCardSelectionBinding
 import com.example.kingofsmash.models.Card
 import kotlinx.coroutines.delay
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CardSelectionFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CardSelectionFragment(val onReroll : () -> List<Card>, val onConfirm : (card : Card?) -> Boolean, val getCardsInDeck: () -> List<Card>, val beforeReroll: (cost : Int) -> Boolean): Fragment() {
 
     private lateinit var binding: FragmentCardSelectionBinding

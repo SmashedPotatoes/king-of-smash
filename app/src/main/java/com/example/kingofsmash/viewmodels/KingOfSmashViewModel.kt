@@ -232,8 +232,7 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
     }
 
     private fun cardRandomDamage(cardType: CardType, player: Player){
-        var dmg : Int = 0
-        dmg = when(cardType){
+        var dmg = when(cardType){
             CardType.DAMAGE_RANDOM_ONE-> 1
             CardType.DAMAGE_RANDOM_TWO -> 2
             else-> 3
