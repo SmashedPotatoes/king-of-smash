@@ -225,8 +225,10 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
             state.value.rank = player.damaged(100, state.value.rank, currentPlayer)
         }
 
-        if(state.value.playerInDF?.isAlive == false)
+        if(state.value.playerInDF?.isAlive == false){
             state.value = state.value.copy(playerInDF = null)
+            Log.d("KOSVM", "player in DF is null")
+        }
     }
 
     private fun cardRandomDamage(cardType: CardType, player: Player){

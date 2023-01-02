@@ -93,7 +93,7 @@ class CardSelectionFragment(val onReroll : () -> List<Card>, val onConfirm : (ca
                 val cardUsed = onConfirm(cardsInDeck[selectedCard])
                 if(!cardUsed){
                     //not enough smash meter
-                    Log.d("CardSelectio,Fragment", "Card not used, not enough smash meter")
+                    Log.d("CardSelectionFragment", "Card not used, not enough smash meter")
                     Toast.makeText(this.context, "Not enough smash meter !", Toast.LENGTH_LONG).show()
                 }
                 else {

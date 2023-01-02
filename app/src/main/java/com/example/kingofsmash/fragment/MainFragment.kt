@@ -270,8 +270,15 @@ class MainFragment : Fragment() {
             })
             openFragment(fragment)
         } ?: run {
-            if(!beforeCards)
+            if(!beforeCards) {
+                val isPlayerInDF = viewModel.checkDF()
+                if (isPlayerInDF && viewModel.getCurrentPlayer().type == PlayerType.PLAYER) {
+                    Log.d("MainFragment", "You are now in DF")
+                    val fragment = PlayerInDFFragment()
+                    openFragment(fragment)
+                }
                 viewModel.waitEndTurn()
+            }
             else{
                 viewModel.setCardSelection()
         }
