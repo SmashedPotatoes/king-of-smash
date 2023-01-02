@@ -6,6 +6,7 @@ import com.example.kingofsmash.enums.*
 import com.example.kingofsmash.models.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlin.math.cos
 
 class KingOfSmashViewModel(character: Character) : ViewModel() {
     private val state = MutableStateFlow(
@@ -13,6 +14,8 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
             Character.values().map { Player(if (character == it) PlayerType.PLAYER else PlayerType.BOT, it) }.shuffled(), 0, null
         )
     )
+
+
     val stateFlow = state.asStateFlow()
 
     fun getPlayers(): List<Player> = state.value.players
@@ -135,6 +138,16 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
     fun setCheckDF() {
         state.value = state.value.copy(currentAction = Action.CHECK_DF)
     }
+    fun setCardSelection(){
+        state.value = state.value.copy(currentAction = Action.CARD_SELECTION)
+    }
+    fun setExecuteCard(){
+        state.value = state.value.copy(currentAction = Action.EXECUTE_CARDS)
+    }
+
+    fun setCheckGameOverAfterCards(){
+        state.value = state.value.copy(currentAction = Action.CHECK_GAME_OVER_AFTER_CARDS)
+    }
 
     fun checkDF(): Boolean {
         Log.d("CheckDF", "Checking DF")
@@ -183,6 +196,9 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
         return if (alivePlayer == 1) winner else null
     }
 
+    fun getSelectedCard() : Card? {
+        return state.value.selectedCard
+    }
     fun getCards() : MutableList<Card>{
         return state.value.cards
     }
@@ -200,14 +216,139 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
         state.value.cards.addAll(cards)
     }
 
-    fun useCard(card : Card){
+    private fun cardRandomKill(cardType : CardType, player : Player){
         var currentPlayer = getCurrentPlayer()
-        currentPlayer.cards.add(card)
-        when (card.type){
-            CardType.HEAL_ONE -> Log.d("KOFVM", "card used")
-            else -> Log.d("KOFVM", "card used default : $card")
+        if(cardType == CardType.RANDOM_KILL_ONE){
+                state.value.rank = player.damaged(100, state.value.rank, currentPlayer)
+        }
+        else {
+            state.value.rank = player.damaged(100, state.value.rank, currentPlayer)
+        }
+
+        if(state.value.playerInDF?.isAlive == false)
+            state.value = state.value.copy(playerInDF = null)
+    }
+
+    private fun cardRandomDamage(cardType: CardType, player: Player){
+        var dmg : Int = 0
+        dmg = when(cardType){
+            CardType.DAMAGE_RANDOM_ONE-> 1
+            CardType.DAMAGE_RANDOM_TWO -> 2
+            else-> 3
+        }
+        state.value.rank = player.damaged(dmg, state.value.rank, getCurrentPlayer())
+        if(state.value.playerInDF?.isAlive == false)
+            state.value = state.value.copy(playerInDF = null)
+    }
+
+    fun computeCardAnimation(cardType : CardType, randomPlayer: Player = getCurrentPlayer()) : EffectAnimations{
+        var currentPlayer = getCurrentPlayer()
+
+        var dices : List<Dice> = listOf()
+        val stockAnim : MutableList<EffectAnim> = mutableListOf()
+        val smashMeterAnim : MutableList<EffectAnim> = mutableListOf()
+        val gameAnim : MutableList<EffectAnim> = mutableListOf()
+        val smashAnim : MutableList<EffectAnim> = mutableListOf()
+
+        var cost = 0;
+
+        when (cardType){
+            CardType.HEAL_ONE -> {
+                cost = 1
+                val stockAnimUpperBound = (currentPlayer.stock + 1).coerceAtMost(currentPlayer.maxStock)
+                if (stockAnimUpperBound > currentPlayer.stock)
+                    stockAnim.add(EffectAnim(currentPlayer, (currentPlayer.stock + 1..stockAnimUpperBound).toList(), 1))
+            }
+            CardType.HEAl_TWO -> {
+                cost = 2
+                val stockAnimUpperBound = (currentPlayer.stock + 2).coerceAtMost(currentPlayer.maxStock)
+                if (stockAnimUpperBound > currentPlayer.stock)
+                    stockAnim.add(EffectAnim(currentPlayer, (currentPlayer.stock + 1..stockAnimUpperBound).toList(), 2))
+            }
+            CardType.GAME_UP_ONE -> {
+                cost = 3
+                gameAnim.add(EffectAnim(currentPlayer, (currentPlayer.game..currentPlayer.game + 1).toList(), 1))
+            }
+            CardType.GAME_UP_TWO -> {
+                cost = 6
+                gameAnim.add(EffectAnim(currentPlayer, (currentPlayer.game..currentPlayer.game+2).toList(), 2))
+            }
+            CardType.RANDOM_KILL_ONE ->{
+                cost = 6
+                stockAnim.add(EffectAnim(randomPlayer, (randomPlayer.stock downTo 0).toList(), -1))
+            }
+            CardType.RANDOM_KILL_TWO -> {
+                cost = 9
+                stockAnim.add(EffectAnim(randomPlayer, (randomPlayer.stock downTo 0).toList(), -1))
+            }
+            CardType.DAMAGE_RANDOM_ONE -> {
+                cost = 1
+                stockAnim.add(EffectAnim(randomPlayer,(randomPlayer.stock downTo  (randomPlayer.stock - 1).coerceAtLeast(0)).toList(), -1))
+            }
+            CardType.DAMAGE_RANDOM_TWO -> {
+                cost = 2
+                stockAnim.add(EffectAnim(randomPlayer, (randomPlayer.stock downTo  (randomPlayer.stock - 2).coerceAtLeast(0)).toList(), -2))
+            }
+            CardType.DAMAGE_RANDOM_THREE -> {
+                cost = 3
+                stockAnim.add(EffectAnim(randomPlayer, (randomPlayer.stock downTo  (randomPlayer.stock - 3).coerceAtLeast(0)).toList(), -3))
+            }
+        }
+        smashMeterAnim.add(EffectAnim(currentPlayer, (currentPlayer.smashMeter downTo (currentPlayer.smashMeter - cost).coerceAtLeast(0)).toList(), -cost))
+        return EffectAnimations(stockAnim, smashMeterAnim, gameAnim, smashAnim, dices)
+    }
+
+    fun executeCardAction(cardType : CardType, randomPlayer : Player = getCurrentPlayer()){
+        var currentPlayer = getCurrentPlayer()
+        when (cardType){
+            CardType.HEAL_ONE -> currentPlayer.play(1, 0, 0)
+            CardType.HEAl_TWO -> currentPlayer.play( 2, 0, 0)
+            CardType.GAME_UP_ONE -> currentPlayer.play(0, 0,  1)
+            CardType.GAME_UP_TWO -> currentPlayer.play(0, 0, 2)
+            CardType.RANDOM_KILL_ONE -> cardRandomKill(cardType, randomPlayer)
+            CardType.RANDOM_KILL_TWO -> cardRandomKill(cardType, randomPlayer)
+            CardType.DAMAGE_RANDOM_ONE -> cardRandomDamage(cardType, randomPlayer)
+            CardType.DAMAGE_RANDOM_TWO -> cardRandomDamage(cardType, randomPlayer)
+            CardType.DAMAGE_RANDOM_THREE -> cardRandomDamage(cardType, randomPlayer)
         }
     }
+
+    fun getKillBoolean(cardType: CardType) : Boolean {
+        val randomValue = (0..100).random()
+        return cardType == CardType.RANDOM_KILL_ONE && randomValue <= 25 || cardType == CardType.RANDOM_KILL_TWO && randomValue <= 55
+    }
+
+    fun getRandomPlayer() : Player{
+        var currentPlayer = getCurrentPlayer()
+        var playersWithoutCurrent = getPlayers().filter { it != currentPlayer && it.isAlive }
+        return playersWithoutCurrent.random()
+    }
+
+    private fun replenishDeck(card : Card){
+        val cardInDeckIndex = getCardsInDeck().indexOfFirst { cardInDeck -> cardInDeck.type == card.type }
+        val cardsLen = getCards().count() - 1
+        val randomCardIndex = (0..cardsLen).random()
+
+        val cards = getCards()
+        val deck = getCardsInDeck()
+
+        deck[cardInDeckIndex] = cards[randomCardIndex]
+        cards.add(card)
+        cards.removeAt(randomCardIndex)
+    }
+
+    fun useCard(card : Card){
+        val currentPlayer = getCurrentPlayer()
+        currentPlayer.cards.add(card)
+        currentPlayer.play(0, -card.cost,0)
+        state.value = state.value.copy(selectedCard = card)
+        replenishDeck(card)
+    }
+    fun cardReroll(){
+        val currentPlayer = getCurrentPlayer()
+        currentPlayer.play(0,-2,0)
+    }
+
     companion object {
         private const val NB_GAME_TO_WIN = 20
     }

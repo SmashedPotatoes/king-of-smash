@@ -16,7 +16,7 @@ import com.example.kingofsmash.models.Card
  * Use the [CardSelectionFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CardSelectionFragment(val onReroll : () -> Unit, val onConfirm : (card : Card) -> Unit, val getCardsInDeck: () -> List<Card>): Fragment() {
+class CardSelectionFragment(val onReroll : () -> List<Card>, val onConfirm : (card : Card?) -> Boolean, val getCardsInDeck: () -> List<Card>, val beforeReroll: (cost : Int) -> Boolean): Fragment() {
 
     private lateinit var binding: FragmentCardSelectionBinding
 
@@ -32,7 +32,7 @@ class CardSelectionFragment(val onReroll : () -> Unit, val onConfirm : (card : C
         binding = FragmentCardSelectionBinding.bind(view)
 
         var selectedCard : Int = -1
-        var cardsInDeck = mutableListOf<Card>()
+        var cardsInDeck: MutableList<Card>
         cardsInDeck = getCardsInDeck() as MutableList<Card>
 
         val viewCard1 = binding.fragmentCardSelectionViewCard1;
@@ -87,15 +87,23 @@ class CardSelectionFragment(val onReroll : () -> Unit, val onConfirm : (card : C
         val confirmButton = binding.fragmentCardSelectionBtnConfirm
         confirmButton.setOnClickListener{
             if(selectedCard != -1){
-                onConfirm(cardsInDeck[selectedCard])
+                //heck if current player has enough energy to buy it
+                val cardUsed = onConfirm(cardsInDeck[selectedCard])
+                if(!cardUsed){
+                    //not enough smash meter
+                    Log.d("CardSelectio,Fragment", "Card not used, not enough smash meter")
+                }
             }
             closeFragment()
         }
         
         val rerollButton = binding.fragmentCardSelectionBtnReroll
         rerollButton.setOnClickListener{
-            cardsInDeck = getCardsInDeck() as MutableList<Card>
-            updateCardsTexts()
+            //need to check if enough money
+            if(beforeReroll(2)){
+                cardsInDeck = onReroll() as MutableList<Card>
+                updateCardsTexts()
+            }
         }
         updateCardsTexts()
         // Inflate the layout for this fragment

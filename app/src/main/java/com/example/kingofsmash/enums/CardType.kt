@@ -3,12 +3,11 @@ package com.example.kingofsmash.enums
 enum class CardType {
     HEAL_ONE,
     HEAl_TWO,
-    DAMAGE_ALL_ONE,
     DAMAGE_RANDOM_ONE,
     DAMAGE_RANDOM_TWO,
     DAMAGE_RANDOM_THREE,
-    SMASH_UP_ONE,
-    SMASH_UP_TWO,
+    GAME_UP_ONE,
+    GAME_UP_TWO,
     RANDOM_KILL_ONE,
     RANDOM_KILL_TWO
 }

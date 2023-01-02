@@ -10,6 +10,7 @@ data class KingOfSmash(
     var currentAction: Action = Action.THROW_DICES,
     var cards: MutableList<Card> = mutableListOf(),
     var cardsInDeck: MutableList<Card> = mutableListOf(),
+    var selectedCard: Card? = null,
     var dices: List<Dice> = listOf(),
     var rank: Int = 4,
     ) {
