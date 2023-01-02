@@ -366,7 +366,6 @@ class MainFragment : Fragment() {
             //exec
             viewModel.executeCardAction(cardType = card.type, targetPlayer)
         }
-        //replenish deck
         viewModel.setCheckGameOverAfterCards()
     }
 

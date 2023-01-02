@@ -6,10 +6,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.kingofsmash.R
 import com.example.kingofsmash.databinding.FragmentCardSelectionBinding
 import com.example.kingofsmash.models.Card
+import kotlinx.coroutines.delay
 
 /**
  * A simple [Fragment] subclass.
@@ -92,9 +94,15 @@ class CardSelectionFragment(val onReroll : () -> List<Card>, val onConfirm : (ca
                 if(!cardUsed){
                     //not enough smash meter
                     Log.d("CardSelectio,Fragment", "Card not used, not enough smash meter")
+                    Toast.makeText(this.context, "Not enough smash meter !", Toast.LENGTH_LONG).show()
+                }
+                else {
+                    closeFragment()
                 }
             }
-            closeFragment()
+            else {
+                closeFragment()
+            }
         }
         
         val rerollButton = binding.fragmentCardSelectionBtnReroll
@@ -103,6 +111,9 @@ class CardSelectionFragment(val onReroll : () -> List<Card>, val onConfirm : (ca
             if(beforeReroll(2)){
                 cardsInDeck = onReroll() as MutableList<Card>
                 updateCardsTexts()
+            }
+            else {
+                Toast.makeText(this.context, "Not enough smash meter !", Toast.LENGTH_LONG).show()
             }
         }
         updateCardsTexts()
