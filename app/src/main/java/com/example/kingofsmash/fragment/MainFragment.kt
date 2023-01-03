@@ -538,22 +538,22 @@ class MainFragment : Fragment() {
         val players = viewModel.getPlayers()
         val card1 = binding.fragmentMainViewPlayer1Card
         card1.setOnClickListener {
-            val fragment = PlayerDetailsFragment(cards = players[0].cards)
+            val fragment = PlayerDetailsFragment(cards = players[0].cards, character = players[0].character)
             openFragment(fragment)
         }
         val card2 = binding.fragmentMainViewPlayer2Card
         card2.setOnClickListener {
-            val fragment = PlayerDetailsFragment(cards = players[1].cards)
+            val fragment = PlayerDetailsFragment(cards = players[1].cards, character = players[1].character)
             openFragment(fragment)
         }
         val card3 = binding.fragmentMainViewPlayer3Card
         card3.setOnClickListener {
-            val fragment = PlayerDetailsFragment(cards = players[2].cards)
+            val fragment = PlayerDetailsFragment(cards = players[2].cards, character = players[1].character)
             openFragment(fragment)
         }
         val card4 = binding.fragmentMainViewPlayer4Card
         card4.setOnClickListener {
-            val fragment = PlayerDetailsFragment(cards = players[3].cards)
+            val fragment = PlayerDetailsFragment(cards = players[3].cards, character = players[1].character)
             openFragment(fragment)
         }
     }

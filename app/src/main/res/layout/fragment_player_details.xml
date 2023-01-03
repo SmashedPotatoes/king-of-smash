@@ -5,6 +5,10 @@
     android:id="@+id/frameLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey_transparent"
+    android:clickable="true"
+    android:focusable="false"
+    android:focusableInTouchMode="true"
     tools:context=".fragment.PlayerDetailsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -31,4 +35,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recycler_view" />
+
+    <TextView
+        android:id="@+id/fragment_player_details_player_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        app:fontFamily="@font/poppins_semibold_italic"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

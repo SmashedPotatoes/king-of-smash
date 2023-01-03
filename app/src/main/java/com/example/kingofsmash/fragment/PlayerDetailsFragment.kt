@@ -9,11 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kingofsmash.R
 import com.example.kingofsmash.databinding.FragmentPlayerCardItemBinding
 import com.example.kingofsmash.databinding.FragmentPlayerDetailsBinding
+import com.example.kingofsmash.enums.Character
+import com.example.kingofsmash.enums.PlayerType
 import com.example.kingofsmash.models.Card
 import com.example.kingofsmash.utils.playerDetailsAdapter
 
 
-class PlayerDetailsFragment(val cards : List<Card>) : Fragment() {
+class PlayerDetailsFragment(val cards : List<Card>, val character : Character) : Fragment() {
     private lateinit var binding : FragmentPlayerDetailsBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,6 +24,17 @@ class PlayerDetailsFragment(val cards : List<Card>) : Fragment() {
         val view = inflater.inflate(R.layout.fragment_player_details, container, false)
         binding = FragmentPlayerDetailsBinding.bind(view)
         // Inflate the layout for this fragment
+
+        val textViewText = "'s cards"
+        val characterText = when (character){
+            Character.ROY -> "Roy"
+            Character.CORRIN -> "Corrin"
+            Character.KINGDDD -> "King DDD"
+            Character.LUCAS -> "Lucas"
+        }
+        val textView = binding.fragmentPlayerDetailsPlayerText
+        textView.text = characterText + textViewText
+
 
         val button = binding.fragmentPlayerDetailsButton
         button.setOnClickListener {
