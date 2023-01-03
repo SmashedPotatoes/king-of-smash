@@ -114,6 +114,12 @@ class CardSelectionFragment(
                 Toast.makeText(this.context, "Not enough smash meter !", Toast.LENGTH_LONG).show()
             }
         }
+
+        val backButton = binding.fragmentCardSelectionBackButton
+        backButton.setOnClickListener {
+            closeFragment()
+
+        }
         updateCardsTexts()
         // Inflate the layout for this fragment
         return view
