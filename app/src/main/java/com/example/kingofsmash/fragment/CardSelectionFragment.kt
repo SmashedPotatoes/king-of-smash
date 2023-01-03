@@ -13,7 +13,12 @@ import com.example.kingofsmash.databinding.FragmentCardSelectionBinding
 import com.example.kingofsmash.models.Card
 import kotlinx.coroutines.delay
 
-class CardSelectionFragment(val onReroll : () -> List<Card>, val onConfirm : (card : Card?) -> Boolean, val getCardsInDeck: () -> List<Card>, val beforeReroll: (cost : Int) -> Boolean): Fragment() {
+class CardSelectionFragment(
+    val onReroll: () -> List<Card>,
+    val onConfirm: (card: Card?) -> Boolean,
+    val getCardsInDeck: () -> List<Card>,
+    val beforeReroll: (cost: Int) -> Boolean
+) : Fragment() {
 
     private lateinit var binding: FragmentCardSelectionBinding
 
@@ -28,11 +33,11 @@ class CardSelectionFragment(val onReroll : () -> List<Card>, val onConfirm : (ca
         val view = inflater.inflate(R.layout.fragment_card_selection, container, false)
         binding = FragmentCardSelectionBinding.bind(view)
 
-        var selectedCard : Int = -1
+        var selectedCard: Int = -1
         var cardsInDeck: MutableList<Card>
         cardsInDeck = getCardsInDeck() as MutableList<Card>
 
-        val viewCard1 = binding.fragmentCardSelectionViewCard1;
+        val viewCard1 = binding.fragmentCardSelectionViewCard1
         val viewCard2 = binding.fragmentCardSelectionViewCard2
         val viewCard3 = binding.fragmentCardSelectionViewCard3
 
@@ -40,11 +45,10 @@ class CardSelectionFragment(val onReroll : () -> List<Card>, val onConfirm : (ca
         viewCard2.setBackgroundColor(colorUnselected)
         viewCard3.setBackgroundColor(colorUnselected)
 
-        fun onSelectCard(cardIdx: Int){
-            if(selectedCard == cardIdx){
+        fun onSelectCard(cardIdx: Int) {
+            if (selectedCard == cardIdx) {
                 selectedCard = -1
-            }
-            else{
+            } else {
                 selectedCard = cardIdx
             }
             viewCard1.setBackgroundColor(if (selectedCard == 0) colorSelected else colorUnselected)
@@ -53,13 +57,13 @@ class CardSelectionFragment(val onReroll : () -> List<Card>, val onConfirm : (ca
         }
 
 
-        viewCard1.setOnClickListener{
+        viewCard1.setOnClickListener {
             onSelectCard(0)
         }
-        viewCard2.setOnClickListener{
+        viewCard2.setOnClickListener {
             onSelectCard(1)
         }
-        viewCard3.setOnClickListener{
+        viewCard3.setOnClickListener {
             onSelectCard(2)
         }
         val card1Text = binding.fragmentCardSelectionCard1TextDescriptionCard
@@ -70,7 +74,7 @@ class CardSelectionFragment(val onReroll : () -> List<Card>, val onConfirm : (ca
         val card2SmashMeterCost = binding.fragmentCardSelectionCard2TextSmashMeterCost
         val card3SmashMeterCost = binding.fragmentCardSelectionCard3TextSmashMeterCost
 
-        fun updateCardsTexts(){
+        fun updateCardsTexts() {
             Log.d("cardselection", "new cards : $cardsInDeck")
             //replace text and cost with these new cards
             card1Text.setText(cardsInDeck[0].description)
@@ -81,33 +85,32 @@ class CardSelectionFragment(val onReroll : () -> List<Card>, val onConfirm : (ca
             card2SmashMeterCost.setText(cardsInDeck[1].cost.toString())
             card3SmashMeterCost.setText(cardsInDeck[2].cost.toString())
         }
+
         val confirmButton = binding.fragmentCardSelectionBtnConfirm
-        confirmButton.setOnClickListener{
-            if(selectedCard != -1){
+        confirmButton.setOnClickListener {
+            if (selectedCard != -1) {
                 //heck if current player has enough energy to buy it
                 val cardUsed = onConfirm(cardsInDeck[selectedCard])
-                if(!cardUsed){
+                if (!cardUsed) {
                     //not enough smash meter
                     Log.d("CardSelectionFragment", "Card not used, not enough smash meter")
-                    Toast.makeText(this.context, "Not enough smash meter !", Toast.LENGTH_LONG).show()
-                }
-                else {
+                    Toast.makeText(this.context, "Not enough smash meter !", Toast.LENGTH_LONG)
+                        .show()
+                } else {
                     closeFragment()
                 }
-            }
-            else {
+            } else {
                 closeFragment()
             }
         }
-        
+
         val rerollButton = binding.fragmentCardSelectionBtnReroll
-        rerollButton.setOnClickListener{
+        rerollButton.setOnClickListener {
             //need to check if enough money
-            if(beforeReroll(2)){
+            if (beforeReroll(2)) {
                 cardsInDeck = onReroll() as MutableList<Card>
                 updateCardsTexts()
-            }
-            else {
+            } else {
                 Toast.makeText(this.context, "Not enough smash meter !", Toast.LENGTH_LONG).show()
             }
         }
@@ -115,6 +118,7 @@ class CardSelectionFragment(val onReroll : () -> List<Card>, val onConfirm : (ca
         // Inflate the layout for this fragment
         return view
     }
+
     private fun closeFragment() {
         val fragmentManager = requireActivity().supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()

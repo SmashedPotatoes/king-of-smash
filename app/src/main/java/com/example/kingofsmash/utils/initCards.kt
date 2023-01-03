@@ -7,7 +7,7 @@ fun initAllCards() : MutableList<Card>{
     val cards = mutableListOf<Card>()
 
     cards.add(Card(1, "Heal 1 heart", CardType.HEAL_ONE))
-    cards.add(Card(2, "Heal 2 heart", CardType.HEAl_TWO))
+    cards.add(Card(2, "Heal 2 heart", CardType.HEAL_TWO))
 
     cards.add(Card(1, "Dead 1 damage to 1 random enemy", CardType.DAMAGE_RANDOM_ONE))
     cards.add(Card(2, "Dead 2 damage to 1 random enemy", CardType.DAMAGE_RANDOM_TWO))

@@ -6,7 +6,6 @@ import com.example.kingofsmash.enums.*
 import com.example.kingofsmash.models.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlin.math.cos
 
 class KingOfSmashViewModel(character: Character) : ViewModel() {
     private val state = MutableStateFlow(
@@ -260,7 +259,7 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
                 if (stockAnimUpperBound > currentPlayer.stock)
                     stockAnim.add(EffectAnim(currentPlayer, (currentPlayer.stock + 1..stockAnimUpperBound).toList(), 1))
             }
-            CardType.HEAl_TWO -> {
+            CardType.HEAL_TWO -> {
                 cost = 2
                 val stockAnimUpperBound = (currentPlayer.stock + 2).coerceAtMost(currentPlayer.maxStock)
                 if (stockAnimUpperBound > currentPlayer.stock)
@@ -303,7 +302,7 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
         var currentPlayer = getCurrentPlayer()
         when (cardType){
             CardType.HEAL_ONE -> currentPlayer.play(1, 0, 0)
-            CardType.HEAl_TWO -> currentPlayer.play( 2, 0, 0)
+            CardType.HEAL_TWO -> currentPlayer.play( 2, 0, 0)
             CardType.GAME_UP_ONE -> currentPlayer.play(0, 0,  1)
             CardType.GAME_UP_TWO -> currentPlayer.play(0, 0, 2)
             CardType.RANDOM_KILL_ONE -> cardRandomKill(cardType, randomPlayer)

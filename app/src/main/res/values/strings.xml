@@ -11,4 +11,5 @@
     <string name="image_desc">general desc</string>
     <string name="character_select_subtitle">Select a challenger</string>
     <string name="confirm">Confirm</string>
+    <string name="show_cards">Show cards</string>
 </resources>
