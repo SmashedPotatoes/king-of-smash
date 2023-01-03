@@ -574,13 +574,13 @@ class MainFragment : Fragment() {
         val card3 = binding.fragmentMainViewPlayer3Card
         card3.setOnClickListener {
             val fragment =
-                PlayerDetailsFragment(cards = players[2].cards, character = players[1].character)
+                PlayerDetailsFragment(cards = players[2].cards, character = players[2].character)
             openFragment(fragment)
         }
         val card4 = binding.fragmentMainViewPlayer4Card
         card4.setOnClickListener {
             val fragment =
-                PlayerDetailsFragment(cards = players[3].cards, character = players[1].character)
+                PlayerDetailsFragment(cards = players[3].cards, character = players[3].character)
             openFragment(fragment)
         }
     }
