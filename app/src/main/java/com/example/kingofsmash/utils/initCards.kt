@@ -3,7 +3,7 @@ package com.example.kingofsmash.utils
 import com.example.kingofsmash.enums.CardType
 import com.example.kingofsmash.models.Card
 
-fun initAllCards() : MutableList<Card>{
+fun initAllCards(): MutableList<Card> {
     val cards = mutableListOf<Card>()
 
     cards.add(Card(1, "Heal 1 heart", CardType.HEAL_ONE))

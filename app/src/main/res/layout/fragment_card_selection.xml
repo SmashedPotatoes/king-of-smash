@@ -18,8 +18,8 @@
         android:background="@drawable/layout_bg"
         android:text="@string/confirm"
         android:textAllCaps="false"
-        app:fontFamily="@font/poppins_semibold_italic"
         app:backgroundTint="@color/black_transparent"
+        app:fontFamily="@font/poppins_semibold_italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/fragment_card_selection_btn_reroll"
@@ -30,11 +30,11 @@
         android:layout_width="120dp"
         android:layout_height="48dp"
         android:layout_marginTop="32dp"
-        android:background="@drawable/layout_bg"
-        android:src="@drawable/text_reroll_card_button"
-        android:scaleType="fitCenter"
         android:adjustViewBounds="true"
+        android:background="@drawable/layout_bg"
         android:padding="8dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/text_reroll_card_button"
         app:backgroundTint="@color/black_transparent"
         app:layout_constraintEnd_toStartOf="@+id/fragment_card_selection_btn_confirm"
         app:layout_constraintHorizontal_bias="0.5"
@@ -80,17 +80,16 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="TextView"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="8sp"
         android:autoSizeMaxTextSize="60sp"
+        android:autoSizeMinTextSize="8sp"
         android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
         android:gravity="center"
+        android:text="TextView"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/fragment_card_selection__view_card1"
         app:layout_constraintStart_toStartOf="@+id/fragment_card_selection__view_card1"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_card"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/imageView_card" />
 
     <ImageView
         android:id="@+id/imageView_card"
@@ -145,11 +144,11 @@
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:text="TextView"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/fragment_card_selection__view_card1"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imageView22"
-        app:layout_constraintTop_toTopOf="@+id/imageView22"
-        android:textColor="@color/white"/>
+        app:layout_constraintTop_toTopOf="@+id/imageView22" />
 
     <TextView
         android:id="@+id/fragment_card_selection_card_2_text_description_card"
@@ -186,11 +185,11 @@
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:text="TextView"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/fragment_card_selection__view_card2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imageView19"
-        app:layout_constraintTop_toTopOf="@+id/imageView19"
-        android:textColor="@color/white"/>
+        app:layout_constraintTop_toTopOf="@+id/imageView19" />
 
     <TextView
         android:id="@+id/fragment_card_selection_card_3_text_description_card"
@@ -227,11 +226,11 @@
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:text="TextView"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/fragment_card_selection__view_card3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imageView20"
-        app:layout_constraintTop_toTopOf="@+id/imageView20"
-        android:textColor="@color/white"/>
+        app:layout_constraintTop_toTopOf="@+id/imageView20" />
 
     <ImageButton
         android:id="@+id/fragment_card_selection_back_button"

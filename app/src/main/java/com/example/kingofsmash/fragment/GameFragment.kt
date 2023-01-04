@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentManager
 import com.example.kingofsmash.R
 import com.example.kingofsmash.databinding.FragmentGameBinding
 
-class GameFragment(val onClick: () -> Unit): Fragment() {
+class GameFragment(val onClick: () -> Unit) : Fragment() {
     private lateinit var binding: FragmentGameBinding
     override fun onCreateView(
         inflater: LayoutInflater,

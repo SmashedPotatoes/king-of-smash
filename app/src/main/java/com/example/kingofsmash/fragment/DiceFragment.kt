@@ -116,7 +116,8 @@ class DiceFragment(val onSubmit: (dices: List<Dice>) -> Unit) : Fragment() {
 
     private fun setDicesVisibility(diceVisible: Boolean) {
         val diceVisibility = if (diceVisible) View.VISIBLE else View.INVISIBLE
-        binding.fragmentDiceImgThrowDice.visibility = if (diceVisible) View.INVISIBLE else View.VISIBLE
+        binding.fragmentDiceImgThrowDice.visibility =
+            if (diceVisible) View.INVISIBLE else View.VISIBLE
         fragmentDiceBtns.forEach {
             it.visibility = diceVisibility
             val material = it as MaterialButton

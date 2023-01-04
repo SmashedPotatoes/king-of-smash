@@ -27,11 +27,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:background="@drawable/layout_bg"
         android:text="Close"
         android:textAllCaps="false"
-        app:fontFamily="@font/poppins_semibold_italic"
-        android:background="@drawable/layout_bg"
         app:backgroundTint="@color/black_transparent"
+        app:fontFamily="@font/poppins_semibold_italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recycler_view" />
@@ -42,8 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="TextView"
-        app:fontFamily="@font/poppins_semibold_italic"
         android:textColor="@color/white"
+        app:fontFamily="@font/poppins_semibold_italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

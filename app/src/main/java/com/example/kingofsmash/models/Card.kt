@@ -5,5 +5,5 @@ import com.example.kingofsmash.enums.CardType
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Card(val cost: Int, val description: String, val type : CardType) :
+data class Card(val cost: Int, val description: String, val type: CardType) :
     Parcelable

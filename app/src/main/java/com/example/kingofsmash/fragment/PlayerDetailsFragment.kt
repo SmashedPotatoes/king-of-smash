@@ -15,8 +15,8 @@ import com.example.kingofsmash.models.Card
 import com.example.kingofsmash.utils.playerDetailsAdapter
 
 
-class PlayerDetailsFragment(val cards : List<Card>, val character : Character) : Fragment() {
-    private lateinit var binding : FragmentPlayerDetailsBinding
+class PlayerDetailsFragment(val cards: List<Card>, val character: Character) : Fragment() {
+    private lateinit var binding: FragmentPlayerDetailsBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,7 +26,7 @@ class PlayerDetailsFragment(val cards : List<Card>, val character : Character) :
         // Inflate the layout for this fragment
 
         val textViewText = "'s cards"
-        val characterText = when (character){
+        val characterText = when (character) {
             Character.ROY -> "Roy"
             Character.CORRIN -> "Corrin"
             Character.KINGDDD -> "King DDD"
@@ -50,6 +50,7 @@ class PlayerDetailsFragment(val cards : List<Card>, val character : Character) :
             adapter = playerDetailsAdapter(cards)
         }
     }
+
     private fun closeFragment() {
         val fragmentManager = requireActivity().supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
