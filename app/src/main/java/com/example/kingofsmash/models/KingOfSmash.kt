@@ -8,10 +8,12 @@ data class KingOfSmash(
     var currentPlayerIdx: Int = 0,
     var playerInDF: Player?,
     var currentAction: Action = Action.THROW_DICES,
-    var cards: List<Card> = listOf(),
+    var cards: MutableList<Card> = mutableListOf(),
+    var cardsInDeck: MutableList<Card> = mutableListOf(),
+    var selectedCard: Card? = null,
     var dices: List<Dice> = listOf(),
     var rank: Int = 4,
-    ) {
+) {
     init {
         if (playerInDF == null) {
             playerInDF = players.first()

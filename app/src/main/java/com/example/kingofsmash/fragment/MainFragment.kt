@@ -17,13 +17,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.kingofsmash.R
 import com.example.kingofsmash.databinding.FragmentMainBinding
-import com.example.kingofsmash.enums.Action
-import com.example.kingofsmash.enums.Dice
-import com.example.kingofsmash.enums.PlayerCardAnimType
-import com.example.kingofsmash.enums.PlayerType
+import com.example.kingofsmash.enums.*
+import com.example.kingofsmash.models.Card
 import com.example.kingofsmash.models.EffectAnimations
 import com.example.kingofsmash.models.Player
 import com.example.kingofsmash.models.PlayerCard
+import com.example.kingofsmash.utils.initAllCards
 import com.example.kingofsmash.utils.initDieButton
 import com.example.kingofsmash.viewmodels.KingOfSmashViewModel
 import kotlinx.coroutines.delay
@@ -48,6 +47,9 @@ class MainFragment : Fragment() {
         initPlayerCards()
         dice = getDice()
 
+        initCards()
+        setOnClickPlayerCard()
+
         lifecycleScope.launch {
             viewModel.stateFlow.collect {
                 val currentPlayer = viewModel.getCurrentPlayer()
@@ -57,8 +59,10 @@ class MainFragment : Fragment() {
                     Action.EXECUTE_DICES -> executeDices(currentPlayer)
                     Action.DF_ATTACKED -> dfAttacked(currentPlayer)
                     Action.CHECK_DF -> checkDF(currentPlayer)
-                    Action.CHECK_GAME_OVER -> checkWinner(it.players)
+                    Action.CHECK_GAME_OVER -> checkWinner(it.players, true)
+                    Action.CARD_SELECTION -> cardSelection()
                     Action.EXECUTE_CARDS -> executeCards()
+                    Action.CHECK_GAME_OVER_AFTER_CARDS -> checkWinner(it.players, false)
                     Action.WAIT_END_TURN -> waitEndTurn(currentPlayer)
                 }
 
@@ -112,7 +116,12 @@ class MainFragment : Fragment() {
         }
     }
 
-    private suspend fun animateCardChange(player: Player, variations: List<Int>, variation: Int, type: PlayerCardAnimType) {
+    private suspend fun animateCardChange(
+        player: Player,
+        variations: List<Int>,
+        variation: Int,
+        type: PlayerCardAnimType
+    ) {
         val playerCard = getPlayerCard(player)
         val color = if (variation > 0) R.color.animation_positive else R.color.animation_negative
         val symbol = if (variation > 0) '+' else ' '
@@ -198,6 +207,34 @@ class MainFragment : Fragment() {
         hideDice()
     }
 
+    private suspend fun animateCardsEffects(effects: EffectAnimations) {
+        //show card
+        showSelectedCard()
+        delay(1500)
+
+        // animate stock
+        effects.stockAnim.forEach() { (player, variations, variation) ->
+            animateCardChange(player, variations, variation, PlayerCardAnimType.STOCK)
+        }
+
+        // animate smash meter
+        effects.smashMeterAnim.forEach() { (player, variations, variation) ->
+            animateCardChange(player, variations, variation, PlayerCardAnimType.SMASHMETER)
+        }
+
+        // animate game
+        effects.gameAnim.forEach() { (player, variations, variation) ->
+            animateCardChange(player, variations, variation, PlayerCardAnimType.GAME)
+        }
+
+        // animate smash
+        effects.smashAnim.forEach() { (player, variations, variation) ->
+            animateCardChange(player, variations, variation, PlayerCardAnimType.SMASH)
+        }
+        //hide card
+        hideSelectedCard()
+    }
+
     private suspend fun executeDices(currentPlayer: Player) {
         Log.d("MainFragment", "${currentPlayer.character} EXECUTE DICESU")
         val diceAnimations = viewModel.computeDiceAnimations()
@@ -230,20 +267,131 @@ class MainFragment : Fragment() {
         viewModel.setCheckGameOver()
     }
 
-    private fun checkWinner(players: List<Player>) {
+    private fun checkWinner(players: List<Player>, beforeCards: Boolean) {
         Log.d("MainFragment", "CHECK WINNERU")
         viewModel.getWinner()?.let {
             Log.d("MainFragment", "Winner is ${it.character.character}")
             val fragment = GameFragment(onClick = {
-                findNavController().navigate(MainFragmentDirections.actionFragmentMainToGameOverFragment(players.toTypedArray()))
+                findNavController().navigate(
+                    MainFragmentDirections.actionFragmentMainToGameOverFragment(
+                        players.toTypedArray()
+                    )
+                )
             })
             openFragment(fragment)
-        } ?: viewModel.waitEndTurn()
+        } ?: run {
+            if (!beforeCards) {
+                val isPlayerInDF = viewModel.checkDF()
+                if (isPlayerInDF && viewModel.getCurrentPlayer().type == PlayerType.PLAYER) {
+                    Log.d("MainFragment", "You are now in DF")
+                    val fragment = PlayerInDFFragment()
+                    openFragment(fragment)
+                }
+                viewModel.waitEndTurn()
+            } else {
+                viewModel.setCardSelection()
+            }
+        }
     }
 
-    private fun executeCards() {
+    private fun getNewCardsInDeck(): List<Card> {
+        val allCards = viewModel.getCards()
+        val card1 = allCards.random()
+        allCards.remove(card1)
+        val card2 = allCards.random()
+        allCards.remove(card2)
+        val card3 = allCards.random()
+        allCards.remove(card3)
+        //if deck is empty then take 3 from cards and add to deck
+        if (viewModel.getCardsInDeck().isNotEmpty())
+            viewModel.appendCards(viewModel.getCardsInDeck())
+        viewModel.setCardsInDeck(mutableListOf(card1, card2, card3))
+        //if deck is not empty then take 3 from cards and add to deck and add deck card to cards
+        return viewModel.getCardsInDeck()
+    }
+
+    private fun getCardsInDeck(): List<Card> {
+        if (viewModel.getCardsInDeck().isEmpty()) {
+            return getNewCardsInDeck()
+        }
+        return viewModel.getCardsInDeck()
+    }
+
+    private fun onConfirmButtonCardSelection(card: Card?): Boolean {
+        //add card to current player + play the animation / effect
+        if (card == null || viewModel.getCurrentPlayer().smashMeter < card.cost) {
+            viewModel.waitEndTurn()
+            return false
+        }
+        viewModel.useCard(card)
+        viewModel.setExecuteCard()
+        return true
+    }
+
+    private fun beforeReroll(cost: Int): Boolean {
+        return cost <= viewModel.getCurrentPlayer().smashMeter
+    }
+
+    private fun onRerollButtonCardSelection(): List<Card> {
+        viewModel.cardReroll()
+        return getNewCardsInDeck()
+    }
+
+    private fun cardSelection() {
+        Log.d("MainFragment", "CARDSU SELECTIONU")
+        if (viewModel.getCurrentPlayer().type == PlayerType.PLAYER) {
+            val fragment = CardSelectionFragment(onReroll = { onRerollButtonCardSelection() },
+                onConfirm = { card -> onConfirmButtonCardSelection(card) },
+                getCardsInDeck = { getCardsInDeck() },
+                beforeReroll = { cost -> beforeReroll(cost) })
+            openFragment(fragment)
+            viewModel.waitEndTurn()
+        } else {
+            //if bot
+            val deck = viewModel.getCardsInDeck()
+            val cardRandom = deck.random()
+            if (cardRandom.cost <= viewModel.getCurrentPlayer().smashMeter) {
+                Log.d(
+                    "MainFragment",
+                    "current player : ${viewModel.getCurrentPlayer().character}, smash meter : ${viewModel.getCurrentPlayer().smashMeter}"
+                )
+                viewModel.useCard(cardRandom)
+                viewModel.setExecuteCard()
+            } else {
+                viewModel.waitEndTurn()
+            }
+        }
+    }
+
+    private suspend fun executeCards() {
         Log.d("MainFragment", "EXECUTE CARDSU")
-        viewModel.waitEndTurn()
+        val card = viewModel.getSelectedCard()
+        //if type random kill
+        if (card?.type == CardType.RANDOM_KILL_ONE || card?.type == CardType.RANDOM_KILL_TWO) {
+            val killed = viewModel.getKillBoolean(card.type)
+            if (killed) {
+                val targetPlayer = viewModel.getRandomPlayer()
+                Log.d("Main Fragment", "target is ${targetPlayer.character}")
+                //computeAnim
+                val anims = viewModel.computeCardAnimation(
+                    cardType = card.type,
+                    randomPlayer = targetPlayer
+                )
+                //PlayAnim
+                animateCardsEffects(anims)
+                //Exec
+                viewModel.executeCardAction(cardType = card.type, randomPlayer = targetPlayer)
+            }
+        } else if (card?.type != CardType.RANDOM_KILL_TWO && card?.type != CardType.RANDOM_KILL_ONE) {
+            val targetPlayer = viewModel.getRandomPlayer()
+            //compute
+            val anims = viewModel.computeCardAnimation(cardType = card!!.type, targetPlayer)
+            //play anim
+            animateCardsEffects(anims)
+            //exec
+            viewModel.executeCardAction(cardType = card.type, targetPlayer)
+        }
+        viewModel.setCheckGameOverAfterCards()
     }
 
     private fun waitEndTurn(currentPlayer: Player) {
@@ -268,14 +416,16 @@ class MainFragment : Fragment() {
 
     private fun setCrown(playerInDf: Player) {
         for (card in this.playerCards) {
-            card.crown.visibility = if (card.name.text == playerInDf.character.character) View.VISIBLE else View.INVISIBLE
+            card.crown.visibility =
+                if (card.name.text == playerInDf.character.character) View.VISIBLE else View.INVISIBLE
         }
     }
 
     private fun setPlayerCardUp(currentPlayer: Player) {
         for (card in this.playerCards) {
             val params = card.view.layoutParams as ConstraintLayout.LayoutParams
-            params.topToBottom = if (card.name.text == currentPlayer.character.character) binding.fragmentMainGuidelineDf.id else -1
+            params.topToBottom =
+                if (card.name.text == currentPlayer.character.character) binding.fragmentMainGuidelineDf.id else -1
             card.view.layoutParams = params
         }
     }
@@ -296,7 +446,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun getPlayerCard(player: Player) : PlayerCard {
+    private fun getPlayerCard(player: Player): PlayerCard {
         for (card in playerCards) {
             if (card.name.text == player.character.character)
                 return card
@@ -367,4 +517,71 @@ class MainFragment : Fragment() {
             actionIcon = binding.fragmentMainDiceActionIconP4
         ),
     )
+
+    private fun showSelectedCard() {
+        val card = binding.fragmentMainSelectedCardView
+        val cardImage = binding.fragmentMainSelectedCardImageview
+        val cardDesc = binding.fragmentMainSelectedCardDescription
+
+        card.visibility = View.VISIBLE
+        cardImage.visibility = View.VISIBLE
+        cardDesc.visibility = View.VISIBLE
+        cardDesc.setText(viewModel.getSelectedCard()?.description)
+    }
+
+    private fun hideSelectedCard() {
+        val card = binding.fragmentMainSelectedCardView
+        val cardImage = binding.fragmentMainSelectedCardImageview
+        val cardDesc = binding.fragmentMainSelectedCardDescription
+
+        card.visibility = View.INVISIBLE
+        cardImage.visibility = View.INVISIBLE
+        cardDesc.visibility = View.INVISIBLE
+    }
+
+    private fun initCards() {
+        val cards = binding.fragmentMainCardsDeck
+        hideSelectedCard()
+        if (viewModel.getCards().isEmpty()) {
+            val allCards = initAllCards()
+            viewModel.setCards(allCards)
+            getNewCardsInDeck()
+        }
+        cards.setOnClickListener {
+            val fragment = CardSelectionFragment(onReroll = { onRerollButtonCardSelection() },
+                onConfirm = { card -> onConfirmButtonCardSelection(card) },
+                getCardsInDeck = { getCardsInDeck() },
+                beforeReroll = { cost -> beforeReroll(cost) })
+            if (viewModel.getCurrentAction() == Action.WAIT_END_TURN)
+                openFragment(fragment)
+        }
+    }
+
+    private fun setOnClickPlayerCard() {
+        val players = viewModel.getPlayers()
+        val card1 = binding.fragmentMainViewPlayer1Card
+        card1.setOnClickListener {
+            val fragment =
+                PlayerDetailsFragment(cards = players[0].cards, character = players[0].character)
+            openFragment(fragment)
+        }
+        val card2 = binding.fragmentMainViewPlayer2Card
+        card2.setOnClickListener {
+            val fragment =
+                PlayerDetailsFragment(cards = players[1].cards, character = players[1].character)
+            openFragment(fragment)
+        }
+        val card3 = binding.fragmentMainViewPlayer3Card
+        card3.setOnClickListener {
+            val fragment =
+                PlayerDetailsFragment(cards = players[2].cards, character = players[2].character)
+            openFragment(fragment)
+        }
+        val card4 = binding.fragmentMainViewPlayer4Card
+        card4.setOnClickListener {
+            val fragment =
+                PlayerDetailsFragment(cards = players[3].cards, character = players[3].character)
+            openFragment(fragment)
+        }
+    }
 }

@@ -51,8 +51,8 @@ class GameOverFragment : Fragment() {
 
     private fun correctPlayerStocks(players: Array<Player>) {
         for (player in players) {
-           if (!player.isAlive)
-               player.stock = 0
+            if (!player.isAlive)
+                player.stock = 0
         }
     }
 
@@ -61,7 +61,7 @@ class GameOverFragment : Fragment() {
         players.sortBy { it.rank }
 
         // players still alive => sort by games
-        val comparator = Comparator{p1: Player, p2: Player ->
+        val comparator = Comparator { p1: Player, p2: Player ->
             return@Comparator when {
                 p1.rank != p2.rank -> 0
                 else -> p1.game - p2.game
@@ -70,7 +70,10 @@ class GameOverFragment : Fragment() {
         players.sortWith(comparator)
     }
 
-    private fun setGameOverPlayerCardValues(player: Player, gameOverPlayerCard: GameOverPlayerCard) {
+    private fun setGameOverPlayerCardValues(
+        player: Player,
+        gameOverPlayerCard: GameOverPlayerCard
+    ) {
         gameOverPlayerCard.backgroundImage.setImageResource(player.character.gameOverBackground)
         gameOverPlayerCard.name.text = player.character.character
         gameOverPlayerCard.stock.text = player.stock.toString()
