@@ -25,8 +25,10 @@ import com.example.kingofsmash.models.PlayerCard
 import com.example.kingofsmash.utils.initAllCards
 import com.example.kingofsmash.utils.initDieButton
 import com.example.kingofsmash.viewmodels.KingOfSmashViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.random.Random
 
@@ -133,14 +135,17 @@ class MainFragment : Fragment() {
                 textView = playerCard.stock
                 icon = R.drawable.ant_design_heart_filled
             }
+
             PlayerCardAnimType.SMASHMETER -> {
                 textView = playerCard.smashMeter
                 icon = R.drawable.ant_design_thunderbolt_filled
             }
+
             PlayerCardAnimType.GAME -> {
                 textView = playerCard.game
                 icon = R.drawable.smash
             }
+
             PlayerCardAnimType.SMASH -> {
                 textView = playerCard.stock
                 icon = R.drawable.ant_design_heart_filled

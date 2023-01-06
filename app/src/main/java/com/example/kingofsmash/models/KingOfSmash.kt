@@ -13,10 +13,4 @@ data class KingOfSmash(
     var selectedCard: Card? = null,
     var dices: List<Dice> = listOf(),
     var rank: Int = 4,
-) {
-    init {
-        if (playerInDF == null) {
-            playerInDF = players.first()
-        }
-    }
-}
+)

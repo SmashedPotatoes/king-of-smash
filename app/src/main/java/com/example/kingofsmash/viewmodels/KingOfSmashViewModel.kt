@@ -8,13 +8,16 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class KingOfSmashViewModel(character: Character) : ViewModel() {
-    private val state = MutableStateFlow(
-        KingOfSmash(
-            Character.values()
-                .map { Player(if (character == it) PlayerType.PLAYER else PlayerType.BOT, it) }
-                .shuffled(), 0, null
+    private var state: MutableStateFlow<KingOfSmash>
+
+    init {
+        val players: List<Player> = Character.values()
+            .map { Player(if (character == it) PlayerType.PLAYER else PlayerType.BOT, it) }
+            .shuffled()
+        state = MutableStateFlow(
+            KingOfSmash(players, 0, players.first())
         )
-    )
+    }
 
 
     val stateFlow = state.asStateFlow()
@@ -156,7 +159,7 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
                 if (!state.value.playerInDF!!.isAlive) {
                     Log.d("ExecuteDices", "player ${state.value.playerInDF?.character} is dead")
                     state.value = state.value.copy(playerInDF = null)
-                } else if (state.value.playerInDF!!.type == PlayerType.PLAYER) {
+                } else if (state.value.playerInDF!!.type == PlayerType.PLAYER && smash > 0) {
                     Log.d("ExecuteDices", "ask player in DF ${state.value.playerInDF?.character}")
                     isPlayerAttackedAndInDF = true
                 }
@@ -315,6 +318,7 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
                         )
                     )
             }
+
             CardType.HEAL_TWO -> {
                 cost = 2
                 val stockAnimUpperBound =
@@ -328,6 +332,7 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
                         )
                     )
             }
+
             CardType.GAME_UP_ONE -> {
                 cost = 3
                 gameAnim.add(
@@ -338,6 +343,7 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
                     )
                 )
             }
+
             CardType.GAME_UP_TWO -> {
                 cost = 6
                 gameAnim.add(
@@ -348,14 +354,17 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
                     )
                 )
             }
+
             CardType.RANDOM_KILL_ONE -> {
                 cost = 6
                 stockAnim.add(EffectAnim(randomPlayer, (randomPlayer.stock downTo 0).toList(), -1))
             }
+
             CardType.RANDOM_KILL_TWO -> {
                 cost = 9
                 stockAnim.add(EffectAnim(randomPlayer, (randomPlayer.stock downTo 0).toList(), -1))
             }
+
             CardType.DAMAGE_RANDOM_ONE -> {
                 cost = 1
                 stockAnim.add(
@@ -366,6 +375,7 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
                     )
                 )
             }
+
             CardType.DAMAGE_RANDOM_TWO -> {
                 cost = 2
                 stockAnim.add(
@@ -376,6 +386,7 @@ class KingOfSmashViewModel(character: Character) : ViewModel() {
                     )
                 )
             }
+
             CardType.DAMAGE_RANDOM_THREE -> {
                 cost = 3
                 stockAnim.add(
