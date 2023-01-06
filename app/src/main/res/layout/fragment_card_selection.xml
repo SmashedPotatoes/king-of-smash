@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_transparent"
+    android:clickable="true"
+    android:focusable="false"
+    android:focusableInTouchMode="true"
+    tools:context=".fragment.CardSelectionFragment">
+
+    <Button
+        android:id="@+id/fragment_card_selection_btn_confirm"
+        android:layout_width="120dp"
+        android:layout_height="48dp"
+        android:background="@drawable/layout_bg"
+        android:text="@string/confirm"
+        android:textAllCaps="false"
+        app:backgroundTint="@color/black_transparent"
+        app:fontFamily="@font/poppins_semibold_italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/fragment_card_selection_btn_reroll"
+        app:layout_constraintTop_toTopOf="@+id/fragment_card_selection_btn_reroll" />
+
+    <ImageButton
+            android:id="@+id/fragment_card_selection_btn_reroll"
+            android:layout_width="120dp"
+            android:layout_height="48dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/layout_bg"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/text_reroll_card_button"
+            app:backgroundTint="@color/black_transparent"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_card_selection_btn_confirm"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="SpeakableTextPresentCheck"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_card_selection__view_card1"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <View
+        android:id="@+id/fragment_card_selection__view_card1"
+        android:layout_width="140dp"
+        android:layout_height="188dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/layout_bg"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_card_selection__view_card2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/fragment_card_selection__view_card2"
+        android:layout_width="140dp"
+        android:layout_height="188dp"
+        android:background="@drawable/layout_bg"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_card_selection__view_card3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/fragment_card_selection__view_card1"
+        app:layout_constraintTop_toTopOf="@+id/fragment_card_selection__view_card1" />
+
+    <View
+        android:id="@+id/fragment_card_selection__view_card3"
+        android:layout_width="140dp"
+        android:layout_height="188dp"
+        android:background="@drawable/layout_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/fragment_card_selection__view_card2"
+        app:layout_constraintTop_toTopOf="@+id/fragment_card_selection__view_card1" />
+
+    <TextView
+        android:id="@+id/fragment_card_selection_card_1_text_description_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:autoSizeMaxTextSize="60sp"
+        android:autoSizeMinTextSize="8sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_card_selection__view_card1"
+        app:layout_constraintStart_toStartOf="@+id/fragment_card_selection__view_card1"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_card" />
+
+    <ImageView
+        android:id="@+id/imageView_card"
+        android:layout_width="0dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/placeholder_card"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_card_selection__view_card1"
+        app:layout_constraintHorizontal_bias="0.341"
+        app:layout_constraintStart_toStartOf="@+id/fragment_card_selection__view_card1"
+        app:layout_constraintTop_toTopOf="@+id/fragment_card_selection__view_card1" />
+
+    <ImageView
+        android:id="@+id/imageView_card3"
+        android:layout_width="0dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/placeholder_card"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_card_selection__view_card2"
+        app:layout_constraintStart_toStartOf="@+id/fragment_card_selection__view_card2"
+        app:layout_constraintTop_toTopOf="@+id/fragment_card_selection__view_card2" />
+
+    <ImageView
+        android:id="@+id/imageView_card4"
+        android:layout_width="94dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/placeholder_card"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_card_selection__view_card3"
+        app:layout_constraintStart_toStartOf="@+id/fragment_card_selection__view_card3"
+        app:layout_constraintTop_toTopOf="@+id/fragment_card_selection__view_card3" />
+
+    <ImageView
+        android:id="@+id/imageView22"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/icon_smash_meter"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_card_selection__view_card1"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_card_selection_card_1_text_smash_meter_cost"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/fragment_card_selection__view_card1" />
+
+    <TextView
+        android:id="@+id/fragment_card_selection_card_1_text_smash_meter_cost"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_card_selection__view_card1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageView22"
+        app:layout_constraintTop_toTopOf="@+id/imageView22" />
+
+    <TextView
+        android:id="@+id/fragment_card_selection_card_2_text_description_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:autoSizeMaxTextSize="60sp"
+        android:autoSizeMinTextSize="8sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_card_selection__view_card2"
+        app:layout_constraintStart_toStartOf="@+id/fragment_card_selection__view_card2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_card3" />
+
+    <ImageView
+        android:id="@+id/imageView19"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ant_design_thunderbolt_filled"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_card_selection__view_card2"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_card_selection_card_2_text_smash_meter_cost"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/fragment_card_selection__view_card1"
+        app:layout_constraintStart_toStartOf="@+id/fragment_card_selection__view_card2" />
+
+    <TextView
+        android:id="@+id/fragment_card_selection_card_2_text_smash_meter_cost"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_card_selection__view_card2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageView19"
+        app:layout_constraintTop_toTopOf="@+id/imageView19" />
+
+    <TextView
+        android:id="@+id/fragment_card_selection_card_3_text_description_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:autoSizeMaxTextSize="60sp"
+        android:autoSizeMinTextSize="8sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_card_selection__view_card3"
+        app:layout_constraintStart_toStartOf="@+id/fragment_card_selection__view_card3"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_card4" />
+
+    <ImageView
+        android:id="@+id/imageView20"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ant_design_thunderbolt_filled"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_card_selection__view_card3"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_card_selection_card_3_text_smash_meter_cost"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/fragment_card_selection__view_card2"
+        app:layout_constraintStart_toStartOf="@+id/fragment_card_selection__view_card3" />
+
+    <TextView
+        android:id="@+id/fragment_card_selection_card_3_text_smash_meter_cost"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_card_selection__view_card3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageView20"
+        app:layout_constraintTop_toTopOf="@+id/imageView20" />
+
+    <ImageButton
+        android:id="@+id/fragment_card_selection_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:background="#0000"
+        android:src="@drawable/back_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+            android:text="Select the card you want to play!"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/fragment_card_selection_txt_title"
+            android:layout_marginStart="128dp"
+            android:layout_marginEnd="128dp"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_card_selection__view_card1"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
